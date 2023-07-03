@@ -59,7 +59,7 @@ public class CodgenApplication {
         if (validDir(in)) return;
         if (validDir(out)) return;
 
-        printLogo(pomProps, in, out);
+        printBanner(pomProps, in, out);
 
         System.out.printf("generate code from %s to %s%n", in, out);
         String configFilePath = in + File.separator + "codgen.yml";
@@ -71,20 +71,18 @@ public class CodgenApplication {
         System.out.printf("read config file: %s%n", configFilePath);
     }
 
-    private static void printLogo(PomUtils.PomProps pomProps, String in, String out) {
+    private static void printBanner(PomUtils.PomProps pomProps, String in, String out) {
         List<String> lines = new LinkedList<>();
         lines.add(PrintUtils.ConsoleColors.YELLOW_BOLD_BRIGHT);
         lines.add("""
-                   ______          __
-                  / ____/___  ____/ /___ ____  ____
-                 / /   / __ \\/ __  / __ `/ _ \\/ __ \\
-                / /___/ /_/ / /_/ / /_/ /  __/ / / /
-                \\____/\\____/\\__,_/\\__, /\\___/_/ /_/
-                                 /____/
+                      ______          __
+                     / ____/___  ____/ /___ ____  ____
+                    / /   / __ \\/ __  / __ `/ _ \\/ __ \\
+                   / /___/ /_/ / /_/ / /_/ /  __/ / / /
+                   \\____/\\____/\\__,_/\\__, /\\___/_/ /_/
+                                    /____/
                 """);
-        lines.add(StringUtils.rightPad("author : nnzbz", 30));
-        lines.add(StringUtils.rightPad("version: v%s".formatted(pomProps.getVersion()), 30));
-        lines.add(StringUtils.rightPad("build  : %s".formatted(pomProps.getDatetime()), 30));
+        lines.add(":: codgen :: v%s :: nnzbz :: %s".formatted(pomProps.getVersion(), pomProps.getDatetime()));
         lines.add(PrintUtils.ConsoleColors.RESET);
         lines.add("options:");
         lines.add("    source      directory: %s".formatted(in));
@@ -105,7 +103,7 @@ public class CodgenApplication {
         lines.add("             ,\"`-._>-:        ;,'  `---.,---. ");
         lines.add("             `>'\"  \"-`       ,'   \"\":::::\".. `-.");
         lines.add("              `;\"'_,  (\\`\\ _ `:::::::::::'\"     `---. ");
-        lines.add("      -hrr-    `-(_,' -'),)\\`.       _      .::::\"'  `----._,-\"\") ");
+        lines.add("               `-(_,' -'),)\\`.       _      .::::\"'  `----._,-\"\") ");
         lines.add("                   \\_,': `.-' `-----' `--;-.   `.   ``.`--.____/ ");
         lines.add("                     `-^--'                \\(-.  `.``-.`-=:-.__) ");
         lines.add("                                            `  `.`.`._`.-._`--.) ");
