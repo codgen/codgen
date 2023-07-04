@@ -11,10 +11,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 public class CodgenApplication {
     public static void main(String[] args) throws IOException {
@@ -75,11 +73,12 @@ public class CodgenApplication {
             return;
         }
         System.out.printf("parse config file for generated code: %s%n", configFilePath);
-        Yaml yaml = new Yaml();
+        Yaml              yaml = new Yaml();
+        ApplicationConfig applicationConfig;
         try (BufferedReader reader = new BufferedReader(new FileReader(configFilePath))) {
-            ApplicationConfig applicationConfig = yaml.loadAs(reader, ApplicationConfig.class);
-            System.out.println(applicationConfig);
+            applicationConfig = yaml.loadAs(reader, ApplicationConfig.class);
         }
+        System.out.println(applicationConfig);
     }
 
     private static void printBanner(PomUtils.PomProps pomProps, String in, String out) {
