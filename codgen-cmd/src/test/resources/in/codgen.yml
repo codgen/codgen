@@ -1,0 +1,13 @@
+jdbc:
+  url: jdbc:mysql://%s:%d/%s
+  params:
+    - 127.0.0.1
+    - 3306
+    - test
+  properties:
+    user: test
+    password: test
+    useUnicode: true
+    characterEncoding: utf8
+    autoReconnect: true
+    rewriteBatchedStatements: true

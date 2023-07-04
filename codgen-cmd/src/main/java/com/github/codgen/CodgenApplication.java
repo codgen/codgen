@@ -1,14 +1,20 @@
 package com.github.codgen;
 
+import com.github.codgen.config.ApplicationConfig;
 import org.apache.commons.lang3.StringUtils;
+import org.yaml.snakeyaml.Yaml;
 import rebue.wheel.core.PomUtils;
 import rebue.wheel.core.PrintUtils;
 import rebue.wheel.core.file.FileUtils;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class CodgenApplication {
     public static void main(String[] args) throws IOException {
@@ -68,7 +74,12 @@ public class CodgenApplication {
             PrintUtils.printError("error: %s doesn't exist%n", configFile);
             return;
         }
-        System.out.printf("read config file: %s%n", configFilePath);
+        System.out.printf("parse config file for generated code: %s%n", configFilePath);
+        Yaml yaml = new Yaml();
+        try (BufferedReader reader = new BufferedReader(new FileReader(configFilePath))) {
+            ApplicationConfig applicationConfig = yaml.loadAs(reader, ApplicationConfig.class);
+            System.out.println(applicationConfig);
+        }
     }
 
     private static void printBanner(PomUtils.PomProps pomProps, String in, String out) {

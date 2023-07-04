@@ -17,6 +17,8 @@
         <mainClass>com.github.codgen.CodgenApplication</mainClass>
 
         <native.maven.plugin.version>0.9.23</native.maven.plugin.version>
+        <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
+        <build-helper-maven-plugin.version>3.4.0</build-helper-maven-plugin.version>
     </properties>
 
     <dependencies>
@@ -27,6 +29,11 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
         </dependency>
 
         <dependency>
@@ -73,7 +80,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
-                <version>3.4.0</version>
+                <version>${build-helper-maven-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>timestamp-property</id>
@@ -93,6 +100,24 @@
     </build>
 
     <profiles>
+        <profile>
+            <!-- 生成native-image的配置文件需要(因为是利用test插件生成，所以不能skip test) -->
+            <id>gen-native-image-configs</id>
+            <build>
+                <plugins>
+                    <!-- 执行测试用例的插件 -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>${maven-surefire-plugin.version}</version>
+                        <configuration>
+                            <argLine>-agentlib:native-image-agent=config-output-dir=src/main/resources/META-INF/native-image</argLine>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
         <profile>
             <id>native</id>
             <build>
@@ -120,7 +145,18 @@
                             </execution>
                         </executions>
                         <configuration>
-                            <mainClass>${mainClass}</mainClass>
+                            <!--                            <mainClass>${mainClass}</mainClass>-->
+<!--                            <agent>-->
+<!--                                &lt;!&ndash; 启用native-image-agent &ndash;&gt;-->
+<!--                                <enabled>true</enabled>-->
+<!--                                <defaultMode>direct</defaultMode>-->
+<!--                                <modes>-->
+<!--                                    <direct>config-output-dir=META-INF/native-image</direct>-->
+<!--                                </modes>-->
+<!--                                &lt;!&ndash;                                <metadataCopy>&ndash;&gt;-->
+<!--                                &lt;!&ndash;                                    <outputDirectory>src/main/resources/META-INF/native-image</outputDirectory>&ndash;&gt;-->
+<!--                                &lt;!&ndash;                                </metadataCopy>&ndash;&gt;-->
+<!--                            </agent>-->
                             <!-- native-image编译时输出详细的日志 -->
                             <verbose>true</verbose>
                             <!-- 生成调试信息 -->
@@ -130,8 +166,15 @@
                             <buildArgs>
                                 <!-- 打包时包含的资源文件 -->
                                 <buildArg>-H:IncludeResources=conf/pom.properties</buildArg>
+                                <!-- 建立独立镜像，不成功则报告失败 -->
+                                <buildArg>--no-fallback</buildArg>
+                                <!-- 指定native-image配置文件的目录(此目录由maven编译gen-native-image-configs生成) -->
+                                <buildArg>-H:ConfigurationFileDirectories=src/main/resources/META-INF/native-image/</buildArg>
+                                <!--                                <buildArg>-H:ReflectionConfigurationFiles=src/main/resources/META-INF/native-image/reflect-config.json</buildArg>-->
                                 <!-- 级别设置为3，打包时输出包含的资源文件 -->
-                                <arg>-H:Log=registerResource:3</arg>
+                                <buildArg>-H:Log=registerResource:3</buildArg>
+                                <!--                                <buildArg>&#45;&#45;report-unsupported-elements-at-runtime</buildArg>-->
+                                <!--                                <buildArg>&#45;&#45;link-at-build-time</buildArg>-->
                             </buildArgs>
                         </configuration>
                     </plugin>
