@@ -4,16 +4,17 @@ jdbc:
     url: jdbc:mysql://%s:%s/%s?useInformationSchema=true
     # 数据库连接字符串要插入的参数
     params:
+      # 主机地址
       - 127.0.0.1
+      # 端口号
       - 3306
+      # 数据库名称
       - test
     # 数据库的连接属性
     properties:
+      # 用户名
       user: test
+      # 密码
       password: test
-      useUnicode: true
-      characterEncoding: utf8
-      autoReconnect: true
-      rewriteBatchedStatements: true
   # 表名过滤的模式(不设置则获取所有的表)
   tableName: TEST_A%
