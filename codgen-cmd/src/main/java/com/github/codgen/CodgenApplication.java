@@ -1,8 +1,10 @@
 package com.github.codgen;
 
-import com.github.codgen.config.ApplicationConfig;
+import com.github.codgen.core.Codgen;
+import com.github.codgen.core.GenOptions;
 import org.apache.commons.lang3.StringUtils;
 import org.yaml.snakeyaml.Yaml;
+import rebue.wheel.core.JdbcUtils;
 import rebue.wheel.core.PomUtils;
 import rebue.wheel.core.PrintUtils;
 import rebue.wheel.core.file.FileUtils;
@@ -11,11 +13,14 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
 public class CodgenApplication {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, SQLException {
         PomUtils.PomProps pomProps = PomUtils.getPomProps("/conf/pom.properties", CodgenApplication.class);
 
         String in  = null;
@@ -66,19 +71,31 @@ public class CodgenApplication {
         printBanner(pomProps, in, out);
 
         System.out.printf("generate code from %s to %s%n", in, out);
+
+        GenOptions options = parseConfigFile(in);
+        if (options == null) return;
+
+        Codgen.gen(options);
+    }
+
+    /**
+     * 解析配置文件
+     *
+     * @param in 来源目录的路径
+     * @return 配置详情的对象，不存在则返回null
+     */
+    private static GenOptions parseConfigFile(String in) throws IOException {
         String configFilePath = in + File.separator + "codgen.yml";
         File   configFile     = new File(configFilePath);
         if (!configFile.exists()) {
             PrintUtils.printError("error: %s doesn't exist%n", configFile);
-            return;
+            return null;
         }
         System.out.printf("parse config file for generated code: %s%n", configFilePath);
-        Yaml              yaml = new Yaml();
-        ApplicationConfig applicationConfig;
+        Yaml yaml = new Yaml();
         try (BufferedReader reader = new BufferedReader(new FileReader(configFilePath))) {
-            applicationConfig = yaml.loadAs(reader, ApplicationConfig.class);
+            return yaml.loadAs(reader, GenOptions.class);
         }
-        System.out.println(applicationConfig);
     }
 
     private static void printBanner(PomUtils.PomProps pomProps, String in, String out) {

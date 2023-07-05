@@ -1,13 +1,24 @@
 {
   "resources":{
   "includes":[{
+    "pattern":"\\QMETA-INF/services/java.sql.Driver\\E"
+  }, {
     "pattern":"\\QMETA-INF/services/org.apache.maven.surefire.spi.MasterProcessChannelProcessorFactory\\E"
   }, {
     "pattern":"\\QMETA-INF/services/org.junit.platform.engine.TestEngine\\E"
   }, {
     "pattern":"\\QMETA-INF/services/org.junit.platform.launcher.TestExecutionListener\\E"
   }, {
+    "pattern":"\\Q\\E"
+  }, {
+    "pattern":"\\Qcom/mysql/cj/TlsSettings.properties\\E"
+  }, {
     "pattern":"\\Qconf/pom.properties\\E"
+  }, {
+    "pattern":"java.base:\\Qjdk/internal/icu/impl/data/icudt72b/nfc.nrm\\E"
   }]},
-  "bundles":[]
+  "bundles":[{
+    "name":"com.mysql.cj.LocalizedErrorMessages",
+    "locales":[""]
+  }]
 }

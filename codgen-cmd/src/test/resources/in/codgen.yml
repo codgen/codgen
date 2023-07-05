@@ -1,13 +1,19 @@
 jdbc:
-  url: jdbc:mysql://%s:%d/%s
-  params:
-    - 127.0.0.1
-    - 3306
-    - test
-  properties:
-    user: test
-    password: test
-    useUnicode: true
-    characterEncoding: utf8
-    autoReconnect: true
-    rewriteBatchedStatements: true
+  connect:
+    # 数据库连接字符串(MySQL5要想获取表的注释，必须设置useInformationSchema=true，据说8可以不设置)
+    url: jdbc:mysql://%s:%s/%s?useInformationSchema=true
+    # 数据库连接字符串要插入的参数
+    params:
+      - 127.0.0.1
+      - 3306
+      - test
+    # 数据库的连接属性
+    properties:
+      user: test
+      password: test
+      useUnicode: true
+      characterEncoding: utf8
+      autoReconnect: true
+      rewriteBatchedStatements: true
+  # 表名过滤的模式(不设置则获取所有的表)
+  tableName: TEST_A%

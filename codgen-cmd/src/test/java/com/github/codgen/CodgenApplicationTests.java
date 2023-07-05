@@ -5,10 +5,11 @@ import org.junit.jupiter.api.Test;
 import rebue.wheel.core.CmdUtils;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class CodgenApplicationTests {
     @Test
-    void testMain() throws IOException {
+    void testMain() throws IOException, SQLException {
         CodgenApplication.main(new String[]{"-i", "target/test-classes/in", "-o", "target/test-classes/out"});
     }
 
