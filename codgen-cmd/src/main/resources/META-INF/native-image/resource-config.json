@@ -15,6 +15,8 @@
   }, {
     "pattern":"\\Qconf/pom.properties\\E"
   }, {
+    "pattern":"\\Qorg/beetl/core/beetl-default.properties\\E"
+  }, {
     "pattern":"java.base:\\Qjdk/internal/icu/impl/data/icudt72b/nfc.nrm\\E"
   }]},
   "bundles":[{

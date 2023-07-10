@@ -18,3 +18,12 @@ jdbc:
       password: test
   # 表名过滤的模式(不设置则获取所有的表)
   tableName: TEST_A%
+beetl:
+  # 左定位符
+  DELIMITER_PLACEHOLDER_START: '${'
+  # 右定位符
+  DELIMITER_PLACEHOLDER_END: '}'
+  # 左定界符
+  DELIMITER_STATEMENT_START: '<%'
+  # 右定界符
+  DELIMITER_STATEMENT_END: '%>'

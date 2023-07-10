@@ -3,9 +3,18 @@ package com.github.codgen.core;
 import lombok.Data;
 import rebue.wheel.core.JdbcUtils;
 
+import java.util.Map;
+
 @Data
 public class GenOptions {
-    private JdbcOptions jdbc;
+    /**
+     * jdbc选项
+     */
+    private JdbcOptions  jdbc;
+    /**
+     * beetl选项
+     */
+    private Map<String, Object> beetl;
 
     @Data
     public static class JdbcOptions {
@@ -19,4 +28,5 @@ public class GenOptions {
         private String                 tableName;
 
     }
+
 }

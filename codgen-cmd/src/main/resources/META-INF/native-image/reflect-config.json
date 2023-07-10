@@ -1,9 +1,25 @@
 [
 {
+  "name":"[Lcom.fasterxml.jackson.databind.deser.Deserializers;"
+},
+{
+  "name":"[Lcom.fasterxml.jackson.databind.deser.KeyDeserializers;"
+},
+{
+  "name":"[Lcom.fasterxml.jackson.databind.deser.ValueInstantiators;"
+},
+{
+  "name":"[Lcom.fasterxml.jackson.databind.ser.Serializers;"
+},
+{
   "name":"[Ljava.lang.String;"
 },
 {
   "name":"apple.security.AppleProvider",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"com.fasterxml.jackson.databind.ext.Java7SupportImpl",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
@@ -16,16 +32,28 @@
   "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"testMain","parameterTypes":[] }]
 },
 {
-  "name":"com.github.codgen.config.ApplicationConfig",
+  "name":"com.github.codgen.core.GenOptions",
   "allDeclaredFields":true,
   "queryAllPublicMethods":true,
-  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"setJdbc","parameterTypes":["rebue.wheel.core.JdbcUtils$ConnectParam"] }]
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"setJdbc","parameterTypes":["com.github.codgen.core.GenOptions$JdbcOptions"] }]
 },
 {
-  "name":"com.github.codgen.config.ApplicationConfigBeanInfo"
+  "name":"com.github.codgen.core.GenOptions$JdbcOptions",
+  "allDeclaredFields":true,
+  "queryAllPublicMethods":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"setConnect","parameterTypes":["rebue.wheel.core.JdbcUtils$ConnectParam"] }, {"name":"setTableName","parameterTypes":["java.lang.String"] }]
 },
 {
-  "name":"com.github.codgen.config.ApplicationConfigCustomizer"
+  "name":"com.github.codgen.core.GenOptions$JdbcOptionsBeanInfo"
+},
+{
+  "name":"com.github.codgen.core.GenOptions$JdbcOptionsCustomizer"
+},
+{
+  "name":"com.github.codgen.core.GenOptionsBeanInfo"
+},
+{
+  "name":"com.github.codgen.core.GenOptionsCustomizer"
 },
 {
   "name":"com.mysql.cj.conf.url.SingleConnectionUrl",
@@ -101,6 +129,18 @@
   "name":"java.beans.PropertyVetoException"
 },
 {
+  "name":"java.lang.Double"
+},
+{
+  "name":"java.lang.Float"
+},
+{
+  "name":"java.lang.Integer"
+},
+{
+  "name":"java.lang.Long"
+},
+{
   "name":"java.lang.Object",
   "allDeclaredFields":true,
   "queryAllPublicMethods":true
@@ -112,12 +152,21 @@
   "name":"java.lang.ObjectCustomizer"
 },
 {
+  "name":"java.lang.Short"
+},
+{
   "name":"java.lang.Thread",
   "fields":[{"name":"threadLocalRandomProbe"}]
 },
 {
   "name":"java.lang.management.ThreadInfo",
   "fields":[{"name":"virtual"}]
+},
+{
+  "name":"java.math.BigDecimal"
+},
+{
+  "name":"java.math.BigInteger"
 },
 {
   "name":"java.security.AlgorithmParametersSpi"
@@ -135,7 +184,13 @@
   "name":"java.sql.Date"
 },
 {
+  "name":"java.sql.Time"
+},
+{
   "name":"java.sql.Timestamp"
+},
+{
+  "name":"java.util.Date"
 },
 {
   "name":"java.util.Properties",
@@ -144,6 +199,12 @@
 {
   "name":"java.util.concurrent.atomic.AtomicBoolean",
   "fields":[{"name":"value"}]
+},
+{
+  "name":"java.util.concurrent.atomic.AtomicInteger"
+},
+{
+  "name":"java.util.concurrent.atomic.AtomicLong"
 },
 {
   "name":"java.util.concurrent.atomic.AtomicReference",
@@ -165,12 +226,222 @@
   "methods":[{"name":"<init>","parameterTypes":["sun.security.x509.X500Name"] }]
 },
 {
+  "name":"org.antlr.v4.runtime.RuntimeMetaData",
+  "fields":[{"name":"VERSION"}]
+},
+{
   "name":"org.apache.maven.surefire.junitplatform.JUnitPlatformProvider",
   "methods":[{"name":"<init>","parameterTypes":["org.apache.maven.surefire.api.provider.ProviderParameters"] }]
 },
 {
   "name":"org.apiguardian.api.API",
   "queryAllPublicMethods":true
+},
+{
+  "name":"org.beetl.core.ConsoleErrorHandler",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.beetl.core.DefaultNativeSecurityManager",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.beetl.core.GroupTemplate$SizeVirtualAttributeEval",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.beetl.core.engine.BeetlAntlrParser49",
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"execute","parameterTypes":["java.io.Reader","org.antlr.v4.runtime.DefaultErrorStrategy","org.antlr.v4.runtime.BaseErrorListener"] }]
+},
+{
+  "name":"org.beetl.core.engine.FastRuntimeEngine",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.beetl.core.impl.cache.DefaultBeetlCache",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.beetl.core.tag.HTMLTagSupportWrapper"
+},
+{
+  "name":"org.beetl.core.tag.HTMLTagVarBindingWrapper"
+},
+{
+  "name":"org.beetl.core.text.DefaultAttributeNameConvert",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.beetl.ext.fn.AllGlobaAsJsonlFunction",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.beetl.ext.fn.ArrayUtil",
+  "queryAllPublicMethods":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.beetl.ext.fn.AssertFunction",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.beetl.ext.fn.CheckExistFunction",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.beetl.ext.fn.DateFunction",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.beetl.ext.fn.DebugFunction",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.beetl.ext.fn.DecodeFunction",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.beetl.ext.fn.DynamicGlobalValueFunction",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.beetl.ext.fn.EmptyExpressionFunction",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.beetl.ext.fn.EnvFunction",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.beetl.ext.fn.Flush",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.beetl.ext.fn.HasAttributeFunction",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.beetl.ext.fn.IsNotEmptyExpressionFunction",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.beetl.ext.fn.Json",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.beetl.ext.fn.NVLFunction",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.beetl.ext.fn.PageContextFunction",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.beetl.ext.fn.ParentTagFunction",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.beetl.ext.fn.ParseDouble",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.beetl.ext.fn.ParseInt",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.beetl.ext.fn.ParseLong",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.beetl.ext.fn.Print",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.beetl.ext.fn.PrintFile",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.beetl.ext.fn.Printf",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.beetl.ext.fn.Println",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.beetl.ext.fn.QuestionMark",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.beetl.ext.fn.Range",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.beetl.ext.fn.RegxFunctionUtil",
+  "queryAllPublicMethods":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.beetl.ext.fn.StringUtil",
+  "queryAllPublicMethods":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.beetl.ext.fn.TruncFunction",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.beetl.ext.fn.TruncFunction2",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.beetl.ext.fn.TypeNameFunction",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.beetl.ext.fn.TypeNewFunction",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.beetl.ext.format.DateFormat",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.beetl.ext.format.NumberFormat",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.beetl.ext.tag.DeleteTag"
+},
+{
+  "name":"org.beetl.ext.tag.IncludeFragmentTag"
+},
+{
+  "name":"org.beetl.ext.tag.IncludeTag"
+},
+{
+  "name":"org.beetl.ext.tag.LayoutTag"
+},
+{
+  "name":"org.beetl.ext.tag.cache.CacheTag"
+},
+{
+  "name":"org.beetl.ext.tag.html.ForeachHtmlTag"
+},
+{
+  "name":"org.beetl.ext.tag.html.IfHtmlTag"
+},
+{
+  "name":"org.beetl.ext.tag.html.IncludeResourceFragmentHtmlTag"
+},
+{
+  "name":"org.beetl.ext.tag.html.IncludeResourceHtmlTag"
+},
+{
+  "name":"org.beetl.ext.tag.html.LayoutResourceHtmlTag"
+},
+{
+  "name":"org.beetl.ext.tag.html.SetHtmlTag"
 },
 {
   "name":"org.junit.jupiter.api.Test",
@@ -189,6 +460,13 @@
   "methods":[{"name":"openSession","parameterTypes":[] }]
 },
 {
+  "name":"rebue.wheel.core.JdbcUtils$ColumnMeta",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[{"name":"getIsForeignKey","parameterTypes":[] }, {"name":"getIsNullable","parameterTypes":[] }, {"name":"getIsPrimaryKey","parameterTypes":[] }, {"name":"getIsUnique","parameterTypes":[] }, {"name":"getName","parameterTypes":[] }, {"name":"getPrecision","parameterTypes":[] }, {"name":"getReferencedColumnName","parameterTypes":[] }, {"name":"getReferencedTableName","parameterTypes":[] }, {"name":"getRemark","parameterTypes":[] }, {"name":"getScale","parameterTypes":[] }, {"name":"getType","parameterTypes":[] }, {"name":"getTypeName","parameterTypes":[] }]
+},
+{
   "name":"rebue.wheel.core.JdbcUtils$ConnectParam",
   "allDeclaredFields":true,
   "queryAllPublicMethods":true,
@@ -199,6 +477,27 @@
 },
 {
   "name":"rebue.wheel.core.JdbcUtils$ConnectParamCustomizer"
+},
+{
+  "name":"rebue.wheel.core.JdbcUtils$DbMeta",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[{"name":"getName","parameterTypes":[] }, {"name":"getProductName","parameterTypes":[] }, {"name":"getTables","parameterTypes":[] }]
+},
+{
+  "name":"rebue.wheel.core.JdbcUtils$ImportKeyMeta",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[{"name":"getFkColumnName","parameterTypes":[] }, {"name":"getFkTableName","parameterTypes":[] }, {"name":"getPkColumnName","parameterTypes":[] }, {"name":"getPkTableName","parameterTypes":[] }]
+},
+{
+  "name":"rebue.wheel.core.JdbcUtils$TableMeta",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "queryAllDeclaredConstructors":true,
+  "methods":[{"name":"getColumns","parameterTypes":[] }, {"name":"getImportedKeys","parameterTypes":[] }, {"name":"getName","parameterTypes":[] }, {"name":"getPrimaryKeys","parameterTypes":[] }, {"name":"getRemark","parameterTypes":[] }, {"name":"getUniques","parameterTypes":[] }]
 },
 {
   "name":"sun.security.provider.DSA$SHA224withDSA",
