@@ -10,23 +10,43 @@ import rebue.wheel.serialization.jackson.JacksonUtils;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Codgen {
     public static void gen(GenOptions options) throws SQLException, IOException {
-        JdbcUtils.DbMeta dbMeta = JdbcUtils.getDbMeta(options.getJdbc().getConnect(), options.getJdbc().getTableName());
-        System.out.printf("database meta: %s%n", JacksonUtils.serializeWithPretty(dbMeta));
+        Map<String, JdbcUtils.DbMeta> dbMetas = new HashMap<>();
+        if (options.getJdbc() != null && !options.getJdbc().isEmpty()) {
+            for (Map.Entry<String, GenOptions.JdbcOptions> jdbc : options.getJdbc().entrySet()) {
+                JdbcUtils.DbMeta dbMeta = JdbcUtils.getDbMeta(jdbc.getValue().getConnect(), jdbc.getValue().getTableName());
+                dbMetas.put(jdbc.getKey(), dbMeta);
+            }
+        }
+        System.out.printf("database meta: %s%n", JacksonUtils.serializeWithPretty(dbMetas));
 
-        //初始化代码
         StringTemplateResourceLoader resourceLoader = new StringTemplateResourceLoader();
-        Configuration                configuration;
-        if (options.getBeetl() != null && !options.getBeetl().isEmpty())
-            configuration = new Configuration(MapUtils.map2Props(options.getBeetl()));
-        else
-            configuration = new Configuration();
-        GroupTemplate groupTemplate = new GroupTemplate(resourceLoader, configuration);
+        Map<String, GroupTemplate> groupTemplates = new HashMap<>();
+        if (options.getGroupTemplate() == null || options.getGroupTemplate().isEmpty()) {
+            groupTemplates.put("default", new GroupTemplate(resourceLoader, new Configuration()));
+        } else {
+            for (Map.Entry<String, Map<String, ?>> groupTemplateConfig : options.getGroupTemplate().entrySet()) {
+                groupTemplates.put(groupTemplateConfig.getKey(), new GroupTemplate(resourceLoader,
+                        new Configuration(MapUtils.map2Props(groupTemplateConfig.getValue()))));
+            }
+        }
+
+        Map<String, Map<String, ?>> bindingsMap = new HashMap<>();
+        if (options.getBinding() != null && !options.getBinding().isEmpty()) {
+            bindingsMap.putAll(options.getBinding());
+        }
+
+        GroupTemplate groupTemplate = groupTemplates.get("default");
         //获取模板
-        Template template = groupTemplate.getTemplate("hello,${name}");
-        template.binding("name", "beetl");
+        Template template = groupTemplate.getTemplate("hello, ${projectName}");
+        Map<String, ?> bindings = bindingsMap.get("default");
+        for (Map.Entry<String, ?> binding : bindings.entrySet()) {
+            template.binding(binding.getKey(), binding.getValue());
+        }
         //渲染结果
         String str = template.render();
         System.out.println(str);

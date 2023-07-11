@@ -8,13 +8,17 @@ import java.util.Map;
 @Data
 public class GenOptions {
     /**
-     * jdbc选项
+     * jdbc的配置选项
      */
-    private JdbcOptions  jdbc;
+    private Map<String, JdbcOptions> jdbc;
     /**
-     * beetl选项
+     * 绑定的变量
      */
-    private Map<String, Object> beetl;
+    private Map<String, Map<String, ?>> binding;
+    /**
+     * groupTemplate的配置选项
+     */
+    private Map<String, Map<String, ?>> groupTemplate;
 
     @Data
     public static class JdbcOptions {
@@ -25,8 +29,7 @@ public class GenOptions {
         /**
          * 过滤表名的正则表达式
          */
-        private String                 tableName;
-
+        private String tableName;
     }
 
 }
