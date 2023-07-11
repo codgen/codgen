@@ -2,25 +2,32 @@ package com.github.codgen;
 
 import com.github.codgen.core.Codgen;
 import com.github.codgen.core.GenOptions;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.yaml.snakeyaml.Yaml;
 import rebue.wheel.core.PomUtils;
 import rebue.wheel.core.PrintUtils;
-import rebue.wheel.core.file.FileUtils;
+import rebue.wheel.core.file.FileSearcher;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
 public class CodgenApplication {
+    private static final String CONFIG_FILE_NAME = "codgen.yml";
+
     public static void main(String[] args) throws IOException, SQLException {
         PomUtils.PomProps pomProps = PomUtils.getPomProps("/conf/pom.properties", CodgenApplication.class);
 
-        String in  = null;
+        String in = null;
         String out = null;
         for (int i = 0; i < args.length; i++) {
             String arg = args[i];
@@ -55,42 +62,83 @@ public class CodgenApplication {
             return;
         }
 
-        File curDir = new File(".");
-        if (!FileUtils.isAbsPath(in)) {
-            in = curDir.getCanonicalPath() + File.separator + in;
+        Path workDirPath = Path.of("");
+        Path inPath = Path.of(in);
+        Path outPath = Path.of(out);
+        // 如果是相对路径就算出绝对路径
+        if (!inPath.isAbsolute()) {
+            inPath = workDirPath.resolve(inPath);
         }
-        if (!FileUtils.isAbsPath(out)) {
-            out = curDir.getCanonicalPath() + File.separator + out;
+        if (!outPath.isAbsolute()) {
+            outPath = workDirPath.resolve(outPath);
         }
-        if (validDir(in)) return;
-        if (validDir(out)) return;
+        if (validDirPath(inPath)) return;
+        if (validDirPath(outPath)) return;
 
-        printBanner(pomProps, in, out);
 
-        System.out.printf("generate code from %s to %s%n", in, out);
+        // 打印横幅
+        printBanner(pomProps, inPath.toString(), outPath.toString());
 
-        GenOptions options = parseConfigFile(in);
+        System.out.printf("generate code from %s to %s%n", inPath, outPath);
+
+        GenOptions options = parseConfigFile(inPath);
         if (options == null) return;
 
+        System.out.printf("search %s's files%n", inPath);
+        Path inPathTemp = inPath;
+        List<IgnorePath> ignorePaths = new LinkedList<>();
+        ignorePaths.add(IgnorePath.builder()
+                .isDir(false)
+                .path(inPathTemp.resolve(CONFIG_FILE_NAME))
+                .build());
+        FileSearcher.searchFiles(inPath.toFile(), file -> {
+            try {
+                Path filePath = Path.of(file.getCanonicalPath());
+                // 排除要忽略的文件和目录
+                for (IgnorePath ignorePath : ignorePaths) {
+                    if (Files.isDirectory(filePath) == ignorePath.isDir && Files.isSameFile(filePath, ignorePath.path)) {
+                        return false;
+                    }
+                }
+                return true;
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }, file -> {
+            try {
+                System.out.println(file.getCanonicalPath());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
         Codgen.gen(options);
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    private static class IgnorePath {
+        private Boolean isDir;
+        private Path path;
     }
 
     /**
      * 解析配置文件
      *
-     * @param in 来源目录的路径
+     * @param inPath 来源目录的路径
      * @return 配置详情的对象，不存在则返回null
      */
-    private static GenOptions parseConfigFile(String in) throws IOException {
-        String configFilePath = in + File.separator + "codgen.yml";
-        File   configFile     = new File(configFilePath);
-        if (!configFile.exists()) {
-            PrintUtils.printError("error: %s doesn't exist%n", configFile);
+    private static GenOptions parseConfigFile(Path inPath) throws IOException {
+        Path configFilePath = inPath.resolve(CONFIG_FILE_NAME);
+        if (!Files.exists(configFilePath)) {
+            PrintUtils.printError("error: %s doesn't exist%n", configFilePath);
             return null;
         }
         System.out.printf("parse config file for generated code: %s%n", configFilePath);
         Yaml yaml = new Yaml();
-        try (BufferedReader reader = new BufferedReader(new FileReader(configFilePath))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(configFilePath.toFile()))) {
             return yaml.loadAs(reader, GenOptions.class);
         }
     }
@@ -137,14 +185,13 @@ public class CodgenApplication {
         PrintUtils.printBanner(lines);
     }
 
-    private static boolean validDir(String dir) {
-        File inDir = new File(dir);
-        if (!inDir.exists()) {
-            PrintUtils.printError("error: %s doesn't exist%n", dir);
+    private static boolean validDirPath(Path dirPath) {
+        if (!Files.exists(dirPath)) {
+            PrintUtils.printError("error: %s doesn't exist%n", dirPath.toString());
             return true;
         }
-        if (inDir.isFile()) {
-            PrintUtils.printError("error: %s isn't a directory%n", dir);
+        if (!Files.isDirectory(dirPath)) {
+            PrintUtils.printError("error: %s isn't a directory%n", dirPath.toString());
             return true;
         }
         return false;
