@@ -19,10 +19,10 @@ public class Codgen {
     /**
      * 生成
      *
-     * @param fileInfos 文件信息列表
-     * @param options   生成的配置选项
+     * @param inFileInfos 输入文件信息列表
+     * @param options     生成的配置选项
      */
-    public static void gen(List<FileInfo> fileInfos, GenOptions options) throws SQLException, IOException {
+    public static void gen(List<FileInfo> inFileInfos, GenOptions options) throws SQLException, IOException {
         Map<String, JdbcUtils.DbMeta> dbMetas = new HashMap<>();
         if (options.getJdbc() != null && !options.getJdbc().isEmpty()) {
             for (Map.Entry<String, GenOptions.JdbcOptions> jdbc : options.getJdbc().entrySet()) {
@@ -49,9 +49,10 @@ public class Codgen {
             bindingsMap.putAll(options.getBinding());
         }
 
+        // 输出文件信息列表
         List<FileInfo> outFileInfos = new LinkedList<>();
         GroupTemplate groupTemplate = groupTemplates.get("default");
-        for (FileInfo inFileInfo : fileInfos) {
+        for (FileInfo inFileInfo : inFileInfos) {
             // 获取默认的bindings
             Map<String, ?> bindings = bindingsMap.get("default");
             // 获取路径的模板
@@ -64,10 +65,8 @@ public class Codgen {
                 contentTemplate.binding(binding.getKey(), binding.getValue());
             }
             outFileInfos.add(FileInfo.builder()
-                    // 渲染路径结果
-                    .path(pathTemplate.render())
-                    // 渲染内容结果
-                    .content(contentTemplate.render())
+                    .path(pathTemplate.render())            // 渲染路径结果
+                    .content(contentTemplate.render())      // 渲染内容结果
                     .build());
         }
         System.out.println(outFileInfos);
