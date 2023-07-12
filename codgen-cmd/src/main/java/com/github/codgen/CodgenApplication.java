@@ -15,6 +15,7 @@ import rebue.wheel.core.file.FileSearcher;
 import rebue.wheel.core.file.FileUtils;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -24,7 +25,14 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class CodgenApplication {
+    /**
+     * Codgen的配置文件名称
+     */
     private static final String CONFIG_FILE_NAME = "codgen.yml";
+    /**
+     * drools规则文件的目录名称
+     */
+    private static final String DROOLS_RULE_FILE_DIR_NAME = ".drl";
 
     public static void main(String[] args) throws IOException, SQLException {
         PomUtils.PomProps pomProps = PomUtils.getPomProps("/conf/pom.properties", CodgenApplication.class);
@@ -80,13 +88,26 @@ public class CodgenApplication {
 
         // 打印横幅
         printBanner(pomProps, inPath.toString(), outPath.toString());
-
         System.out.printf("generate code from %s to %s%n", inPath, outPath);
 
+        // 解析配置文件
         GenOptions options = parseConfigFile(inPath);
         if (options == null) return;
 
-        Codgen.gen(searchFiles(inPath), options);
+        // 读取drools规则文件
+        List<String> drls = new LinkedList<>();
+        File droolsRuleFileDir = inPath.resolve(DROOLS_RULE_FILE_DIR_NAME).toFile();
+        if (droolsRuleFileDir.exists()) {
+            FileSearcher.searchFiles(droolsRuleFileDir, ".*\\.java", file -> {
+                try {
+                    drls.add(FileUtils.readToString(file));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        }
+
+        Codgen.gen(searchFiles(inPath), drls, options);
     }
 
     /**
@@ -103,13 +124,19 @@ public class CodgenApplication {
                 .isDir(false)
                 .path(inPath.resolve(CONFIG_FILE_NAME))
                 .build());
+        ignorePaths.add(IgnorePath.builder()
+                .isDir(true)
+                .path(inPath.resolve(DROOLS_RULE_FILE_DIR_NAME))
+                .build());
         FileSearcher.searchFiles(inPath.toFile(), file -> {
             try {
                 Path filePath = Path.of(file.getCanonicalPath());
                 // 排除要忽略的文件和目录
                 for (IgnorePath ignorePath : ignorePaths) {
-                    if (Files.isDirectory(filePath) == ignorePath.isDir && Files.isSameFile(filePath, ignorePath.path)) {
-                        return false;
+                    if (Files.exists(ignorePath.path)) {
+                        if (Files.isDirectory(filePath) == ignorePath.isDir && Files.isSameFile(filePath, ignorePath.path)) {
+                            return false;
+                        }
                     }
                 }
                 return true;

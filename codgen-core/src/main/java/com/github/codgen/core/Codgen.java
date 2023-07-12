@@ -19,10 +19,12 @@ public class Codgen {
     /**
      * 生成
      *
-     * @param inFileInfos 输入文件信息列表
-     * @param options     生成的配置选项
+     * @param inFileInfos     输入文件信息列表
+     * @param droolsRuleFiles drools的规则文件列表(文件的内容)
+     * @param options         生成的配置选项
      */
-    public static void gen(List<FileInfo> inFileInfos, GenOptions options) throws SQLException, IOException {
+    public static void gen(List<FileInfo> inFileInfos, List<String> droolsRuleFiles, GenOptions options) throws SQLException, IOException {
+        // 读取数据库信息
         Map<String, JdbcUtils.DbMeta> dbMetas = new HashMap<>();
         if (options.getJdbc() != null && !options.getJdbc().isEmpty()) {
             for (Map.Entry<String, GenOptions.JdbcOptions> jdbc : options.getJdbc().entrySet()) {
@@ -32,6 +34,7 @@ public class Codgen {
         }
         System.out.printf("database meta: %s%n", JacksonUtils.serializeWithPretty(dbMetas));
 
+        // 初始化groupTemplate
         StringTemplateResourceLoader resourceLoader = new StringTemplateResourceLoader();
         Map<String, GroupTemplate> groupTemplates = new HashMap<>();
         if (options.getGroupTemplate() == null || options.getGroupTemplate().isEmpty()) {
