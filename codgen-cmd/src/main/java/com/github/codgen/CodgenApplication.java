@@ -95,6 +95,19 @@ public class CodgenApplication {
         if (options == null) return;
 
         // 读取drools规则文件
+        List<String> drls = readDroolsRuleFiles(inPath);
+
+        // 生成
+        Codgen.gen(searchFiles(inPath), drls, options);
+    }
+
+    /**
+     * 读取drools规则文件
+     *
+     * @param inPath 输入目录的路径
+     * @return drools规则文件列表(文件内容)
+     */
+    private static List<String> readDroolsRuleFiles(Path inPath) throws IOException {
         List<String> drls = new LinkedList<>();
         File droolsRuleFileDir = inPath.resolve(DROOLS_RULE_FILE_DIR_NAME).toFile();
         if (droolsRuleFileDir.exists()) {
@@ -106,8 +119,7 @@ public class CodgenApplication {
                 }
             });
         }
-
-        Codgen.gen(searchFiles(inPath), drls, options);
+        return drls;
     }
 
     /**
