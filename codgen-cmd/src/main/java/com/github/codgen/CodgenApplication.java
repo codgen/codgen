@@ -1,6 +1,7 @@
 package com.github.codgen;
 
 import com.github.codgen.core.Codgen;
+import com.github.codgen.core.FileInfo;
 import com.github.codgen.core.GenOptions;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,6 +12,7 @@ import org.yaml.snakeyaml.Yaml;
 import rebue.wheel.core.PomUtils;
 import rebue.wheel.core.PrintUtils;
 import rebue.wheel.core.file.FileSearcher;
+import rebue.wheel.core.file.FileUtils;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -84,12 +86,22 @@ public class CodgenApplication {
         GenOptions options = parseConfigFile(inPath);
         if (options == null) return;
 
-        System.out.printf("search %s's files%n", inPath);
-        Path inPathTemp = inPath;
+        Codgen.gen(searchFiles(inPath), options);
+    }
+
+    /**
+     * 搜索文件
+     *
+     * @param inPath 输入目录的路径
+     * @return 搜索到的文件信息列表
+     */
+    private static List<FileInfo> searchFiles(Path inPath) {
+        System.out.printf("search %s's files:%n", inPath);
+        List<FileInfo> fileInfos = new LinkedList<>();
         List<IgnorePath> ignorePaths = new LinkedList<>();
         ignorePaths.add(IgnorePath.builder()
                 .isDir(false)
-                .path(inPathTemp.resolve(CONFIG_FILE_NAME))
+                .path(inPath.resolve(CONFIG_FILE_NAME))
                 .build());
         FileSearcher.searchFiles(inPath.toFile(), file -> {
             try {
@@ -107,12 +119,15 @@ public class CodgenApplication {
         }, file -> {
             try {
                 System.out.println(file.getCanonicalPath());
+                fileInfos.add(FileInfo.builder()
+                        .path(inPath.relativize(file.toPath()).toString())
+                        .content(FileUtils.readToString(file.getCanonicalPath()))
+                        .build());
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         });
-
-        Codgen.gen(options);
+        return fileInfos;
     }
 
     @Data
