@@ -30,6 +30,11 @@
             <groupId>com.github.rebue.wheel</groupId>
             <artifactId>wheel-core</artifactId>
         </dependency>
+        <!-- 以备drools中用到序列化和反序列化 -->
+        <dependency>
+            <groupId>com.github.rebue.wheel</groupId>
+            <artifactId>wheel-serialization</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
@@ -38,6 +43,11 @@
         <dependency>
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
+        </dependency>
+        <!-- 以备drools中用到对象转换类 -->
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
         </dependency>
 
         <dependency>

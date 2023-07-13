@@ -1,27 +1,5 @@
-# jdbc的配置选项
-jdbc:
-  default:
-    connect:
-      # 数据库连接字符串(MySQL5要想获取表的注释，必须设置useInformationSchema=true，据说8可以不设置)
-      url: jdbc:mysql://%s:%s/%s?useInformationSchema=true
-      # 数据库连接字符串要插入的参数
-      params:
-        # 主机地址
-        - 127.0.0.1
-        # 端口号
-        - 3306
-        # 数据库名称
-        - test
-      # 数据库的连接属性
-      properties:
-        # 用户名
-        user: test
-        # 密码
-        password: test
-    # 表名过滤的模式(不设置则获取所有的表)
-    tableName: TEST_A%
 # 绑定的变量
-binding:
+bindings:
   default:
     # 项目名称
     projectName: abc
@@ -36,3 +14,27 @@ groupTemplate:
     DELIMITER_STATEMENT_START: '<%'
     # 右定界符
     DELIMITER_STATEMENT_END: '%>'
+# 全局变量的配置选项
+global:
+  # jdbc的配置选项
+  jdbc:
+    default:
+      connect:
+        # 数据库连接字符串(MySQL5要想获取表的注释，必须设置useInformationSchema=true，据说8可以不设置)
+        url: jdbc:mysql://%s:%s/%s?useInformationSchema=true
+        # 数据库连接字符串要插入的参数
+        params:
+          # 主机地址
+          - 127.0.0.1
+          # 端口号
+          - 3306
+          # 数据库名称
+          - test
+        # 数据库的连接属性
+        properties:
+          # 用户名
+          user: test
+          # 密码
+          password: test
+      # 表名过滤的模式(不设置则获取所有的表)
+      tableName: TEST_A%

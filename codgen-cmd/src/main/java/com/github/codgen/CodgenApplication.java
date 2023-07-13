@@ -20,9 +20,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.sql.SQLException;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class CodgenApplication {
     /**
@@ -30,14 +31,45 @@ public class CodgenApplication {
      */
     private static final String CONFIG_FILE_NAME = "codgen.yml";
     /**
-     * drools规则文件的目录名称
+     * drools的目录的路径
      */
-    private static final String DROOLS_RULE_FILE_DIR_NAME = ".drl";
+    private static final String DROOLS_DIR_NAME  = ".drl";
 
-    public static void main(String[] args) throws IOException, SQLException {
+    public static void main(String[] args) throws IOException {
+        // 获取pom中设置的属性
         PomUtils.PomProps pomProps = PomUtils.getPomProps("/conf/pom.properties", CodgenApplication.class);
 
-        String in = null;
+        // 读取与校验参数
+        CmdOptions cmdOptions = parseCmdOptions(args, pomProps);
+        if (cmdOptions == null) return;
+
+        // 打印横幅
+        printBanner(pomProps, cmdOptions.inPath.toString(), cmdOptions.outPath.toString());
+        System.out.printf("generate code from %s to %s%n", cmdOptions.inPath, cmdOptions.outPath);
+
+        // 解析配置文件
+        GenOptions genOptions = parseConfigFile(cmdOptions.inPath);
+        if (genOptions == null) return;
+
+        // 读取drools规则文件
+        Map<String, String> droolsFiles = readDroolsFiles(cmdOptions.inPath);
+
+        // 搜索输入文件信息列表
+        List<FileInfo> inFileInfos = searchFiles(cmdOptions.inPath);
+
+        // 生成
+        Codgen.gen(inFileInfos, droolsFiles, genOptions);
+    }
+
+    /**
+     * 解析命令的参数选项
+     *
+     * @param args     命令的参数
+     * @param pomProps pom中设置的属性
+     * @return 命令选项
+     */
+    private static CmdOptions parseCmdOptions(String[] args, PomUtils.PomProps pomProps) {
+        String in  = null;
         String out = null;
         for (int i = 0; i < args.length; i++) {
             String arg = args[i];
@@ -46,16 +78,16 @@ public class CodgenApplication {
                 case "-o", "--out" -> out = args[++i];
                 case "-v", "--version" -> {
                     printVersion(pomProps);
-                    return;
+                    return null;
                 }
                 case "-h", "--help" -> {
                     printHelp();
-                    return;
+                    return null;
                 }
                 default -> {
                     System.out.printf("Unrecognized option: %s%n", arg);
                     printHelp();
-                    return;
+                    return null;
                 }
             }
         }
@@ -63,18 +95,18 @@ public class CodgenApplication {
             PrintUtils.printlnError("error: missing -i option");
             System.out.println();
             printHelp();
-            return;
+            return null;
         }
         if (out == null) {
             PrintUtils.printlnError("error: missing -o option");
             System.out.println();
             printHelp();
-            return;
+            return null;
         }
 
         Path workDirPath = Path.of("");
-        Path inPath = Path.of(in);
-        Path outPath = Path.of(out);
+        Path inPath      = Path.of(in);
+        Path outPath     = Path.of(out);
         // 如果是相对路径就算出绝对路径
         if (!inPath.isAbsolute()) {
             inPath = workDirPath.resolve(inPath);
@@ -82,43 +114,36 @@ public class CodgenApplication {
         if (!outPath.isAbsolute()) {
             outPath = workDirPath.resolve(outPath);
         }
-        if (validDirPath(inPath)) return;
-        if (validDirPath(outPath)) return;
+        if (validDirPath(inPath)) return null;
+        if (validDirPath(outPath)) return null;
 
-
-        // 打印横幅
-        printBanner(pomProps, inPath.toString(), outPath.toString());
-        System.out.printf("generate code from %s to %s%n", inPath, outPath);
-
-        // 解析配置文件
-        GenOptions options = parseConfigFile(inPath);
-        if (options == null) return;
-
-        // 读取drools规则文件
-        List<String> drls = readDroolsRuleFiles(inPath);
-
-        // 生成
-        Codgen.gen(searchFiles(inPath), drls, options);
+        return CmdOptions.builder()
+                .inPath(inPath)
+                .outPath(outPath)
+                .build();
     }
 
     /**
-     * 读取drools规则文件
+     * 读取drools文件
      *
      * @param inPath 输入目录的路径
-     * @return drools规则文件列表(文件内容)
+     * @return drools文件内容列表
      */
-    private static List<String> readDroolsRuleFiles(Path inPath) throws IOException {
-        List<String> drls = new LinkedList<>();
-        File droolsRuleFileDir = inPath.resolve(DROOLS_RULE_FILE_DIR_NAME).toFile();
-        if (droolsRuleFileDir.exists()) {
-            FileSearcher.searchFiles(droolsRuleFileDir, ".*\\.java", file -> {
-                try {
-                    drls.add(FileUtils.readToString(file));
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            });
-        }
+    private static Map<String, String> readDroolsFiles(Path inPath) throws IOException {
+        Path droolsDirPath = inPath.resolve(DROOLS_DIR_NAME);
+        File droolsDir     = droolsDirPath.toFile();
+        if (!droolsDir.exists())
+            return null;
+
+        Map<String, String> drls = new LinkedHashMap<>();
+        FileSearcher.searchFiles(droolsDir, ".*\\.drl", file -> {
+            try {
+                drls.put(file.getName(), FileUtils.readToString(file));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
         return drls;
     }
 
@@ -130,7 +155,7 @@ public class CodgenApplication {
      */
     private static List<FileInfo> searchFiles(Path inPath) {
         System.out.printf("search %s's files:%n", inPath);
-        List<FileInfo> fileInfos = new LinkedList<>();
+        List<FileInfo>   fileInfos   = new LinkedList<>();
         List<IgnorePath> ignorePaths = new LinkedList<>();
         ignorePaths.add(IgnorePath.builder()
                 .isDir(false)
@@ -138,7 +163,7 @@ public class CodgenApplication {
                 .build());
         ignorePaths.add(IgnorePath.builder()
                 .isDir(true)
-                .path(inPath.resolve(DROOLS_RULE_FILE_DIR_NAME))
+                .path(inPath.resolve(DROOLS_DIR_NAME))
                 .build());
         FileSearcher.searchFiles(inPath.toFile(), file -> {
             try {
@@ -167,15 +192,6 @@ public class CodgenApplication {
             }
         });
         return fileInfos;
-    }
-
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @Builder
-    private static class IgnorePath {
-        private Boolean isDir;
-        private Path path;
     }
 
     /**
@@ -210,7 +226,7 @@ public class CodgenApplication {
                 """);
         lines.add(":: codgen :: v%s :: nnzbz :: %s".formatted(pomProps.getVersion(), pomProps.getDatetime()));
         lines.add(PrintUtils.ConsoleColors.RESET);
-        lines.add("options:");
+        lines.add("cmdOptions:");
         lines.add("    source      directory: %s".formatted(in));
         lines.add("    destination directory: %s".formatted(out));
         lines.add("(( ");
@@ -259,9 +275,9 @@ public class CodgenApplication {
     private static void printHelp() {
         System.out.println("""
                                 
-                Usage: codgen-cmd [options]
+                Usage: codgen-cmd [cmdOptions]
                                 
-                where options include:
+                where cmdOptions include:
                     -i, --in        source path
                     -o, --out       destination path
                     -v, --version   print product version to the error stream and exit
@@ -269,5 +285,21 @@ public class CodgenApplication {
                 """);
     }
 
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    private static class CmdOptions {
+        private Path inPath;
+        private Path outPath;
+    }
 
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    private static class IgnorePath {
+        private Boolean isDir;
+        private Path    path;
+    }
 }

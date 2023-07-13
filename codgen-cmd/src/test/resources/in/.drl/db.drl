@@ -1,0 +1,41 @@
+import java.util.Map;
+import java.util.HashMap;
+import com.github.codgen.core.drools.fact.GlobalFact;
+import rebue.wheel.core.JdbcUtils
+import rebue.wheel.serialization.jackson.JacksonUtils
+
+declare JdbcOptions
+  connect : JdbcUtils.ConnectParam
+  tableName : String
+end
+
+/**
+ * 读取数据库信息
+ */
+rule readDbMatas
+    agenda-group "globals"
+    no-loop true            // 防止死循环(当规则通过update之类的函数修改了Fact对象时，可能使当前规则再次被激活从而导致死循环)
+    lock-on-active true     // 限制当前规则只会被执行一次(包括当前规则的重复执行不是本身触发的)
+when
+    $globalFact: GlobalFact($globals: globals, $globalOptions: globalOptions)
+then
+    System.out.printf("readDbMatas: %s%n", $globalOptions.get("jdbc"));
+//    // 利用jackson将jdbc选项转换成map对象
+//    Map<String, JdbcOptions> jdbcMap = JacksonUtils.getObjectMapper().convertValue($globalOptions.get("jdbc"), Map.class);
+//
+//    // 读取数据库信息
+//    Map<String, JdbcUtils.DbMeta> dbMetas = new HashMap<>();
+//
+//
+//    if (jdbcMap != null && !jdbcMap.isEmpty()) {
+//        for (Map.Entry<String, JdbcOptions> jdbc : jdbcMap.entrySet()) {
+//            JdbcOptions jdbcOptions = jdbc.getValue();
+//            JdbcUtils.DbMeta dbMeta = JdbcUtils.getDbMeta(jdbcOptions.getConnect(), jdbcOptions.getTableName());
+//            dbMetas.put(jdbc.getKey(), dbMeta);
+//        }
+//    }
+//    System.out.printf("database meta: %s%n", JacksonUtils.serializeWithPretty(dbMetas));
+//
+//    $globals.put("dbMetas", dbMetas);
+    update($globalFact);
+end
