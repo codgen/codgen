@@ -20,10 +20,6 @@ import java.util.Map;
 
 public class Codgen {
     /**
-     * drools会话名称
-     */
-    private static final String KSESSION_NAME              = "codgen";
-    /**
      * 全局变量的议程分组名称
      */
     private static final String GLOBAL_AGENDA_GROUP_NAME   = "globals";
@@ -36,10 +32,10 @@ public class Codgen {
      * 生成
      *
      * @param inFileInfos 输入文件信息列表
-     * @param drls        drools规则文件内容列表
      * @param genOptions  生成的配置选项
+     * @param drls        drools规则文件内容列表
      */
-    public static void gen(List<FileInfo> inFileInfos, Map<String, String> drls, GenOptions genOptions) throws IOException {
+    public static void gen(List<FileInfo> inFileInfos, GenOptions genOptions, Map<String, String> drls) throws IOException {
         // 初始化drools
         KieContainer kieContainer = null;
         if (drls != null) {
@@ -64,7 +60,7 @@ public class Codgen {
         }
 
         // 改变global
-        GlobalFact globalFact;
+        GlobalFact globalFact = null;
         if (kieContainer != null) {
             KieSession kieSession = kieContainer.newKieSession();
             kieSession.getAgenda().getAgendaGroup(GLOBAL_AGENDA_GROUP_NAME).setFocus();
@@ -77,16 +73,6 @@ public class Codgen {
             System.out.printf("触发执行了改变global的规则数为%d%n", firedRulesCount);
             kieSession.dispose();
         }
-
-//        // 读取数据库信息
-//        Map<String, JdbcUtils.DbMeta> dbMetas = new HashMap<>();
-//        if (genOptions.getJdbc() != null && !genOptions.getJdbc().isEmpty()) {
-//            for (Map.Entry<String, GenOptions.JdbcOptions> jdbc : genOptions.getJdbc().entrySet()) {
-//                JdbcUtils.DbMeta dbMeta = JdbcUtils.getDbMeta(jdbc.getValue().getConnect(), jdbc.getValue().getTableName());
-//                dbMetas.put(jdbc.getKey(), dbMeta);
-//            }
-//        }
-//        System.out.printf("database meta: %s%n", JacksonUtils.serializeWithPretty(dbMetas));
 
         // 初始化groupTemplate
         StringTemplateResourceLoader resourceLoader = new StringTemplateResourceLoader();
@@ -111,29 +97,39 @@ public class Codgen {
         GroupTemplate  groupTemplate = groupTemplates.get("default");
         for (FileInfo inFileInfo : inFileInfos) {
             // 获取默认的bindings
-            Map<String, ?> bindings = bindingsMap.get("default");
-            // 获取路径的模板
-            Template pathTemplate = groupTemplate.getTemplate(inFileInfo.getPath());
-            // 获取内容的模板
-            Template contentTemplate = groupTemplate.getTemplate(inFileInfo.getContent());
+            @SuppressWarnings("unchecked")
+            Map<String, Object> bindings = (Map<String, Object>) bindingsMap.get("default");
+
+            // 将globals中放入的binding
+            if (globalFact != null && globalFact.getGlobals() != null && !globalFact.getGlobals().isEmpty()) {
+                bindings.putAll(globalFact.getGlobals());
+            }
+
             // 执行规则引擎自定义绑定变量
             if (kieContainer != null) {
-                KieSession kieSession = kieContainer.newKieSession(KSESSION_NAME);
+                KieSession kieSession = kieContainer.newKieSession();
                 kieSession.getAgenda().getAgendaGroup(BINDINGS_AGENDA_GROUP_NAME).setFocus();
                 BindingsFact bindingsFact = BindingsFact.builder()
                         .filePath(inFileInfo.getPath())
                         .bindings(bindings)
                         .build();
                 kieSession.insert(bindingsFact);
+                kieSession.insert(globalFact);
                 int firedRulesCount = kieSession.fireAllRules();
                 System.out.printf("触发执行了改变bindings的规则数为%d%n", firedRulesCount);
                 kieSession.dispose();
             }
+
+            // 获取路径的模板
+            Template pathTemplate = groupTemplate.getTemplate(inFileInfo.getPath());
+            // 获取内容的模板
+            Template contentTemplate = groupTemplate.getTemplate(inFileInfo.getContent());
             // 绑定bindings到模板
             for (Map.Entry<String, ?> binding : bindings.entrySet()) {
                 pathTemplate.binding(binding.getKey(), binding.getValue());
                 contentTemplate.binding(binding.getKey(), binding.getValue());
             }
+
             // 添加渲染结果
             outFileInfos.add(FileInfo.builder()
                     .path(pathTemplate.render())            // 渲染路径结果

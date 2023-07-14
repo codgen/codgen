@@ -58,7 +58,7 @@ public class CodgenApplication {
         List<FileInfo> inFileInfos = searchFiles(cmdOptions.inPath);
 
         // 生成
-        Codgen.gen(inFileInfos, droolsFiles, genOptions);
+        Codgen.gen(inFileInfos, genOptions, droolsFiles);
     }
 
     /**
@@ -138,7 +138,7 @@ public class CodgenApplication {
         Map<String, String> drls = new LinkedHashMap<>();
         FileSearcher.searchFiles(droolsDir, ".*\\.drl", file -> {
             try {
-                drls.put(file.getName(), FileUtils.readToString(file));
+                drls.put(droolsDirPath.relativize(file.toPath()).toString(), FileUtils.readToString(file));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

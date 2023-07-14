@@ -1,26 +1,324 @@
 {
   "resources":{
   "includes":[{
+    "pattern":"\\QMETA-INF/WorkDefinitions.conf\\E"
+  }, {
+    "pattern":"\\QMETA-INF/kie.default.mvel.properties.conf\\E"
+  }, {
+    "pattern":"\\QMETA-INF/kie.default.properties.conf\\E"
+  }, {
     "pattern":"\\QMETA-INF/services/java.sql.Driver\\E"
   }, {
     "pattern":"\\QMETA-INF/services/org.apache.maven.surefire.spi.MasterProcessChannelProcessorFactory\\E"
+  }, {
+    "pattern":"\\QMETA-INF/services/org.drools.compiler.builder.impl.classbuilder.ClassBuilderFactory\\E"
+  }, {
+    "pattern":"\\QMETA-INF/services/org.drools.compiler.kie.builder.impl.KieBaseUpdaters\\E"
+  }, {
+    "pattern":"\\QMETA-INF/services/org.drools.compiler.rule.builder.ConstraintBuilder\\E"
+  }, {
+    "pattern":"\\QMETA-INF/services/org.drools.core.base.CoreComponentsBuilder\\E"
+  }, {
+    "pattern":"\\QMETA-INF/services/org.drools.core.base.FieldAccessorFactory\\E"
+  }, {
+    "pattern":"\\QMETA-INF/services/org.drools.core.base.XMLSupport\\E"
+  }, {
+    "pattern":"\\QMETA-INF/services/org.drools.core.reteoo.CoreComponentFactory\\E"
+  }, {
+    "pattern":"\\QMETA-INF/services/org.drools.core.reteoo.RuntimeComponentFactory\\E"
+  }, {
+    "pattern":"\\QMETA-INF/services/org.drools.wiring.api.ComponentsSupplier\\E"
   }, {
     "pattern":"\\QMETA-INF/services/org.junit.platform.engine.TestEngine\\E"
   }, {
     "pattern":"\\QMETA-INF/services/org.junit.platform.launcher.TestExecutionListener\\E"
   }, {
+    "pattern":"\\QMETA-INF/services/org.kie.api.KieServices\\E"
+  }, {
+    "pattern":"\\QMETA-INF/services/org.kie.api.internal.assembler.KieAssemblers\\E"
+  }, {
+    "pattern":"\\QMETA-INF/services/org.kie.internal.builder.KnowledgeBuilderFactoryService\\E"
+  }, {
+    "pattern":"\\QMETA-INF/services/org.kie.internal.ruleunit.RuleUnitComponentFactory\\E"
+  }, {
+    "pattern":"\\QMETA-INF/services/org.slf4j.spi.SLF4JServiceProvider\\E"
+  }, {
     "pattern":"\\Q\\E"
+  }, {
+    "pattern":"\\Qcom/fasterxml/jackson/core/JacksonException.class\\E"
+  }, {
+    "pattern":"\\Qcom/fasterxml/jackson/core/JsonProcessingException.class\\E"
+  }, {
+    "pattern":"\\Qcom/fasterxml/jackson/core/ObjectCodec.class\\E"
+  }, {
+    "pattern":"\\Qcom/fasterxml/jackson/core/TreeCodec.class\\E"
+  }, {
+    "pattern":"\\Qcom/fasterxml/jackson/core/Versioned.class\\E"
+  }, {
+    "pattern":"\\Qcom/fasterxml/jackson/core/package-info.class\\E"
+  }, {
+    "pattern":"\\Qcom/fasterxml/jackson/core/type/TypeReference.class\\E"
+  }, {
+    "pattern":"\\Qcom/fasterxml/jackson/core/type/package-info.class\\E"
+  }, {
+    "pattern":"\\Qcom/fasterxml/jackson/databind/JavaType.class\\E"
+  }, {
+    "pattern":"\\Qcom/fasterxml/jackson/databind/ObjectMapper.class\\E"
+  }, {
+    "pattern":"\\Qcom/fasterxml/jackson/databind/package-info.class\\E"
+  }, {
+    "pattern":"\\Qcom/github/codgen/core/drools/fact/BindingsFact.class\\E"
+  }, {
+    "pattern":"\\Qcom/github/codgen/core/drools/fact/GlobalFact.class\\E"
   }, {
     "pattern":"\\Qcom/mysql/cj/TlsSettings.properties\\E"
   }, {
     "pattern":"\\Qconf/pom.properties\\E"
   }, {
+    "pattern":"\\Qjava/io/Closeable.class\\E"
+  }, {
+    "pattern":"\\Qjava/io/FilterOutputStream.class\\E"
+  }, {
+    "pattern":"\\Qjava/io/Flushable.class\\E"
+  }, {
+    "pattern":"\\Qjava/io/IOException.class\\E"
+  }, {
+    "pattern":"\\Qjava/io/ObjectInputStream.class\\E"
+  }, {
+    "pattern":"\\Qjava/io/ObjectOutputStream.class\\E"
+  }, {
+    "pattern":"\\Qjava/io/OutputStream.class\\E"
+  }, {
+    "pattern":"\\Qjava/io/PrintStream.class\\E"
+  }, {
+    "pattern":"\\Qjava/io/Serializable.class\\E"
+  }, {
+    "pattern":"\\Qjava/lang/Appendable.class\\E"
+  }, {
+    "pattern":"\\Qjava/lang/AutoCloseable.class\\E"
+  }, {
+    "pattern":"\\Qjava/lang/Class.class\\E"
+  }, {
+    "pattern":"\\Qjava/lang/ClassNotFoundException.class\\E"
+  }, {
+    "pattern":"\\Qjava/lang/Cloneable.class\\E"
+  }, {
+    "pattern":"\\Qjava/lang/Exception.class\\E"
+  }, {
+    "pattern":"\\Qjava/lang/IllegalArgumentException.class\\E"
+  }, {
+    "pattern":"\\Qjava/lang/Iterable.class\\E"
+  }, {
+    "pattern":"\\Qjava/lang/Object.class\\E"
+  }, {
+    "pattern":"\\Qjava/lang/RuntimeException.class\\E"
+  }, {
+    "pattern":"\\Qjava/lang/String.class\\E"
+  }, {
+    "pattern":"\\Qjava/lang/System.class\\E"
+  }, {
+    "pattern":"\\Qjava/lang/Throwable.class\\E"
+  }, {
+    "pattern":"\\Qjava/sql/SQLException.class\\E"
+  }, {
+    "pattern":"\\Qjava/util/AbstractMap.class\\E"
+  }, {
+    "pattern":"\\Qjava/util/Collection.class\\E"
+  }, {
+    "pattern":"\\Qjava/util/HashMap$Node.class\\E"
+  }, {
+    "pattern":"\\Qjava/util/HashMap$TreeNode.class\\E"
+  }, {
+    "pattern":"\\Qjava/util/HashMap.class\\E"
+  }, {
+    "pattern":"\\Qjava/util/Iterator.class\\E"
+  }, {
+    "pattern":"\\Qjava/util/Locale.class\\E"
+  }, {
+    "pattern":"\\Qjava/util/Map$Entry.class\\E"
+  }, {
+    "pattern":"\\Qjava/util/Map.class\\E"
+  }, {
+    "pattern":"\\Qjava/util/Set.class\\E"
+  }, {
+    "pattern":"\\Qjava/util/function/BiConsumer.class\\E"
+  }, {
+    "pattern":"\\Qjava/util/function/BiFunction.class\\E"
+  }, {
+    "pattern":"\\Qjava/util/function/Function.class\\E"
+  }, {
     "pattern":"\\Qorg/beetl/core/beetl-default.properties\\E"
   }, {
+    "pattern":"\\Qorg/drools/compiler/shade/org/eclipse/jdt/internal/compiler/messages.properties\\E"
+  }, {
+    "pattern":"\\Qorg/drools/compiler/shade/org/eclipse/jdt/internal/compiler/parser/parser1.rsc\\E"
+  }, {
+    "pattern":"\\Qorg/drools/compiler/shade/org/eclipse/jdt/internal/compiler/parser/parser10.rsc\\E"
+  }, {
+    "pattern":"\\Qorg/drools/compiler/shade/org/eclipse/jdt/internal/compiler/parser/parser11.rsc\\E"
+  }, {
+    "pattern":"\\Qorg/drools/compiler/shade/org/eclipse/jdt/internal/compiler/parser/parser12.rsc\\E"
+  }, {
+    "pattern":"\\Qorg/drools/compiler/shade/org/eclipse/jdt/internal/compiler/parser/parser13.rsc\\E"
+  }, {
+    "pattern":"\\Qorg/drools/compiler/shade/org/eclipse/jdt/internal/compiler/parser/parser14.rsc\\E"
+  }, {
+    "pattern":"\\Qorg/drools/compiler/shade/org/eclipse/jdt/internal/compiler/parser/parser15.rsc\\E"
+  }, {
+    "pattern":"\\Qorg/drools/compiler/shade/org/eclipse/jdt/internal/compiler/parser/parser16.rsc\\E"
+  }, {
+    "pattern":"\\Qorg/drools/compiler/shade/org/eclipse/jdt/internal/compiler/parser/parser17.rsc\\E"
+  }, {
+    "pattern":"\\Qorg/drools/compiler/shade/org/eclipse/jdt/internal/compiler/parser/parser18.rsc\\E"
+  }, {
+    "pattern":"\\Qorg/drools/compiler/shade/org/eclipse/jdt/internal/compiler/parser/parser19.rsc\\E"
+  }, {
+    "pattern":"\\Qorg/drools/compiler/shade/org/eclipse/jdt/internal/compiler/parser/parser2.rsc\\E"
+  }, {
+    "pattern":"\\Qorg/drools/compiler/shade/org/eclipse/jdt/internal/compiler/parser/parser20.rsc\\E"
+  }, {
+    "pattern":"\\Qorg/drools/compiler/shade/org/eclipse/jdt/internal/compiler/parser/parser21.rsc\\E"
+  }, {
+    "pattern":"\\Qorg/drools/compiler/shade/org/eclipse/jdt/internal/compiler/parser/parser22.rsc\\E"
+  }, {
+    "pattern":"\\Qorg/drools/compiler/shade/org/eclipse/jdt/internal/compiler/parser/parser23.rsc\\E"
+  }, {
+    "pattern":"\\Qorg/drools/compiler/shade/org/eclipse/jdt/internal/compiler/parser/parser24.rsc\\E"
+  }, {
+    "pattern":"\\Qorg/drools/compiler/shade/org/eclipse/jdt/internal/compiler/parser/parser3.rsc\\E"
+  }, {
+    "pattern":"\\Qorg/drools/compiler/shade/org/eclipse/jdt/internal/compiler/parser/parser4.rsc\\E"
+  }, {
+    "pattern":"\\Qorg/drools/compiler/shade/org/eclipse/jdt/internal/compiler/parser/parser5.rsc\\E"
+  }, {
+    "pattern":"\\Qorg/drools/compiler/shade/org/eclipse/jdt/internal/compiler/parser/parser6.rsc\\E"
+  }, {
+    "pattern":"\\Qorg/drools/compiler/shade/org/eclipse/jdt/internal/compiler/parser/parser7.rsc\\E"
+  }, {
+    "pattern":"\\Qorg/drools/compiler/shade/org/eclipse/jdt/internal/compiler/parser/parser8.rsc\\E"
+  }, {
+    "pattern":"\\Qorg/drools/compiler/shade/org/eclipse/jdt/internal/compiler/parser/parser9.rsc\\E"
+  }, {
+    "pattern":"\\Qorg/drools/compiler/shade/org/eclipse/jdt/internal/compiler/parser/readableNames.props\\E"
+  }, {
+    "pattern":"\\Qorg/drools/core/factmodel/GeneratedFact.class\\E"
+  }, {
+    "pattern":"\\Qorg/drools/core/rule/consequence/KnowledgeHelper.class\\E"
+  }, {
+    "pattern":"\\Qorg/drools/core/util/bitmask/AllSetButLastBitMask.class\\E"
+  }, {
+    "pattern":"\\Qorg/drools/core/util/bitmask/AllSetMask.class\\E"
+  }, {
+    "pattern":"\\Qorg/drools/core/util/bitmask/BitMask.class\\E"
+  }, {
+    "pattern":"\\Qorg/drools/core/util/bitmask/SingleLongBitMask.class\\E"
+  }, {
+    "pattern":"\\Qorg/drools/mvel/java/javaFunction.mvel\\E"
+  }, {
+    "pattern":"\\Qorg/drools/mvel/java/javaRule.mvel\\E"
+  }, {
+    "pattern":"\\Qorg/kie/api/kmodule.xsd\\E"
+  }, {
+    "pattern":"\\Qorg/kie/api/old-kmodule.xsd\\E"
+  }, {
+    "pattern":"\\Qorg/kie/api/runtime/KieContext.class\\E"
+  }, {
+    "pattern":"\\Qorg/kie/api/runtime/rule/FactHandle.class\\E"
+  }, {
+    "pattern":"\\Qorg/kie/api/runtime/rule/RuleContext.class\\E"
+  }, {
+    "pattern":"\\Qrebue/wheel/core/JdbcUtils$ConnectParam.class\\E"
+  }, {
+    "pattern":"\\Qrebue/wheel/core/JdbcUtils$DbMeta.class\\E"
+  }, {
+    "pattern":"\\Qrebue/wheel/core/JdbcUtils.class\\E"
+  }, {
+    "pattern":"\\Qrebue/wheel/serialization/jackson/JacksonUtils.class\\E"
+  }, {
+    "pattern":"java.base:\\Qjava/io/Closeable.class\\E"
+  }, {
+    "pattern":"java.base:\\Qjava/io/FilterOutputStream.class\\E"
+  }, {
+    "pattern":"java.base:\\Qjava/io/Flushable.class\\E"
+  }, {
+    "pattern":"java.base:\\Qjava/io/IOException.class\\E"
+  }, {
+    "pattern":"java.base:\\Qjava/io/ObjectInputStream.class\\E"
+  }, {
+    "pattern":"java.base:\\Qjava/io/ObjectOutputStream.class\\E"
+  }, {
+    "pattern":"java.base:\\Qjava/io/OutputStream.class\\E"
+  }, {
+    "pattern":"java.base:\\Qjava/io/PrintStream.class\\E"
+  }, {
+    "pattern":"java.base:\\Qjava/io/Serializable.class\\E"
+  }, {
+    "pattern":"java.base:\\Qjava/lang/Appendable.class\\E"
+  }, {
+    "pattern":"java.base:\\Qjava/lang/AutoCloseable.class\\E"
+  }, {
+    "pattern":"java.base:\\Qjava/lang/Class.class\\E"
+  }, {
+    "pattern":"java.base:\\Qjava/lang/ClassNotFoundException.class\\E"
+  }, {
+    "pattern":"java.base:\\Qjava/lang/Cloneable.class\\E"
+  }, {
+    "pattern":"java.base:\\Qjava/lang/Exception.class\\E"
+  }, {
+    "pattern":"java.base:\\Qjava/lang/IllegalArgumentException.class\\E"
+  }, {
+    "pattern":"java.base:\\Qjava/lang/Iterable.class\\E"
+  }, {
+    "pattern":"java.base:\\Qjava/lang/Object.class\\E"
+  }, {
+    "pattern":"java.base:\\Qjava/lang/RuntimeException.class\\E"
+  }, {
+    "pattern":"java.base:\\Qjava/lang/String.class\\E"
+  }, {
+    "pattern":"java.base:\\Qjava/lang/System.class\\E"
+  }, {
+    "pattern":"java.base:\\Qjava/lang/Throwable.class\\E"
+  }, {
+    "pattern":"java.base:\\Qjava/util/AbstractMap.class\\E"
+  }, {
+    "pattern":"java.base:\\Qjava/util/Collection.class\\E"
+  }, {
+    "pattern":"java.base:\\Qjava/util/HashMap$Node.class\\E"
+  }, {
+    "pattern":"java.base:\\Qjava/util/HashMap$TreeNode.class\\E"
+  }, {
+    "pattern":"java.base:\\Qjava/util/HashMap.class\\E"
+  }, {
+    "pattern":"java.base:\\Qjava/util/Iterator.class\\E"
+  }, {
+    "pattern":"java.base:\\Qjava/util/Locale.class\\E"
+  }, {
+    "pattern":"java.base:\\Qjava/util/Map$Entry.class\\E"
+  }, {
+    "pattern":"java.base:\\Qjava/util/Map.class\\E"
+  }, {
+    "pattern":"java.base:\\Qjava/util/Set.class\\E"
+  }, {
+    "pattern":"java.base:\\Qjava/util/currency.data\\E"
+  }, {
+    "pattern":"java.base:\\Qjava/util/function/BiConsumer.class\\E"
+  }, {
+    "pattern":"java.base:\\Qjava/util/function/BiFunction.class\\E"
+  }, {
+    "pattern":"java.base:\\Qjava/util/function/Function.class\\E"
+  }, {
     "pattern":"java.base:\\Qjdk/internal/icu/impl/data/icudt72b/nfc.nrm\\E"
+  }, {
+    "pattern":"java.sql:\\Qjava/sql/SQLException.class\\E"
   }]},
   "bundles":[{
     "name":"com.mysql.cj.LocalizedErrorMessages",
+    "locales":[""]
+  }, {
+    "name":"com.sun.org.apache.xerces.internal.impl.xpath.regex.message",
+    "locales":[""]
+  }, {
+    "name":"org.drools.compiler.shade.org.eclipse.jdt.internal.compiler.problem.messages",
     "locales":[""]
   }]
 }

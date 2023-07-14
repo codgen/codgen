@@ -15,7 +15,7 @@ public class BindingsFact {
     /**
      * 模板文件路径
      */
-    private String filePath;
+    private String         filePath;
     /**
      * 绑定的变量列表
      */
