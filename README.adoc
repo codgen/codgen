@@ -31,3 +31,22 @@ mvn test -Dtest=CodgenApplicationTests#testMain -Pgen-native-image-configs
 ----
 mvn clean package -Pnative -DskipTests
 ----
+
+== 生成代码的程序流程
+[plantuml.text-center]
+----
+start
+:初始化groupTemplates;
+:初始化drools;
+:触发variable规则;
+repeat :开始遍历输入文件信息列表;
+    :触发template规则;
+    :触发bindings规则;
+    :触发render规则;
+backward:继续;
+repeat while (更多数据?)
+:输出文件信息列表;
+:合并原有输出文件信息;
+:格式化;
+stop
+----

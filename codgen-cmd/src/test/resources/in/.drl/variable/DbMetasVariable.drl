@@ -14,19 +14,21 @@ end
 /**
  * 数据库信息变量
  */
-rule variable_db
+rule variable_db_metas
     agenda-group "variable"
     no-loop true            // 防止死循环(当规则通过update之类的函数修改了Fact对象时，可能使当前规则再次被激活从而导致死循环)
     lock-on-active true     // 限制当前规则只会被执行一次(包括当前规则的重复执行不是本身触发的)
 when
     $variableFact: VariableFact($variableMap: variableMap)
 then
+    // 指定变量选项的key
+    final String VARIABLE_OPTIONS_KEY = "dbMetas";
     // 执行默认变量规则时忽略此变量
-    final String VARIABLE_OPTIONS_KEY = "jdbc";
     $variableFact.getIgnoreVariableOptions().add(VARIABLE_OPTIONS_KEY);
+    // 从变量选项中获取指定的选项
     @SuppressWarnings("unchecked")
     Map<String, ?> jdbcOptionsMap = (Map<String, ?>) $variableFact.getVariableOptions().get(VARIABLE_OPTIONS_KEY);
-    System.out.printf("readDbMatas: %s(%s)%n", jdbcOptionsMap, jdbcOptionsMap.getClass().getName());
+    System.out.printf("variable_db_metas: %s(%s)%n", jdbcOptionsMap, jdbcOptionsMap.getClass().getName());
 
     // 读取数据库信息
     Map<String, JdbcUtils.DbMeta> dbMetas = new HashMap<>();
@@ -40,6 +42,6 @@ then
     }
     System.out.printf("database meta: %s%n", JacksonUtils.serializeWithPretty(dbMetas));
 
-    $variableMap.put("dbMetas", dbMetas);
+    $variableMap.put(VARIABLE_OPTIONS_KEY, dbMetas);
     update($variableFact);
 end

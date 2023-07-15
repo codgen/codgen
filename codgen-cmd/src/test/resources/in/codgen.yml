@@ -21,8 +21,8 @@ variable:
   version: 1.0.0
   # 作者名称
   author: zbz
-  # jdbc的配置选项
-  jdbc:
+  # 数据库的配置选项
+  dbMetas:
     default:
       connect:
         # 数据库连接字符串(MySQL5要想获取表的注释，必须设置useInformationSchema=true，据说8可以不设置)
