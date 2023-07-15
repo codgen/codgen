@@ -1,6 +1,7 @@
 package com.github.codgen.core.drools;
 
 import org.kie.api.KieServices;
+import org.kie.api.builder.KieBuilder;
 import org.kie.api.builder.KieFileSystem;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
@@ -32,8 +33,11 @@ public class DroolsUtils {
             // XXX 规则文件必须放在 src/main/resources/ 路径下
             kieFileSystem.write("src/main/resources/" + drl.getKey(), drl.getValue());
         }
-        kieServices.newKieBuilder(kieFileSystem).buildAll();
-        kieContainer = kieServices.newKieContainer(kieServices.getRepository().getDefaultReleaseId());
+//        kieServices.newKieBuilder(kieFileSystem).buildAll();
+//        kieContainer = kieServices.newKieContainer(kieServices.getRepository().getDefaultReleaseId());
+        KieBuilder kieBuilder = kieServices.newKieBuilder(kieFileSystem);
+        kieBuilder.buildAll();
+        kieContainer = kieServices.newKieContainer(kieBuilder.getKieModule().getReleaseId());
     }
 
     /**

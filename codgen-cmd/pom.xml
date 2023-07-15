@@ -57,6 +57,28 @@
         </dependency>
 
         <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jul-to-slf4j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+        </dependency>
+        <!-- logback配置使用if需要 -->
+        <dependency>
+            <groupId>org.codehaus.janino</groupId>
+            <artifactId>janino</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
@@ -138,7 +160,9 @@
                         <artifactId>maven-surefire-plugin</artifactId>
                         <version>${maven-surefire-plugin.version}</version>
                         <configuration>
-                            <argLine>-agentlib:native-image-agent=config-output-dir=src/main/resources/META-INF/native-image</argLine>
+                            <argLine>
+                                -agentlib:native-image-agent=config-output-dir=src/main/resources/META-INF/native-image
+                            </argLine>
                             <includes>
                                 <include>**/CodgenApplicationTests.java</include>
                             </includes>
@@ -179,7 +203,8 @@
                                 <!-- 建立独立镜像，不成功则报告失败 -->
                                 <buildArg>--no-fallback</buildArg>
                                 <!-- 指定native-image配置文件的目录(此目录由maven编译gen-native-image-configs生成) -->
-                                <buildArg>-H:ConfigurationFileDirectories=src/main/resources/META-INF/native-image/</buildArg>
+                                <buildArg>-H:ConfigurationFileDirectories=src/main/resources/META-INF/native-image/
+                                </buildArg>
                                 <!-- 级别设置为3，打包时输出包含的资源文件 -->
                                 <buildArg>-H:Log=registerResource:3</buildArg>
                             </buildArgs>

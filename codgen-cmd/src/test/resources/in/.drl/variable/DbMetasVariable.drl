@@ -6,10 +6,10 @@ import rebue.wheel.core.JdbcUtils;
 import rebue.wheel.serialization.jackson.JacksonUtils;
 import com.github.codgen.core.drools.fact.VariableFact;
 
-declare JdbcOptions
-  connect   : JdbcUtils.ConnectParam
-  tableName : String
-end
+//declare JdbcOptions
+//  connect   : JdbcUtils.ConnectParam
+//  tableName : String
+//end
 
 /**
  * 数据库信息变量
@@ -19,7 +19,7 @@ rule variable_db_metas
     no-loop true            // 防止死循环(当规则通过update之类的函数修改了Fact对象时，可能使当前规则再次被激活从而导致死循环)
     lock-on-active true     // 限制当前规则只会被执行一次(包括当前规则的重复执行不是本身触发的)
 when
-    $variableFact: VariableFact($variableMap: variableMap)
+    $variableFact: VariableFact()
 then
     // 指定变量选项的key
     final String VARIABLE_OPTIONS_KEY = "dbMetas";
@@ -34,14 +34,20 @@ then
     Map<String, JdbcUtils.DbMeta> dbMetas = new HashMap<>();
     if (jdbcOptionsMap != null && !jdbcOptionsMap.isEmpty()) {
         for (Map.Entry<String, ?> entry : jdbcOptionsMap.entrySet()) {
-            // jdbc选项原为Map类型，利用jackson将其转换成JdbcOptions对象
-            JdbcOptions jdbcOptions = JacksonUtils.getObjectMapper().convertValue(entry.getValue(), JdbcOptions.class);
-            JdbcUtils.DbMeta dbMeta = JdbcUtils.getDbMeta(jdbcOptions.getConnect(), jdbcOptions.getTableName());
+//            // jdbc选项原为Map类型，利用jackson将其转换成JdbcOptions对象
+//            JdbcOptions jdbcOptions = JacksonUtils.getObjectMapper().convertValue(entry.getValue(), JdbcOptions.class);
+//            JdbcUtils.DbMeta dbMeta = JdbcUtils.getDbMeta(jdbcOptions.getConnect(), jdbcOptions.getTableName());
+            Map<String, ?> jdbcOptions = (Map<String, ?>)entry.getValue();
+            JdbcUtils.ConnectParam connectParam = JacksonUtils.getObjectMapper().convertValue(
+                    jdbcOptions.get("connect"), JdbcUtils.ConnectParam.class);
+            String tableName = (String) jdbcOptions.get("tableName");
+            JdbcUtils.DbMeta dbMeta = JdbcUtils.getDbMeta(connectParam, tableName);
             dbMetas.put(entry.getKey(), dbMeta);
         }
     }
     System.out.printf("database meta: %s%n", JacksonUtils.serializeWithPretty(dbMetas));
 
-    $variableMap.put(VARIABLE_OPTIONS_KEY, dbMetas);
+    Map variableMap = $variableFact.getVariableMap();
+    variableMap.put(VARIABLE_OPTIONS_KEY, dbMetas);
     update($variableFact);
 end

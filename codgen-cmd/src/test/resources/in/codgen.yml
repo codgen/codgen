@@ -56,3 +56,10 @@ bindings:
     - version
     # 作者名称
     - author
+# 模板的配置选项
+#template:
+#  api:
+#    # 输入路径
+#    inPath: api.btl
+#    # 输出路径
+#    outPath: ${project}-api/src/main/java/${artifact}/${EntityClassName}Api.java

@@ -1,23 +1,29 @@
 {
   "resources":{
   "includes":[{
+    "pattern":"\\QMETA-INF/WorkDefinitions.conf\\E"
+  }, {
     "pattern":"\\QMETA-INF/kie.default.mvel.properties.conf\\E"
   }, {
     "pattern":"\\QMETA-INF/kie.default.properties.conf\\E"
   }, {
+    "pattern":"\\QMETA-INF/services/ch.qos.logback.classic.spi.Configurator\\E"
+  }, {
+    "pattern":"\\QMETA-INF/services/java.sql.Driver\\E"
+  }, {
     "pattern":"\\QMETA-INF/services/org.apache.maven.surefire.spi.MasterProcessChannelProcessorFactory\\E"
   }, {
-    "pattern":"\\QMETA-INF/services/org.drools.compiler.builder.impl.classbuilder.ClassBuilderFactory\\E"
+    "pattern":"\\QMETA-INF/services/org.drools.compiler.kie.builder.impl.KieBaseUpdaters\\E"
   }, {
     "pattern":"\\QMETA-INF/services/org.drools.compiler.rule.builder.ConstraintBuilder\\E"
   }, {
     "pattern":"\\QMETA-INF/services/org.drools.core.base.CoreComponentsBuilder\\E"
   }, {
-    "pattern":"\\QMETA-INF/services/org.drools.core.base.FieldAccessorFactory\\E"
-  }, {
     "pattern":"\\QMETA-INF/services/org.drools.core.base.XMLSupport\\E"
   }, {
     "pattern":"\\QMETA-INF/services/org.drools.core.reteoo.CoreComponentFactory\\E"
+  }, {
+    "pattern":"\\QMETA-INF/services/org.drools.core.reteoo.RuntimeComponentFactory\\E"
   }, {
     "pattern":"\\QMETA-INF/services/org.drools.wiring.api.ComponentsSupplier\\E"
   }, {
@@ -34,6 +40,10 @@
     "pattern":"\\QMETA-INF/services/org.kie.internal.ruleunit.RuleUnitComponentFactory\\E"
   }, {
     "pattern":"\\QMETA-INF/services/org.slf4j.spi.SLF4JServiceProvider\\E"
+  }, {
+    "pattern":"\\Q\\E"
+  }, {
+    "pattern":"\\Qcom/fasterxml/jackson/core/JacksonException.class\\E"
   }, {
     "pattern":"\\Qcom/fasterxml/jackson/core/JsonProcessingException.class\\E"
   }, {
@@ -55,9 +65,19 @@
   }, {
     "pattern":"\\Qcom/fasterxml/jackson/databind/package-info.class\\E"
   }, {
+    "pattern":"\\Qcom/github/codgen/core/FileInfo$FileInfoBuilder.class\\E"
+  }, {
+    "pattern":"\\Qcom/github/codgen/core/FileInfo.class\\E"
+  }, {
     "pattern":"\\Qcom/github/codgen/core/drools/fact/BindingsFact.class\\E"
   }, {
-    "pattern":"\\Qcom/github/codgen/core/drools/fact/GlobalsFact.class\\E"
+    "pattern":"\\Qcom/github/codgen/core/drools/fact/RenderFact.class\\E"
+  }, {
+    "pattern":"\\Qcom/github/codgen/core/drools/fact/TemplateFact.class\\E"
+  }, {
+    "pattern":"\\Qcom/github/codgen/core/drools/fact/VariableFact.class\\E"
+  }, {
+    "pattern":"\\Qcom/mysql/cj/TlsSettings.properties\\E"
   }, {
     "pattern":"\\Qconf/pom.properties\\E"
   }, {
@@ -83,11 +103,15 @@
   }, {
     "pattern":"\\Qjava/lang/AutoCloseable.class\\E"
   }, {
+    "pattern":"\\Qjava/lang/CharSequence.class\\E"
+  }, {
     "pattern":"\\Qjava/lang/Class.class\\E"
   }, {
     "pattern":"\\Qjava/lang/ClassNotFoundException.class\\E"
   }, {
     "pattern":"\\Qjava/lang/Cloneable.class\\E"
+  }, {
+    "pattern":"\\Qjava/lang/Comparable.class\\E"
   }, {
     "pattern":"\\Qjava/lang/Exception.class\\E"
   }, {
@@ -97,6 +121,8 @@
   }, {
     "pattern":"\\Qjava/lang/Object.class\\E"
   }, {
+    "pattern":"\\Qjava/lang/RuntimeException.class\\E"
+  }, {
     "pattern":"\\Qjava/lang/String.class\\E"
   }, {
     "pattern":"\\Qjava/lang/SuppressWarnings.class\\E"
@@ -104,6 +130,10 @@
     "pattern":"\\Qjava/lang/System.class\\E"
   }, {
     "pattern":"\\Qjava/lang/Throwable.class\\E"
+  }, {
+    "pattern":"\\Qjava/lang/constant/Constable.class\\E"
+  }, {
+    "pattern":"\\Qjava/lang/constant/ConstantDesc.class\\E"
   }, {
     "pattern":"\\Qjava/sql/SQLException.class\\E"
   }, {
@@ -119,6 +149,8 @@
   }, {
     "pattern":"\\Qjava/util/Iterator.class\\E"
   }, {
+    "pattern":"\\Qjava/util/List.class\\E"
+  }, {
     "pattern":"\\Qjava/util/Locale.class\\E"
   }, {
     "pattern":"\\Qjava/util/Map$Entry.class\\E"
@@ -132,6 +164,14 @@
     "pattern":"\\Qjava/util/function/BiFunction.class\\E"
   }, {
     "pattern":"\\Qjava/util/function/Function.class\\E"
+  }, {
+    "pattern":"\\Qorg/beetl/core/GroupTemplate.class\\E"
+  }, {
+    "pattern":"\\Qorg/beetl/core/Template.class\\E"
+  }, {
+    "pattern":"\\Qorg/beetl/core/beetl-default.properties\\E"
+  }, {
+    "pattern":"\\Qorg/beetl/core/exception/BeetlException.class\\E"
   }, {
     "pattern":"\\Qorg/drools/compiler/shade/org/eclipse/jdt/internal/compiler/messages.properties\\E"
   }, {
@@ -193,6 +233,8 @@
   }, {
     "pattern":"\\Qorg/drools/core/util/bitmask/BitMask.class\\E"
   }, {
+    "pattern":"\\Qorg/drools/core/util/bitmask/LongBitMask.class\\E"
+  }, {
     "pattern":"\\Qorg/drools/core/util/bitmask/SingleLongBitMask.class\\E"
   }, {
     "pattern":"\\Qorg/drools/mvel/java/javaFunction.mvel\\E"
@@ -239,11 +281,15 @@
   }, {
     "pattern":"java.base:\\Qjava/lang/AutoCloseable.class\\E"
   }, {
+    "pattern":"java.base:\\Qjava/lang/CharSequence.class\\E"
+  }, {
     "pattern":"java.base:\\Qjava/lang/Class.class\\E"
   }, {
     "pattern":"java.base:\\Qjava/lang/ClassNotFoundException.class\\E"
   }, {
     "pattern":"java.base:\\Qjava/lang/Cloneable.class\\E"
+  }, {
+    "pattern":"java.base:\\Qjava/lang/Comparable.class\\E"
   }, {
     "pattern":"java.base:\\Qjava/lang/Exception.class\\E"
   }, {
@@ -253,6 +299,8 @@
   }, {
     "pattern":"java.base:\\Qjava/lang/Object.class\\E"
   }, {
+    "pattern":"java.base:\\Qjava/lang/RuntimeException.class\\E"
+  }, {
     "pattern":"java.base:\\Qjava/lang/String.class\\E"
   }, {
     "pattern":"java.base:\\Qjava/lang/SuppressWarnings.class\\E"
@@ -260,6 +308,10 @@
     "pattern":"java.base:\\Qjava/lang/System.class\\E"
   }, {
     "pattern":"java.base:\\Qjava/lang/Throwable.class\\E"
+  }, {
+    "pattern":"java.base:\\Qjava/lang/constant/Constable.class\\E"
+  }, {
+    "pattern":"java.base:\\Qjava/lang/constant/ConstantDesc.class\\E"
   }, {
     "pattern":"java.base:\\Qjava/util/AbstractMap.class\\E"
   }, {
@@ -272,6 +324,8 @@
     "pattern":"java.base:\\Qjava/util/HashMap.class\\E"
   }, {
     "pattern":"java.base:\\Qjava/util/Iterator.class\\E"
+  }, {
+    "pattern":"java.base:\\Qjava/util/List.class\\E"
   }, {
     "pattern":"java.base:\\Qjava/util/Locale.class\\E"
   }, {
@@ -289,9 +343,14 @@
   }, {
     "pattern":"java.base:\\Qjava/util/function/Function.class\\E"
   }, {
+    "pattern":"java.base:\\Qjdk/internal/icu/impl/data/icudt72b/nfc.nrm\\E"
+  }, {
     "pattern":"java.sql:\\Qjava/sql/SQLException.class\\E"
   }]},
   "bundles":[{
+    "name":"com.mysql.cj.LocalizedErrorMessages",
+    "locales":[""]
+  }, {
     "name":"com.sun.org.apache.xerces.internal.impl.xpath.regex.message",
     "locales":[""]
   }, {

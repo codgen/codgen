@@ -20,7 +20,7 @@ when
 then
     @SuppressWarnings("unchecked")
     GroupTemplate defaultGroupTemplate = (GroupTemplate) $templateFact.getGroupTemplates().get("default");
-    $templateFact.setPathTemplate(defaultGroupTemplate.getTemplate($templateFact.getTemplateFileInfo().getPath()));
-    $templateFact.setContentTemplate(defaultGroupTemplate.getTemplate($templateFact.getTemplateFileInfo().getContent()));
+    $templateFact.setPathTemplate(defaultGroupTemplate.getTemplateProxy(defaultGroupTemplate.getTemplate($templateFact.getTemplateFileInfo().getPath())));
+    $templateFact.setContentTemplate(defaultGroupTemplate.getTemplateProxy(defaultGroupTemplate.getTemplate($templateFact.getTemplateFileInfo().getContent())));
     update($templateFact);
 end
