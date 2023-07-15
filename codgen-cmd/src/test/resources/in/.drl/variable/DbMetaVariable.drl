@@ -1,0 +1,45 @@
+package variable;
+
+import java.util.Map;
+import java.util.HashMap;
+import rebue.wheel.core.JdbcUtils;
+import rebue.wheel.serialization.jackson.JacksonUtils;
+import com.github.codgen.core.drools.fact.VariableFact;
+
+declare JdbcOptions
+  connect   : JdbcUtils.ConnectParam
+  tableName : String
+end
+
+/**
+ * 数据库信息变量
+ */
+rule variable_db
+    agenda-group "variable"
+    no-loop true            // 防止死循环(当规则通过update之类的函数修改了Fact对象时，可能使当前规则再次被激活从而导致死循环)
+    lock-on-active true     // 限制当前规则只会被执行一次(包括当前规则的重复执行不是本身触发的)
+when
+    $variableFact: VariableFact($variableMap: variableMap)
+then
+    // 执行默认变量规则时忽略此变量
+    final String VARIABLE_OPTIONS_KEY = "jdbc";
+    $variableFact.getIgnoreVariableOptions().add(VARIABLE_OPTIONS_KEY);
+    @SuppressWarnings("unchecked")
+    Map<String, ?> jdbcOptionsMap = (Map<String, ?>) $variableFact.getVariableOptions().get(VARIABLE_OPTIONS_KEY);
+    System.out.printf("readDbMatas: %s(%s)%n", jdbcOptionsMap, jdbcOptionsMap.getClass().getName());
+
+    // 读取数据库信息
+    Map<String, JdbcUtils.DbMeta> dbMetas = new HashMap<>();
+    if (jdbcOptionsMap != null && !jdbcOptionsMap.isEmpty()) {
+        for (Map.Entry<String, ?> entry : jdbcOptionsMap.entrySet()) {
+            // jdbc选项原为Map类型，利用jackson将其转换成JdbcOptions对象
+            JdbcOptions jdbcOptions = JacksonUtils.getObjectMapper().convertValue(entry.getValue(), JdbcOptions.class);
+            JdbcUtils.DbMeta dbMeta = JdbcUtils.getDbMeta(jdbcOptions.getConnect(), jdbcOptions.getTableName());
+            dbMetas.put(entry.getKey(), dbMeta);
+        }
+    }
+    System.out.printf("database meta: %s%n", JacksonUtils.serializeWithPretty(dbMetas));
+
+    $variableMap.put("dbMetas", dbMetas);
+    update($variableFact);
+end

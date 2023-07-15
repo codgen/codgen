@@ -6,7 +6,7 @@
 
 == Maven打包顺序
 
-. codgen总项目打包编译
+. *codgen* 总项目打包编译
 +
 在 *codgen* 总项目目录下执行下面的命令
 +
@@ -14,7 +14,7 @@
 ----
 mvn clean install -DskipTests
 ----
-. 生成打包 native-image 的配置文件
+. 生成编译 *native-image* 的配置文件
 +
 在 *codgen-cmd* 项目的目录下执行下面的命令
 +
@@ -22,6 +22,7 @@ mvn clean install -DskipTests
 ----
 mvn test -Dtest=CodgenApplicationTests#testMain -Pgen-native-image-configs
 ----
+此命令将在 *src/main/resources/META-INF/native-image* 目录下生成编译 *native-image* 的配置文件
 . 打包生成 *native-image* 的执行文件
 +
 在 *codgen-cmd* 项目的目录下执行下面的命令

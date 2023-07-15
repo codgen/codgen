@@ -28,7 +28,7 @@
             <dependency>
                 <groupId>com.github.codgen</groupId>
                 <artifactId>codgen-core</artifactId>
-                <version>${version}</version>
+                <version>${project.version}</version>
             </dependency>
 
             <dependency>

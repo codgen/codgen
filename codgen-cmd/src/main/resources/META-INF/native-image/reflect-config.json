@@ -1,25 +1,6 @@
 [
 {
-  "name":"[Lcom.fasterxml.jackson.databind.deser.Deserializers;"
-},
-{
-  "name":"[Lcom.fasterxml.jackson.databind.deser.KeyDeserializers;"
-},
-{
-  "name":"[Lcom.fasterxml.jackson.databind.deser.ValueInstantiators;"
-},
-{
-  "name":"[Lcom.fasterxml.jackson.databind.ser.Serializers;"
-},
-{
   "name":"[Ljava.lang.String;"
-},
-{
-  "name":"apple.security.AppleProvider",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"com.fasterxml.jackson.core.JacksonException"
 },
 {
   "name":"com.fasterxml.jackson.core.JsonProcessingException"
@@ -49,10 +30,6 @@
   "name":"com.fasterxml.jackson.databind.ObjectMapper"
 },
 {
-  "name":"com.fasterxml.jackson.databind.ext.Java7SupportImpl",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
   "name":"com.fasterxml.jackson.databind.package-info"
 },
 {
@@ -68,7 +45,7 @@
   "name":"com.github.codgen.core.GenOptions",
   "allDeclaredFields":true,
   "queryAllPublicMethods":true,
-  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"setBindings","parameterTypes":["java.util.Map"] }, {"name":"setGlobal","parameterTypes":["java.util.Map"] }, {"name":"setGroupTemplate","parameterTypes":["java.util.Map"] }]
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"setBindings","parameterTypes":["java.util.Map"] }, {"name":"setGlobals","parameterTypes":["java.util.Map"] }, {"name":"setGroupTemplates","parameterTypes":["java.util.Map"] }]
 },
 {
   "name":"com.github.codgen.core.GenOptionsBeanInfo"
@@ -80,81 +57,11 @@
   "name":"com.github.codgen.core.drools.fact.BindingsFact"
 },
 {
-  "name":"com.github.codgen.core.drools.fact.GlobalFact",
+  "name":"com.github.codgen.core.drools.fact.GlobalsFact",
   "allDeclaredFields":true,
   "allPublicFields":true,
   "queryAllDeclaredMethods":true,
   "queryAllPublicMethods":true
-},
-{
-  "name":"com.mysql.cj.conf.url.SingleConnectionUrl",
-  "methods":[{"name":"<init>","parameterTypes":["com.mysql.cj.conf.ConnectionUrlParser","java.util.Properties"] }]
-},
-{
-  "name":"com.mysql.cj.jdbc.AbandonedConnectionCleanupThread"
-},
-{
-  "name":"com.mysql.cj.jdbc.Driver"
-},
-{
-  "name":"com.mysql.cj.log.StandardLogger",
-  "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
-},
-{
-  "name":"com.mysql.cj.protocol.StandardSocketFactory",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"com.sun.crypto.provider.AESCipher$General",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"com.sun.crypto.provider.ARCFOURCipher",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"com.sun.crypto.provider.ChaCha20Cipher$ChaCha20Poly1305",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"com.sun.crypto.provider.DESCipher",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"com.sun.crypto.provider.DESedeCipher",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"com.sun.crypto.provider.DHKeyAgreement",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"com.sun.crypto.provider.DHKeyFactory",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"com.sun.crypto.provider.DHKeyPairGenerator",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"com.sun.crypto.provider.DHParameters",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"com.sun.crypto.provider.GaloisCounterMode$AESGCM",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"com.sun.crypto.provider.TlsKeyMaterialGenerator",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"com.sun.crypto.provider.TlsMasterSecretGenerator",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"com.sun.crypto.provider.TlsPrfGenerator$V12",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
   "name":"com.sun.org.apache.xerces.internal.impl.dv.xs.ExtendedSchemaDVFactoryImpl",
@@ -410,9 +317,6 @@
   "queryAllPublicMethods":true
 },
 {
-  "name":"com.thoughtworks.xstream.mapper.DynamicProxyMapper$DynamicProxy"
-},
-{
   "name":"com.thoughtworks.xstream.mapper.ElementIgnoringMapper",
   "queryAllPublicMethods":true
 },
@@ -492,17 +396,10 @@
   "name":"globals.JdbcOptions",
   "allDeclaredFields":true,
   "allPublicFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllPublicMethods":true,
-  "queryAllDeclaredConstructors":true,
-  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"setConnect","parameterTypes":["rebue.wheel.core.JdbcUtils$ConnectParam"] }, {"name":"setTableName","parameterTypes":["java.lang.String"] }]
+  "queryAllPublicMethods":true
 },
 {
-  "name":"globals.Rule_readDbMatas738273171DefaultConsequenceInvoker",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"globals.Rule_readDbMatas738273171DefaultConsequenceInvokerGenerated",
+  "name":"globals.Rule_readDbMatas563547534DefaultConsequenceInvoker",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
@@ -519,9 +416,6 @@
 },
 {
   "name":"java.io.Closeable"
-},
-{
-  "name":"java.io.Externalizable"
 },
 {
   "name":"java.io.File"
@@ -548,8 +442,7 @@
   "name":"java.io.PrintStream"
 },
 {
-  "name":"java.io.Serializable",
-  "queryAllDeclaredMethods":true
+  "name":"java.io.Serializable"
 },
 {
   "name":"java.lang.Appendable"
@@ -632,9 +525,6 @@
   "name":"java.lang.ObjectCustomizer"
 },
 {
-  "name":"java.lang.RuntimeException"
-},
-{
   "name":"java.lang.Short"
 },
 {
@@ -648,6 +538,9 @@
 },
 {
   "name":"java.lang.StringBuilder"
+},
+{
+  "name":"java.lang.SuppressWarnings"
 },
 {
   "name":"java.lang.System"
@@ -707,16 +600,7 @@
   "methods":[{"name":"get","parameterTypes":["java.lang.String","java.lang.String[]"] }]
 },
 {
-  "name":"java.security.AlgorithmParametersSpi"
-},
-{
   "name":"java.security.SecureRandomParameters"
-},
-{
-  "name":"java.security.interfaces.RSAPrivateKey"
-},
-{
-  "name":"java.security.interfaces.RSAPublicKey"
 },
 {
   "name":"java.sql.Date"
@@ -947,10 +831,7 @@
   "name":"java.util.Map$Entry"
 },
 {
-  "name":"java.util.Properties",
-  "queryAllDeclaredMethods":true,
-  "queryAllDeclaredConstructors":true,
-  "methods":[{"name":"<init>","parameterTypes":[] }]
+  "name":"java.util.Properties"
 },
 {
   "name":"java.util.Set"
@@ -981,12 +862,6 @@
   "fields":[{"name":"value"}]
 },
 {
-  "name":"java.util.concurrent.atomic.AtomicInteger"
-},
-{
-  "name":"java.util.concurrent.atomic.AtomicLong"
-},
-{
   "name":"java.util.concurrent.atomic.AtomicReference",
   "fields":[{"name":"value"}]
 },
@@ -1010,21 +885,10 @@
   "name":"javax.activation.ActivationDataFlavor"
 },
 {
-  "name":"javax.crypto.interfaces.DHPrivateKey"
-},
-{
-  "name":"javax.crypto.interfaces.DHPublicKey"
-},
-{
   "name":"javax.naming.InitialContext"
 },
 {
   "name":"javax.security.auth.Subject"
-},
-{
-  "name":"javax.security.auth.x500.X500Principal",
-  "fields":[{"name":"thisX500Name"}],
-  "methods":[{"name":"<init>","parameterTypes":["sun.security.x509.X500Name"] }]
 },
 {
   "name":"javax.swing.LookAndFeel"
@@ -1037,10 +901,6 @@
   "methods":[{"name":"setFeature","parameterTypes":["java.lang.String","boolean"] }]
 },
 {
-  "name":"org.antlr.v4.runtime.RuntimeMetaData",
-  "fields":[{"name":"VERSION"}]
-},
-{
   "name":"org.apache.maven.surefire.junitplatform.JUnitPlatformProvider",
   "methods":[{"name":"<init>","parameterTypes":["org.apache.maven.surefire.api.provider.ProviderParameters"] }]
 },
@@ -1049,246 +909,32 @@
   "queryAllPublicMethods":true
 },
 {
-  "name":"org.beetl.core.ConsoleErrorHandler",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"org.beetl.core.DefaultNativeSecurityManager",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"org.beetl.core.GroupTemplate$SizeVirtualAttributeEval",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"org.beetl.core.engine.BeetlAntlrParser49",
-  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"execute","parameterTypes":["java.io.Reader","org.antlr.v4.runtime.DefaultErrorStrategy","org.antlr.v4.runtime.BaseErrorListener"] }]
-},
-{
-  "name":"org.beetl.core.engine.FastRuntimeEngine",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"org.beetl.core.impl.cache.DefaultBeetlCache",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"org.beetl.core.tag.HTMLTagSupportWrapper"
-},
-{
-  "name":"org.beetl.core.tag.HTMLTagVarBindingWrapper"
-},
-{
-  "name":"org.beetl.core.text.DefaultAttributeNameConvert",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"org.beetl.ext.fn.AllGlobaAsJsonlFunction",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"org.beetl.ext.fn.ArrayUtil",
-  "queryAllPublicMethods":true,
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"org.beetl.ext.fn.AssertFunction",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"org.beetl.ext.fn.CheckExistFunction",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"org.beetl.ext.fn.DateFunction",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"org.beetl.ext.fn.DebugFunction",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"org.beetl.ext.fn.DecodeFunction",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"org.beetl.ext.fn.DynamicGlobalValueFunction",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"org.beetl.ext.fn.EmptyExpressionFunction",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"org.beetl.ext.fn.EnvFunction",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"org.beetl.ext.fn.Flush",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"org.beetl.ext.fn.HasAttributeFunction",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"org.beetl.ext.fn.IsNotEmptyExpressionFunction",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"org.beetl.ext.fn.Json",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"org.beetl.ext.fn.NVLFunction",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"org.beetl.ext.fn.PageContextFunction",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"org.beetl.ext.fn.ParentTagFunction",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"org.beetl.ext.fn.ParseDouble",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"org.beetl.ext.fn.ParseInt",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"org.beetl.ext.fn.ParseLong",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"org.beetl.ext.fn.Print",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"org.beetl.ext.fn.PrintFile",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"org.beetl.ext.fn.Printf",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"org.beetl.ext.fn.Println",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"org.beetl.ext.fn.QuestionMark",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"org.beetl.ext.fn.Range",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"org.beetl.ext.fn.RegxFunctionUtil",
-  "queryAllPublicMethods":true,
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"org.beetl.ext.fn.StringUtil",
-  "queryAllPublicMethods":true,
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"org.beetl.ext.fn.TruncFunction",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"org.beetl.ext.fn.TruncFunction2",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"org.beetl.ext.fn.TypeNameFunction",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"org.beetl.ext.fn.TypeNewFunction",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"org.beetl.ext.format.DateFormat",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"org.beetl.ext.format.NumberFormat",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"org.beetl.ext.tag.DeleteTag"
-},
-{
-  "name":"org.beetl.ext.tag.IncludeFragmentTag"
-},
-{
-  "name":"org.beetl.ext.tag.IncludeTag"
-},
-{
-  "name":"org.beetl.ext.tag.LayoutTag"
-},
-{
-  "name":"org.beetl.ext.tag.cache.CacheTag"
-},
-{
-  "name":"org.beetl.ext.tag.html.ForeachHtmlTag"
-},
-{
-  "name":"org.beetl.ext.tag.html.IfHtmlTag"
-},
-{
-  "name":"org.beetl.ext.tag.html.IncludeResourceFragmentHtmlTag"
-},
-{
-  "name":"org.beetl.ext.tag.html.IncludeResourceHtmlTag"
-},
-{
-  "name":"org.beetl.ext.tag.html.LayoutResourceHtmlTag"
-},
-{
-  "name":"org.beetl.ext.tag.html.SetHtmlTag"
-},
-{
   "name":"org.drools.android.DroolsAndroidContext"
 },
 {
-  "name":"org.drools.base.com.github.codgen.core.drools.fact.GlobalFact1449987177$getGlobalOptions",
-  "queryAllPublicConstructors":true,
-  "methods":[{"name":"<init>","parameterTypes":["int","java.lang.Class","org.drools.core.base.ValueType"] }, {"name":"getValue","parameterTypes":["org.drools.core.common.ReteEvaluator","java.lang.Object"] }]
-},
-{
-  "name":"org.drools.base.com.github.codgen.core.drools.fact.GlobalFact1449987177$getGlobals",
-  "queryAllPublicConstructors":true,
-  "methods":[{"name":"<init>","parameterTypes":["int","java.lang.Class","org.drools.core.base.ValueType"] }, {"name":"getValue","parameterTypes":["org.drools.core.common.ReteEvaluator","java.lang.Object"] }]
-},
-{
-  "name":"org.drools.base.globals.JdbcOptions1989219205$getConnect",
+  "name":"org.drools.base.com.github.codgen.core.drools.fact.GlobalsFact2058174333$getGlobals",
   "queryAllPublicConstructors":true,
   "methods":[{"name":"<init>","parameterTypes":["int","java.lang.Class","org.drools.core.base.ValueType"] }]
 },
 {
-  "name":"org.drools.base.globals.JdbcOptions1989219205$getTableName",
+  "name":"org.drools.base.globals.JdbcOptions1573125303$getConnect",
   "queryAllPublicConstructors":true,
   "methods":[{"name":"<init>","parameterTypes":["int","java.lang.Class","org.drools.core.base.ValueType"] }]
 },
 {
-  "name":"org.drools.base.globals.JdbcOptions1989219205$setConnect",
+  "name":"org.drools.base.globals.JdbcOptions1573125303$getTableName",
   "queryAllPublicConstructors":true,
   "methods":[{"name":"<init>","parameterTypes":["int","java.lang.Class","org.drools.core.base.ValueType"] }]
 },
 {
-  "name":"org.drools.base.globals.JdbcOptions1989219205$setTableName",
+  "name":"org.drools.base.globals.JdbcOptions1573125303$setConnect",
   "queryAllPublicConstructors":true,
   "methods":[{"name":"<init>","parameterTypes":["int","java.lang.Class","org.drools.core.base.ValueType"] }]
 },
 {
-  "name":"org.drools.cdi.CDIHelper"
+  "name":"org.drools.base.globals.JdbcOptions1573125303$setTableName",
+  "queryAllPublicConstructors":true,
+  "methods":[{"name":"<init>","parameterTypes":["int","java.lang.Class","org.drools.core.base.ValueType"] }]
 },
 {
   "name":"org.drools.compiler.kproject.models.KieModuleModelImpl"
@@ -1382,10 +1028,6 @@
   "methods":[{"name":"getValue","parameterTypes":["org.drools.core.common.ReteEvaluator","java.lang.Object"] }]
 },
 {
-  "name":"org.drools.core.factmodel.GeneratedFact",
-  "queryAllDeclaredMethods":true
-},
-{
   "name":"org.drools.core.factmodel.traits.Thing",
   "allDeclaredFields":true,
   "allPublicFields":true,
@@ -1398,23 +1040,9 @@
   "methods":[{"name":"getIdentifier","parameterTypes":[] }, {"name":"getTypeName","parameterTypes":[] }]
 },
 {
-  "name":"org.drools.core.rule.KieModuleMetaInfo",
-  "allDeclaredFields":true,
-  "methods":[{"name":"readObject","parameterTypes":["java.io.ObjectInputStream"] }, {"name":"writeObject","parameterTypes":["java.io.ObjectOutputStream"] }, {"name":"writeReplace","parameterTypes":[] }]
-},
-{
-  "name":"org.drools.core.rule.TypeMetaInfo",
-  "allDeclaredFields":true,
-  "methods":[{"name":"readObject","parameterTypes":["java.io.ObjectInputStream"] }, {"name":"writeObject","parameterTypes":["java.io.ObjectOutputStream"] }, {"name":"writeReplace","parameterTypes":[] }]
-},
-{
   "name":"org.drools.core.rule.consequence.KnowledgeHelper",
   "allPublicFields":true,
   "queryAllPublicMethods":true
-},
-{
-  "name":"org.drools.core.runtime.rule.impl.DefaultConsequenceExceptionHandler",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
   "name":"org.drools.core.util.bitmask.AllSetButLastBitMask"
@@ -1545,39 +1173,10 @@
   "name":"rebue.wheel.core.JdbcUtils"
 },
 {
-  "name":"rebue.wheel.core.JdbcUtils$ColumnMeta",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllDeclaredConstructors":true,
-  "methods":[{"name":"getIsForeignKey","parameterTypes":[] }, {"name":"getIsNullable","parameterTypes":[] }, {"name":"getIsPrimaryKey","parameterTypes":[] }, {"name":"getIsUnique","parameterTypes":[] }, {"name":"getName","parameterTypes":[] }, {"name":"getPrecision","parameterTypes":[] }, {"name":"getReferencedColumnName","parameterTypes":[] }, {"name":"getReferencedTableName","parameterTypes":[] }, {"name":"getRemark","parameterTypes":[] }, {"name":"getScale","parameterTypes":[] }, {"name":"getType","parameterTypes":[] }, {"name":"getTypeName","parameterTypes":[] }]
+  "name":"rebue.wheel.core.JdbcUtils$ConnectParam"
 },
 {
-  "name":"rebue.wheel.core.JdbcUtils$ConnectParam",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllDeclaredConstructors":true,
-  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"setParams","parameterTypes":["java.lang.String[]"] }, {"name":"setProperties","parameterTypes":["java.util.Properties"] }, {"name":"setUrl","parameterTypes":["java.lang.String"] }]
-},
-{
-  "name":"rebue.wheel.core.JdbcUtils$DbMeta",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllDeclaredConstructors":true,
-  "methods":[{"name":"getName","parameterTypes":[] }, {"name":"getProductName","parameterTypes":[] }, {"name":"getTables","parameterTypes":[] }]
-},
-{
-  "name":"rebue.wheel.core.JdbcUtils$ImportKeyMeta",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllDeclaredConstructors":true,
-  "methods":[{"name":"getFkColumnName","parameterTypes":[] }, {"name":"getFkTableName","parameterTypes":[] }, {"name":"getPkColumnName","parameterTypes":[] }, {"name":"getPkTableName","parameterTypes":[] }]
-},
-{
-  "name":"rebue.wheel.core.JdbcUtils$TableMeta",
-  "allDeclaredFields":true,
-  "queryAllDeclaredMethods":true,
-  "queryAllDeclaredConstructors":true,
-  "methods":[{"name":"getColumns","parameterTypes":[] }, {"name":"getImportedKeys","parameterTypes":[] }, {"name":"getName","parameterTypes":[] }, {"name":"getPrimaryKeys","parameterTypes":[] }, {"name":"getRemark","parameterTypes":[] }, {"name":"getUniques","parameterTypes":[] }]
+  "name":"rebue.wheel.core.JdbcUtils$DbMeta"
 },
 {
   "name":"rebue.wheel.core.JdbcUtils.ConnectParam"
@@ -1591,75 +1190,11 @@
   "methods":[{"name":"allocateInstance","parameterTypes":["java.lang.Class"] }]
 },
 {
-  "name":"sun.security.provider.DSA$SHA224withDSA",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"sun.security.provider.DSA$SHA256withDSA",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
   "name":"sun.security.provider.NativePRNG",
   "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"<init>","parameterTypes":["java.security.SecureRandomParameters"] }]
 },
 {
   "name":"sun.security.provider.SHA",
   "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"sun.security.provider.SHA2$SHA224",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"sun.security.provider.SHA2$SHA256",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"sun.security.provider.SHA5$SHA384",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"sun.security.provider.SHA5$SHA512",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"sun.security.provider.X509Factory",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"sun.security.rsa.PSSParameters",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"sun.security.rsa.RSAKeyFactory$Legacy",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"sun.security.rsa.RSAPSSSignature",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"sun.security.rsa.RSASignature$SHA224withRSA",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"sun.security.rsa.RSASignature$SHA256withRSA",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"sun.security.ssl.KeyManagerFactoryImpl$SunX509",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"sun.security.ssl.SSLContextImpl$TLSContext",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"sun.security.ssl.TrustManagerFactoryImpl$PKIXFactory",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"sun.security.x509.BasicConstraintsExtension",
-  "methods":[{"name":"<init>","parameterTypes":["java.lang.Boolean","java.lang.Object"] }]
 }
 ]

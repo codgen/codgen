@@ -1,8 +1,3 @@
-# 绑定的变量
-bindings:
-  default:
-    # 项目名称
-    projectName: abc
 # groupTemplate的配置选项(不设置则启用默认配置)
 groupTemplate:
   default:
@@ -15,7 +10,17 @@ groupTemplate:
     # 右定界符
     DELIMITER_STATEMENT_END: '%>'
 # 全局变量的配置选项
-global:
+variable:
+  # 项目名称
+  project: abc
+  # 分组
+  group: com.github.codgen
+  # 模块名称
+  artifact: codgen-abc
+  # 版本
+  version: 1.0.0
+  # 作者名称
+  author: zbz
   # jdbc的配置选项
   jdbc:
     default:
@@ -38,3 +43,16 @@ global:
           password: test
       # 表名过滤的模式(不设置则获取所有的表)
       tableName: TEST_A%
+# 绑定的变量
+bindings:
+  default:
+    # 项目名称
+    - project
+    # 分组
+    - group
+    # 模块名称
+    - artifact
+    # 版本
+    - version
+    # 作者名称
+    - author

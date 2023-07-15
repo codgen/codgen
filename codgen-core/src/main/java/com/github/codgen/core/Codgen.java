@@ -1,15 +1,14 @@
 package com.github.codgen.core;
 
+import com.github.codgen.core.drools.DroolsUtils;
 import com.github.codgen.core.drools.fact.BindingsFact;
-import com.github.codgen.core.drools.fact.GlobalFact;
+import com.github.codgen.core.drools.fact.RenderFact;
+import com.github.codgen.core.drools.fact.TemplateFact;
+import com.github.codgen.core.drools.fact.VariableFact;
 import org.beetl.core.Configuration;
 import org.beetl.core.GroupTemplate;
 import org.beetl.core.Template;
 import org.beetl.core.resource.StringTemplateResourceLoader;
-import org.kie.api.KieServices;
-import org.kie.api.builder.KieFileSystem;
-import org.kie.api.runtime.KieContainer;
-import org.kie.api.runtime.KieSession;
 import rebue.wheel.core.MapUtils;
 
 import java.io.IOException;
@@ -20,13 +19,21 @@ import java.util.Map;
 
 public class Codgen {
     /**
-     * 全局变量的议程分组名称
+     * 变量的议程分组名称
      */
-    private static final String GLOBAL_AGENDA_GROUP_NAME   = "globals";
+    private static final String VARIABLE_AGENDA_GROUP_NAME = "variable";
     /**
-     * 绑定变量的议程分组名称
+     * 模板的议程分组名称
+     */
+    private static final String TEMPLATE_AGENDA_GROUP_NAME = "template";
+    /**
+     * 绑定的议程分组名称
      */
     private static final String BINDINGS_AGENDA_GROUP_NAME = "bindings";
+    /**
+     * 渲染的议程分组名称
+     */
+    private static final String RENDER_AGENDA_GROUP_NAME   = "render";
 
     /**
      * 生成
@@ -36,106 +43,70 @@ public class Codgen {
      * @param drls        drools规则文件内容列表
      */
     public static void gen(List<FileInfo> inFileInfos, GenOptions genOptions, Map<String, String> drls) throws IOException {
+        // 初始化groupTemplates
+        Map<String, GroupTemplate> groupTemplates = initGroupTemplates(genOptions.getGroupTemplate());
+
         // 初始化drools
-        KieContainer kieContainer = null;
-        if (drls != null) {
-            KieServices kieServices = KieServices.Factory.get();
-            KieFileSystem kieFileSystem = kieServices.newKieFileSystem()
-                    // XXX kmodule.xml文件的路必须是 src/main/resources/META-INF/kmodule.xml
-                    // 可以用 .writeKModuleXML(""" 替换
-                    .write("src/main/resources/META-INF/kmodule.xml", """   
-                            <?xml version="1.0" encoding="UTF-8"?>
-                            <kmodule xmlns="http://www.drools.org/xsd/kmodule">
-                              <kbase default="true">
-                                  <ksession name="codgen" default="true" />
-                              </kbase>
-                            </kmodule>
-                            """);
-            for (Map.Entry<String, String> drl : drls.entrySet()) {
-                // XXX 规则文件必须放在 src/main/resources/ 路径下
-                kieFileSystem.write("src/main/resources/" + drl.getKey(), drl.getValue());
-            }
-            kieServices.newKieBuilder(kieFileSystem).buildAll();
-            kieContainer = kieServices.newKieContainer(kieServices.getRepository().getDefaultReleaseId());
-        }
+        DroolsUtils.init(drls);
 
-        // 改变global
-        GlobalFact globalFact = null;
-        if (kieContainer != null) {
-            KieSession kieSession = kieContainer.newKieSession();
-            kieSession.getAgenda().getAgendaGroup(GLOBAL_AGENDA_GROUP_NAME).setFocus();
-            globalFact = GlobalFact.builder()
-                    .globals(new HashMap<>())
-                    .globalOptions(genOptions.getGlobal())
+        // 触发variable规则
+        Map<String, Map<String, ?>> variableMap = new HashMap<>();
+        DroolsUtils.fireRules(VARIABLE_AGENDA_GROUP_NAME, VariableFact.builder()
+                .variableOptions(genOptions.getVariable())
+                .ignoreVariableOptions(new LinkedList<>())
+                .variableMap(variableMap)
+                .build());
+
+        // 输出文件信息列表
+        List<FileInfo> outFileInfos = new LinkedList<>();
+        // 遍历输入文件信息列表
+        for (FileInfo inFileInfo : inFileInfos) {
+            // 触发template规则
+            TemplateFact templateFact = TemplateFact.builder()
+                    .groupTemplates(groupTemplates)
+                    .templateFileInfo(inFileInfo)
                     .build();
-            kieSession.insert(globalFact);
-            int firedRulesCount = kieSession.fireAllRules();
-            System.out.printf("触发执行了改变global的规则数为%d%n", firedRulesCount);
-            kieSession.dispose();
+            DroolsUtils.fireRules(TEMPLATE_AGENDA_GROUP_NAME, templateFact);
+            // 从fact返回中获取模板
+            Template pathTemplate    = templateFact.getPathTemplate();
+            Template contentTemplate = templateFact.getContentTemplate();
+            // 触发bindings规则
+            DroolsUtils.fireRules(BINDINGS_AGENDA_GROUP_NAME, BindingsFact.builder()
+                    .templateFileInfo(inFileInfo)
+                    .variableMap(variableMap)
+                    .bindingsOptionsMap(genOptions.getBindings())
+                    .pathTemplate(pathTemplate)
+                    .contentTemplate(contentTemplate)
+                    .build());
+            // 触发render规则
+            DroolsUtils.fireRules(RENDER_AGENDA_GROUP_NAME, RenderFact.builder()
+                    .templateFileInfo(inFileInfo)
+                    .pathTemplate(pathTemplate)
+                    .contentTemplate(contentTemplate)
+                    .outFileInfos(outFileInfos)
+                    .build());
         }
+        System.out.printf("outFileInfos: %s%n", outFileInfos);
+    }
 
-        // 初始化groupTemplate
-        StringTemplateResourceLoader resourceLoader = new StringTemplateResourceLoader();
+    /**
+     * 初始化groupTemplates
+     *
+     * @param groupTemplatesOptions groupTemplates选项
+     * @return groupTemplates
+     */
+    private static Map<String, GroupTemplate> initGroupTemplates(Map<String, Map<String, ?>> groupTemplatesOptions) throws IOException {
         Map<String, GroupTemplate>   groupTemplates = new HashMap<>();
-        if (genOptions.getGroupTemplate() == null || genOptions.getGroupTemplate().isEmpty()) {
+        StringTemplateResourceLoader resourceLoader = new StringTemplateResourceLoader();
+        if (groupTemplatesOptions == null || groupTemplatesOptions.isEmpty()) {
             groupTemplates.put("default", new GroupTemplate(resourceLoader, new Configuration()));
         } else {
-            for (Map.Entry<String, Map<String, ?>> groupTemplateConfig : genOptions.getGroupTemplate().entrySet()) {
+            for (Map.Entry<String, Map<String, ?>> groupTemplateConfig : groupTemplatesOptions.entrySet()) {
                 groupTemplates.put(groupTemplateConfig.getKey(), new GroupTemplate(resourceLoader,
                         new Configuration(MapUtils.map2Props(groupTemplateConfig.getValue()))));
             }
         }
-
-        // 获取配置选项中的bindings
-        Map<String, Map<String, ?>> bindingsMap = new HashMap<>();
-        if (genOptions.getBindings() != null && !genOptions.getBindings().isEmpty()) {
-            bindingsMap.putAll(genOptions.getBindings());
-        }
-
-        // 输出文件信息列表
-        List<FileInfo> outFileInfos  = new LinkedList<>();
-        GroupTemplate  groupTemplate = groupTemplates.get("default");
-        for (FileInfo inFileInfo : inFileInfos) {
-            // 获取默认的bindings
-            @SuppressWarnings("unchecked")
-            Map<String, Object> bindings = (Map<String, Object>) bindingsMap.get("default");
-
-            // 将globals中放入的binding
-            if (globalFact != null && globalFact.getGlobals() != null && !globalFact.getGlobals().isEmpty()) {
-                bindings.putAll(globalFact.getGlobals());
-            }
-
-            // 执行规则引擎自定义绑定变量
-            if (kieContainer != null) {
-                KieSession kieSession = kieContainer.newKieSession();
-                kieSession.getAgenda().getAgendaGroup(BINDINGS_AGENDA_GROUP_NAME).setFocus();
-                BindingsFact bindingsFact = BindingsFact.builder()
-                        .filePath(inFileInfo.getPath())
-                        .bindings(bindings)
-                        .build();
-                kieSession.insert(bindingsFact);
-                kieSession.insert(globalFact);
-                int firedRulesCount = kieSession.fireAllRules();
-                System.out.printf("触发执行了改变bindings的规则数为%d%n", firedRulesCount);
-                kieSession.dispose();
-            }
-
-            // 获取路径的模板
-            Template pathTemplate = groupTemplate.getTemplate(inFileInfo.getPath());
-            // 获取内容的模板
-            Template contentTemplate = groupTemplate.getTemplate(inFileInfo.getContent());
-            // 绑定bindings到模板
-            for (Map.Entry<String, ?> binding : bindings.entrySet()) {
-                pathTemplate.binding(binding.getKey(), binding.getValue());
-                contentTemplate.binding(binding.getKey(), binding.getValue());
-            }
-
-            // 添加渲染结果
-            outFileInfos.add(FileInfo.builder()
-                    .path(pathTemplate.render())            // 渲染路径结果
-                    .content(contentTemplate.render())      // 渲染内容结果
-                    .build());
-        }
-        System.out.println(outFileInfos);
+        return groupTemplates;
     }
+
 }

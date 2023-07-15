@@ -1,19 +1,13 @@
 {
   "resources":{
   "includes":[{
-    "pattern":"\\QMETA-INF/WorkDefinitions.conf\\E"
-  }, {
     "pattern":"\\QMETA-INF/kie.default.mvel.properties.conf\\E"
   }, {
     "pattern":"\\QMETA-INF/kie.default.properties.conf\\E"
   }, {
-    "pattern":"\\QMETA-INF/services/java.sql.Driver\\E"
-  }, {
     "pattern":"\\QMETA-INF/services/org.apache.maven.surefire.spi.MasterProcessChannelProcessorFactory\\E"
   }, {
     "pattern":"\\QMETA-INF/services/org.drools.compiler.builder.impl.classbuilder.ClassBuilderFactory\\E"
-  }, {
-    "pattern":"\\QMETA-INF/services/org.drools.compiler.kie.builder.impl.KieBaseUpdaters\\E"
   }, {
     "pattern":"\\QMETA-INF/services/org.drools.compiler.rule.builder.ConstraintBuilder\\E"
   }, {
@@ -24,8 +18,6 @@
     "pattern":"\\QMETA-INF/services/org.drools.core.base.XMLSupport\\E"
   }, {
     "pattern":"\\QMETA-INF/services/org.drools.core.reteoo.CoreComponentFactory\\E"
-  }, {
-    "pattern":"\\QMETA-INF/services/org.drools.core.reteoo.RuntimeComponentFactory\\E"
   }, {
     "pattern":"\\QMETA-INF/services/org.drools.wiring.api.ComponentsSupplier\\E"
   }, {
@@ -42,10 +34,6 @@
     "pattern":"\\QMETA-INF/services/org.kie.internal.ruleunit.RuleUnitComponentFactory\\E"
   }, {
     "pattern":"\\QMETA-INF/services/org.slf4j.spi.SLF4JServiceProvider\\E"
-  }, {
-    "pattern":"\\Q\\E"
-  }, {
-    "pattern":"\\Qcom/fasterxml/jackson/core/JacksonException.class\\E"
   }, {
     "pattern":"\\Qcom/fasterxml/jackson/core/JsonProcessingException.class\\E"
   }, {
@@ -69,9 +57,7 @@
   }, {
     "pattern":"\\Qcom/github/codgen/core/drools/fact/BindingsFact.class\\E"
   }, {
-    "pattern":"\\Qcom/github/codgen/core/drools/fact/GlobalFact.class\\E"
-  }, {
-    "pattern":"\\Qcom/mysql/cj/TlsSettings.properties\\E"
+    "pattern":"\\Qcom/github/codgen/core/drools/fact/GlobalsFact.class\\E"
   }, {
     "pattern":"\\Qconf/pom.properties\\E"
   }, {
@@ -111,9 +97,9 @@
   }, {
     "pattern":"\\Qjava/lang/Object.class\\E"
   }, {
-    "pattern":"\\Qjava/lang/RuntimeException.class\\E"
-  }, {
     "pattern":"\\Qjava/lang/String.class\\E"
+  }, {
+    "pattern":"\\Qjava/lang/SuppressWarnings.class\\E"
   }, {
     "pattern":"\\Qjava/lang/System.class\\E"
   }, {
@@ -146,8 +132,6 @@
     "pattern":"\\Qjava/util/function/BiFunction.class\\E"
   }, {
     "pattern":"\\Qjava/util/function/Function.class\\E"
-  }, {
-    "pattern":"\\Qorg/beetl/core/beetl-default.properties\\E"
   }, {
     "pattern":"\\Qorg/drools/compiler/shade/org/eclipse/jdt/internal/compiler/messages.properties\\E"
   }, {
@@ -200,8 +184,6 @@
     "pattern":"\\Qorg/drools/compiler/shade/org/eclipse/jdt/internal/compiler/parser/parser9.rsc\\E"
   }, {
     "pattern":"\\Qorg/drools/compiler/shade/org/eclipse/jdt/internal/compiler/parser/readableNames.props\\E"
-  }, {
-    "pattern":"\\Qorg/drools/core/factmodel/GeneratedFact.class\\E"
   }, {
     "pattern":"\\Qorg/drools/core/rule/consequence/KnowledgeHelper.class\\E"
   }, {
@@ -271,9 +253,9 @@
   }, {
     "pattern":"java.base:\\Qjava/lang/Object.class\\E"
   }, {
-    "pattern":"java.base:\\Qjava/lang/RuntimeException.class\\E"
-  }, {
     "pattern":"java.base:\\Qjava/lang/String.class\\E"
+  }, {
+    "pattern":"java.base:\\Qjava/lang/SuppressWarnings.class\\E"
   }, {
     "pattern":"java.base:\\Qjava/lang/System.class\\E"
   }, {
@@ -307,14 +289,9 @@
   }, {
     "pattern":"java.base:\\Qjava/util/function/Function.class\\E"
   }, {
-    "pattern":"java.base:\\Qjdk/internal/icu/impl/data/icudt72b/nfc.nrm\\E"
-  }, {
     "pattern":"java.sql:\\Qjava/sql/SQLException.class\\E"
   }]},
   "bundles":[{
-    "name":"com.mysql.cj.LocalizedErrorMessages",
-    "locales":[""]
-  }, {
     "name":"com.sun.org.apache.xerces.internal.impl.xpath.regex.message",
     "locales":[""]
   }, {
