@@ -1,5 +1,8 @@
 [
 {
+  "name":"[B"
+},
+{
   "name":"[Lcom.fasterxml.jackson.databind.deser.Deserializers;"
 },
 {
@@ -13,6 +16,9 @@
 },
 {
   "name":"[Ljava.lang.String;"
+},
+{
+  "name":"[Lsun.security.pkcs.SignerInfo;"
 },
 {
   "name":"apple.security.AppleProvider",
@@ -717,11 +723,20 @@
   "name":"java.lang.invoke.SerializedLambda"
 },
 {
+  "name":"java.lang.invoke.TypeDescriptor"
+},
+{
+  "name":"java.lang.invoke.TypeDescriptor$OfField"
+},
+{
   "name":"java.lang.management.ManagementFactory"
 },
 {
   "name":"java.lang.management.ThreadInfo",
   "fields":[{"name":"virtual"}]
+},
+{
+  "name":"java.lang.reflect.AnnotatedElement"
 },
 {
   "name":"java.lang.reflect.Constructor"
@@ -730,10 +745,16 @@
   "name":"java.lang.reflect.Field"
 },
 {
+  "name":"java.lang.reflect.GenericDeclaration"
+},
+{
   "name":"java.lang.reflect.Member"
 },
 {
   "name":"java.lang.reflect.Method"
+},
+{
+  "name":"java.lang.reflect.Type"
 },
 {
   "name":"java.math.BigDecimal"
@@ -772,6 +793,9 @@
 },
 {
   "name":"java.security.AllPermission"
+},
+{
+  "name":"java.security.MessageDigestSpi"
 },
 {
   "name":"java.security.SecureRandomParameters"
@@ -1340,14 +1364,37 @@
   "name":"org.drools.android.DroolsAndroidContext"
 },
 {
+  "name":"org.drools.base.factmodel.traits.Thing",
+  "allDeclaredFields":true,
+  "allPublicFields":true,
+  "queryAllPublicMethods":true
+},
+{
+  "name":"org.drools.base.rule.Declaration",
+  "allPublicFields":true,
+  "queryAllPublicMethods":true,
+  "methods":[{"name":"getIdentifier","parameterTypes":[] }, {"name":"getTypeName","parameterTypes":[] }]
+},
+{
+  "name":"org.drools.base.rule.KieModuleMetaInfo",
+  "allDeclaredFields":true,
+  "methods":[{"name":"readObject","parameterTypes":["java.io.ObjectInputStream"] }, {"name":"writeObject","parameterTypes":["java.io.ObjectOutputStream"] }, {"name":"writeReplace","parameterTypes":[] }]
+},
+{
+  "name":"org.drools.base.rule.TypeMetaInfo",
+  "allDeclaredFields":true,
+  "methods":[{"name":"readObject","parameterTypes":["java.io.ObjectInputStream"] }, {"name":"writeObject","parameterTypes":["java.io.ObjectOutputStream"] }, {"name":"writeReplace","parameterTypes":[] }]
+},
+{
+  "name":"org.drools.base.rule.consequence.ConsequenceContext",
+  "allPublicFields":true,
+  "queryAllPublicMethods":true
+},
+{
   "name":"org.drools.cdi.CDIHelper"
 },
 {
   "name":"org.drools.compiler.kproject.models.KieModuleModelImpl"
-},
-{
-  "name":"org.drools.compiler.shade.org.eclipse.jdt.internal.compiler.util.Messages",
-  "allDeclaredFields":true
 },
 {
   "name":"org.drools.core.base.accumulators.AverageAccumulateFunction",
@@ -1430,31 +1477,7 @@
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
-  "name":"org.drools.core.factmodel.traits.Thing",
-  "allDeclaredFields":true,
-  "allPublicFields":true,
-  "queryAllPublicMethods":true
-},
-{
-  "name":"org.drools.core.rule.Declaration",
-  "allPublicFields":true,
-  "queryAllPublicMethods":true,
-  "methods":[{"name":"getIdentifier","parameterTypes":[] }, {"name":"getTypeName","parameterTypes":[] }]
-},
-{
-  "name":"org.drools.core.rule.KieModuleMetaInfo",
-  "allDeclaredFields":true,
-  "methods":[{"name":"readObject","parameterTypes":["java.io.ObjectInputStream"] }, {"name":"writeObject","parameterTypes":["java.io.ObjectOutputStream"] }, {"name":"writeReplace","parameterTypes":[] }]
-},
-{
-  "name":"org.drools.core.rule.TypeMetaInfo",
-  "allDeclaredFields":true,
-  "methods":[{"name":"readObject","parameterTypes":["java.io.ObjectInputStream"] }, {"name":"writeObject","parameterTypes":["java.io.ObjectOutputStream"] }, {"name":"writeReplace","parameterTypes":[] }]
-},
-{
-  "name":"org.drools.core.rule.consequence.KnowledgeHelper",
-  "allPublicFields":true,
-  "queryAllPublicMethods":true
+  "name":"org.drools.core.rule.consequence.KnowledgeHelper"
 },
 {
   "name":"org.drools.core.runtime.rule.impl.DefaultConsequenceExceptionHandler",
@@ -1542,6 +1565,10 @@
 {
   "name":"org.drools.mvel.evaluators.StartsEvaluatorDefinition",
   "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"org.eclipse.jdt.internal.compiler.util.Messages",
+  "allDeclaredFields":true
 },
 {
   "name":"org.junit.jupiter.api.Test",
@@ -1687,6 +1714,10 @@
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
+  "name":"sun.security.rsa.RSASignature$SHA384withRSA",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
   "name":"sun.security.ssl.KeyManagerFactoryImpl$SunX509",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
@@ -1699,7 +1730,45 @@
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
+  "name":"sun.security.util.ObjectIdentifier"
+},
+{
+  "name":"sun.security.x509.AuthorityInfoAccessExtension",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.Boolean","java.lang.Object"] }]
+},
+{
+  "name":"sun.security.x509.AuthorityKeyIdentifierExtension",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.Boolean","java.lang.Object"] }]
+},
+{
   "name":"sun.security.x509.BasicConstraintsExtension",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.Boolean","java.lang.Object"] }]
+},
+{
+  "name":"sun.security.x509.CRLDistributionPointsExtension",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.Boolean","java.lang.Object"] }]
+},
+{
+  "name":"sun.security.x509.CertificateExtensions"
+},
+{
+  "name":"sun.security.x509.CertificatePoliciesExtension",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.Boolean","java.lang.Object"] }]
+},
+{
+  "name":"sun.security.x509.ExtendedKeyUsageExtension",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.Boolean","java.lang.Object"] }]
+},
+{
+  "name":"sun.security.x509.KeyUsageExtension",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.Boolean","java.lang.Object"] }]
+},
+{
+  "name":"sun.security.x509.SubjectAlternativeNameExtension",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.Boolean","java.lang.Object"] }]
+},
+{
+  "name":"sun.security.x509.SubjectKeyIdentifierExtension",
   "methods":[{"name":"<init>","parameterTypes":["java.lang.Boolean","java.lang.Object"] }]
 },
 {
