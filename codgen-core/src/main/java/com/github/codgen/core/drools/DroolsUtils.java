@@ -46,15 +46,18 @@ public class DroolsUtils {
      */
     public static int fireRules(String agendaGroupName, Object fact) {
         // 执行规则引擎自定义绑定变量
-        KieSession  kieSession  = kieContainer.newKieSession();
-        AgendaGroup agendaGroup = kieSession.getAgenda().getAgendaGroup(agendaGroupName);
-        if (agendaGroup == null) return 0;
-        agendaGroup.setFocus();
-        kieSession.insert(fact);
-        int firedRulesCount = kieSession.fireAllRules();
-        System.out.printf("触发执行了改变%s的规则数为%d%n", agendaGroupName, firedRulesCount);
-        kieSession.dispose();
-        return firedRulesCount;
+        KieSession kieSession = kieContainer.newKieSession();
+        try {
+            AgendaGroup agendaGroup = kieSession.getAgenda().getAgendaGroup(agendaGroupName);
+            if (agendaGroup == null) return 0;
+            agendaGroup.setFocus();
+            kieSession.insert(fact);
+            int firedRulesCount = kieSession.fireAllRules();
+            System.out.printf("触发执行了改变%s的规则数为%d%n", agendaGroupName, firedRulesCount);
+            return firedRulesCount;
+        } finally {
+            kieSession.dispose();
+        }
     }
 
 }
