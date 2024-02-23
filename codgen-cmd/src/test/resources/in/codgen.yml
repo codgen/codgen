@@ -1,14 +1,15 @@
 # groupTemplate的配置选项(不设置则启用默认配置)
-groupTemplate:
-  default:
-    # 左定位符
-    DELIMITER_PLACEHOLDER_START: '${'
-    # 右定位符
-    DELIMITER_PLACEHOLDER_END: '}'
-    # 左定界符
-    DELIMITER_STATEMENT_START: '<%'
-    # 右定界符
-    DELIMITER_STATEMENT_END: '%>'
+#groupTemplate:
+#  # 默认的groupTemplate
+#  default:
+#    # 左定位符
+#    DELIMITER_PLACEHOLDER_START: '${'
+#    # 右定位符
+#    DELIMITER_PLACEHOLDER_END: '}'
+#    # 左定界符
+#    DELIMITER_STATEMENT_START: '<%'
+#    # 右定界符
+#    DELIMITER_STATEMENT_END: '%>'
 # 全局变量的配置选项
 variable:
   # 项目名称

@@ -11,29 +11,27 @@ import org.apache.commons.lang3.StringUtils;
 import org.yaml.snakeyaml.Yaml;
 import rebue.wheel.core.PomUtils;
 import rebue.wheel.core.PrintUtils;
+import rebue.wheel.core.drools.DroolsUtils;
 import rebue.wheel.core.file.FileSearcher;
 import rebue.wheel.core.file.FileUtils;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
 
 public class CodgenApplication {
     /**
      * Codgen的配置文件名称
      */
-    private static final String CONFIG_FILE_NAME = "codgen.yml";
+    private static final String CONFIG_FILE_NAME     = "codgen.yml";
     /**
      * drools的目录的路径
      */
-    private static final String DROOLS_DIR_NAME  = ".drl";
+    private static final String DROOLS_RULE_DIR_NAME = ".drl";
 
     public static void main(String[] args) throws IOException {
         // 获取pom中设置的属性
@@ -51,14 +49,14 @@ public class CodgenApplication {
         GenOptions genOptions = parseConfigFile(cmdOptions.inPath);
         if (genOptions == null) return;
 
-        // 读取drools规则文件
-        Map<String, String> droolsFiles = readDroolsFiles(cmdOptions.inPath);
+        // 读取规则文件到Map列表中
+        Map<String, String> ruleFiles = DroolsUtils.readRuleFiles(cmdOptions.inPath.resolve(DROOLS_RULE_DIR_NAME));
 
-        // 搜索输入文件信息列表
-        List<FileInfo> inFileInfos = searchFiles(cmdOptions.inPath);
+        // 获取输入文件信息列表
+        List<FileInfo> inFileInfos = listInFiles(cmdOptions.inPath);
 
-        // 生成
-        Codgen.gen(inFileInfos, genOptions, droolsFiles);
+        // 生成输出文件
+        genOutFiles(cmdOptions, genOptions, ruleFiles, inFileInfos);
     }
 
     /**
@@ -115,7 +113,10 @@ public class CodgenApplication {
             outPath = workDirPath.resolve(outPath);
         }
         if (validDirPath(inPath)) return null;
-        if (validDirPath(outPath)) return null;
+        // 如果输出目录不存在，则创建它
+        if (!outPath.toFile().exists()) {
+            outPath.toFile().mkdirs();
+        }
 
         return CmdOptions.builder()
                 .inPath(inPath)
@@ -124,36 +125,12 @@ public class CodgenApplication {
     }
 
     /**
-     * 读取drools文件
+     * 获取输入文件信息列表(忽略codgen.yml及Drools规则文件目录)
      *
      * @param inPath 输入目录的路径
-     * @return drools文件内容列表
+     * @return 输入文件信息列表
      */
-    private static Map<String, String> readDroolsFiles(Path inPath) throws IOException {
-        Path droolsDirPath = inPath.resolve(DROOLS_DIR_NAME);
-        File droolsDir     = droolsDirPath.toFile();
-        if (!droolsDir.exists())
-            return null;
-
-        Map<String, String> drls = new LinkedHashMap<>();
-        FileSearcher.searchFiles(droolsDir, ".*\\.drl", file -> {
-            try {
-                drls.put(droolsDirPath.relativize(file.toPath()).toString(), FileUtils.readToString(file));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
-
-        return drls;
-    }
-
-    /**
-     * 搜索文件
-     *
-     * @param inPath 输入目录的路径
-     * @return 搜索到的文件信息列表
-     */
-    private static List<FileInfo> searchFiles(Path inPath) {
+    private static List<FileInfo> listInFiles(Path inPath) {
         System.out.printf("search %s's files:%n", inPath);
         List<FileInfo>   fileInfos   = new LinkedList<>();
         List<IgnorePath> ignorePaths = new LinkedList<>();
@@ -163,18 +140,18 @@ public class CodgenApplication {
                 .build());
         ignorePaths.add(IgnorePath.builder()
                 .isDir(true)
-                .path(inPath.resolve(DROOLS_DIR_NAME))
+                .path(inPath.resolve(DROOLS_RULE_DIR_NAME))
                 .build());
         FileSearcher.searchFiles(inPath.toFile(), file -> {
             try {
                 Path filePath = Path.of(file.getCanonicalPath());
                 // 排除要忽略的文件和目录
                 for (IgnorePath ignorePath : ignorePaths) {
-                    if (Files.exists(ignorePath.path)) {
-                        if (Files.isDirectory(filePath) == ignorePath.isDir && Files.isSameFile(filePath, ignorePath.path)) {
-                            return false;
-                        }
+//                    if (Files.exists(ignorePath.path)) {
+                    if (Files.isDirectory(filePath) == ignorePath.isDir && Files.isSameFile(filePath, ignorePath.path)) {
+                        return false;
                     }
+//                    }
                 }
                 return true;
             } catch (IOException e) {
@@ -213,7 +190,14 @@ public class CodgenApplication {
         }
     }
 
-    private static void printBanner(PomUtils.PomProps pomProps, String in, String out) {
+    /**
+     * 打印横幅
+     *
+     * @param pomProps pom.xml文件的属性
+     * @param inDir    输入目录
+     * @param outDir   输出目录
+     */
+    private static void printBanner(PomUtils.PomProps pomProps, String inDir, String outDir) {
         List<String> lines = new LinkedList<>();
         lines.add(PrintUtils.ConsoleColors.YELLOW_BOLD_BRIGHT);
         lines.add("""
@@ -227,8 +211,8 @@ public class CodgenApplication {
         lines.add(":: codgen :: v%s :: nnzbz :: %s".formatted(pomProps.getVersion(), pomProps.getDatetime()));
         lines.add(PrintUtils.ConsoleColors.RESET);
         lines.add("cmdOptions:");
-        lines.add("    source      directory: %s".formatted(in));
-        lines.add("    destination directory: %s".formatted(out));
+        lines.add("    source      directory: %s".formatted(inDir));
+        lines.add("    destination directory: %s".formatted(outDir));
         lines.add("(( ");
         lines.add("\\\\``. ");
         lines.add("\\_`.``-. ");
@@ -255,6 +239,12 @@ public class CodgenApplication {
         PrintUtils.printBanner(lines);
     }
 
+    /**
+     * 校验路径是否存在且是目录
+     *
+     * @param dirPath 目录路径
+     * @return
+     */
     private static boolean validDirPath(Path dirPath) {
         if (!Files.exists(dirPath)) {
             PrintUtils.printError("error: %s doesn't exist%n", dirPath.toString());
@@ -267,11 +257,19 @@ public class CodgenApplication {
         return false;
     }
 
+    /**
+     * 打印版本信息
+     *
+     * @param pomProps pom.xml文件的属性
+     */
     private static void printVersion(PomUtils.PomProps pomProps) {
         System.out.printf("codgen.version: v%s%n", pomProps.getVersion());
         System.out.printf("java.version  : v%s%n", System.getProperty("java.version"));
     }
 
+    /**
+     * 打印帮助信息
+     */
     private static void printHelp() {
         System.out.println("""
                                 
@@ -285,21 +283,67 @@ public class CodgenApplication {
                 """);
     }
 
+    /**
+     * 生成输出文件
+     *
+     * @param cmdOptions  命令行传入参数选项
+     * @param genOptions  生成参数选项
+     * @param ruleFiles   drools规则文件的Map列表
+     * @param inFileInfos 输入文件信息列表
+     */
+    private static void genOutFiles(CmdOptions cmdOptions, GenOptions genOptions, Map<String, String> ruleFiles, List<FileInfo> inFileInfos) throws IOException {
+        // 生成输出文件信息列表
+        List<FileInfo> outFileInfos = Codgen.gen(inFileInfos, genOptions, ruleFiles);
+        // 生成输出文件
+        for (FileInfo outFileInfo : outFileInfos) {
+            // 输出文件
+            File outFile = cmdOptions.outPath.resolve(outFileInfo.getPath()).toFile();
+            // 输出目录
+            File outDir = outFile.getParentFile();
+            // 如果目录不存在则创建
+            if (!outDir.exists()) {
+                outDir.mkdirs();
+            }
+            // 写入文件内容
+            try (BufferedWriter out = new BufferedWriter(new FileWriter(outFile))) {
+                out.write(outFileInfo.getContent());
+            }
+        }
+    }
+
+    /**
+     * 命令行输入的参数选项
+     */
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
     private static class CmdOptions {
+        /**
+         * 输入目录路径
+         */
         private Path inPath;
+        /**
+         * 输出目录路径
+         */
         private Path outPath;
     }
 
+    /**
+     * 要忽略的路径信息
+     */
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
     private static class IgnorePath {
+        /**
+         * 是否目录(不是目录则是文件)
+         */
         private Boolean isDir;
+        /**
+         * 路径
+         */
         private Path    path;
     }
 }

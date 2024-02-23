@@ -1,17 +1,17 @@
 package bindings;
 
-import java.util.Map
+import java.util.Map;
 import java.util.HashMap;
 import com.github.codgen.core.drools.fact.RenderFact
-import java.util.List
+import java.util.List;
 import com.github.codgen.core.FileInfo;
 
 
 /**
- * 默认渲染
+ * 数据库信息渲染
  */
 rule render_db_metas
-    agenda-group "render"   // 议程分组
+    agenda-group "render1"   // 议程分组
     no-loop true            // 防止死循环(当规则通过update之类的函数修改了Fact对象时，可能使当前规则再次被激活从而导致死循环)
     lock-on-active true     // 限制当前规则只会被执行一次(包括当前规则的重复执行不是本身触发的)
 when

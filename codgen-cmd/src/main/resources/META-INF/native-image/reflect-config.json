@@ -25,19 +25,27 @@
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
-  "name":"bindings.Rule_bindings_default1117333302DefaultConsequenceInvoker",
+  "name":"bindings$$bindingsFact"
+},
+{
+  "name":"bindings$$renderFact"
+},
+{
+  "name":"bindings.$bindingsFact"
+},
+{
+  "name":"bindings.$renderFact"
+},
+{
+  "name":"bindings.Rule_bindings_default1000797018DefaultConsequenceInvoker",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
-  "name":"bindings.Rule_bindings_default1117333302DefaultConsequenceInvokerGenerated",
+  "name":"bindings.Rule_bindings_default1000797018DefaultConsequenceInvokerGenerated",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
   "name":"bindings.Rule_render_db_metas20530159DefaultConsequenceInvoker",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"bindings.Rule_render_db_metas20530159DefaultConsequenceInvokerGenerated",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
@@ -104,7 +112,7 @@
   "name":"com.github.codgen.core.GenOptions",
   "allDeclaredFields":true,
   "queryAllPublicMethods":true,
-  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"setBindings","parameterTypes":["java.util.Map"] }, {"name":"setGroupTemplate","parameterTypes":["java.util.Map"] }, {"name":"setVariable","parameterTypes":["java.util.Map"] }]
+  "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"setBindings","parameterTypes":["java.util.Map"] }, {"name":"setVariable","parameterTypes":["java.util.Map"] }]
 },
 {
   "name":"com.github.codgen.core.GenOptionsBeanInfo"
@@ -534,6 +542,27 @@
   "name":"com.thoughtworks.xstream.security.PrimitiveTypePermission"
 },
 {
+  "name":"declr"
+},
+{
+  "name":"declr$extractor"
+},
+{
+  "name":"declr$extractor$extractToClassName"
+},
+{
+  "name":"declr$identifier"
+},
+{
+  "name":"declr$typeName"
+},
+{
+  "name":"declr.extractor"
+},
+{
+  "name":"declr.extractor$extractToClassName"
+},
+{
   "name":"declr.extractor.extractToClassName"
 },
 {
@@ -541,6 +570,18 @@
 },
 {
   "name":"declr.typeName"
+},
+{
+  "name":"java$lang$$bindingsFact"
+},
+{
+  "name":"java$lang$$renderFact"
+},
+{
+  "name":"java$lang$$templateFact"
+},
+{
+  "name":"java$lang$$variableFact"
 },
 {
   "name":"java.awt.Color"
@@ -589,6 +630,30 @@
 },
 {
   "name":"java.io.Serializable"
+},
+{
+  "name":"java.lang$$bindingsFact"
+},
+{
+  "name":"java.lang$$renderFact"
+},
+{
+  "name":"java.lang$$templateFact"
+},
+{
+  "name":"java.lang$$variableFact"
+},
+{
+  "name":"java.lang.$bindingsFact"
+},
+{
+  "name":"java.lang.$renderFact"
+},
+{
+  "name":"java.lang.$templateFact"
+},
+{
+  "name":"java.lang.$variableFact"
 },
 {
   "name":"java.lang.Appendable"
@@ -730,10 +795,6 @@
 },
 {
   "name":"java.lang.management.ManagementFactory"
-},
-{
-  "name":"java.lang.management.ThreadInfo",
-  "fields":[{"name":"virtual"}]
 },
 {
   "name":"java.lang.reflect.AnnotatedElement"
@@ -1045,6 +1106,9 @@
 },
 {
   "name":"java.util.PropertyPermission"
+},
+{
+  "name":"java.util.SequencedCollection"
 },
 {
   "name":"java.util.Set"
@@ -1484,21 +1548,6 @@
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
-  "name":"org.drools.core.util.bitmask.AllSetButLastBitMask"
-},
-{
-  "name":"org.drools.core.util.bitmask.AllSetMask"
-},
-{
-  "name":"org.drools.core.util.bitmask.BitMask"
-},
-{
-  "name":"org.drools.core.util.bitmask.LongBitMask"
-},
-{
-  "name":"org.drools.core.util.bitmask.SingleLongBitMask"
-},
-{
   "name":"org.drools.ecj.EclipseJavaCompiler",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
@@ -1567,8 +1616,26 @@
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
+  "name":"org.drools.util.bitmask.AllSetButLastBitMask"
+},
+{
+  "name":"org.drools.util.bitmask.AllSetMask"
+},
+{
+  "name":"org.drools.util.bitmask.BitMask"
+},
+{
+  "name":"org.drools.util.bitmask.LongBitMask"
+},
+{
+  "name":"org.drools.util.bitmask.SingleLongBitMask"
+},
+{
   "name":"org.eclipse.jdt.internal.compiler.util.Messages",
   "allDeclaredFields":true
+},
+{
+  "name":"org.junit.internal.AssumptionViolatedException"
 },
 {
   "name":"org.junit.jupiter.api.Test",
@@ -1772,12 +1839,24 @@
   "methods":[{"name":"<init>","parameterTypes":["java.lang.Boolean","java.lang.Object"] }]
 },
 {
-  "name":"template.Rule_template_default2132708448DefaultConsequenceInvoker",
+  "name":"template$$templateFact"
+},
+{
+  "name":"template.$templateFact"
+},
+{
+  "name":"template.Rule_template_default713105491DefaultConsequenceInvoker",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
-  "name":"template.Rule_template_default2132708448DefaultConsequenceInvokerGenerated",
+  "name":"template.Rule_template_default713105491DefaultConsequenceInvokerGenerated",
   "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"variable$$variableFact"
+},
+{
+  "name":"variable.$variableFact"
 },
 {
   "name":"variable.Rule_variable_db_metas975084975DefaultConsequenceInvoker",

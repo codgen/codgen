@@ -23,6 +23,11 @@ mvn clean install -DskipTests
 mvn test -Dtest=CodgenApplicationTests#testMain -Pgen-native-image-configs
 ----
 此命令将在 *src/main/resources/META-INF/native-image* 目录下生成编译 *native-image* 的配置文件
++
+[NOTE]
+====
+因为是利用test插件生成，所以不能skip test
+====
 . 打包生成 *native-image* 的执行文件
 +
 在 *codgen-cmd* 项目的目录下执行下面的命令
@@ -37,14 +42,15 @@ mvn clean package -Pnative -DskipTests
 ----
 start
 :初始化groupTemplates;
-:初始化drools;
-:触发variable规则;
+:创建drools容器;
+:触发variable规则，读取配置文件中的变量;
 repeat :开始遍历输入文件信息列表;
-    :触发template规则;
-    :触发bindings规则;
-    :触发render规则;
+    :触发template规则，获取路径模板和内容模板;
+    :触发bindings规则，绑定变量到模板中;
+    :触发render规则，根据模板渲染输出文件;
 backward:继续;
-repeat while (更多数据?)
+repeat while (更多数据?) is (是)
+->否;
 :输出文件信息列表;
 :合并原有输出文件信息;
 :格式化;

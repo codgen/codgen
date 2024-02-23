@@ -8,7 +8,7 @@ import org.beetl.core.Template;
 import com.github.codgen.core.drools.fact.TemplateFact;
 
 /**
- * 默认模板
+ * 装载默认模板
  */
 rule template_default
     agenda-group "template" // 议程分组
@@ -16,9 +16,9 @@ rule template_default
     lock-on-active true     // 限制当前规则只会被执行一次(包括当前规则的重复执行不是本身触发的)
     salience -1             // 执行的优先级(值越大优先级越高，可以为负数，不设置默认为0)
 when
-    $templateFact: TemplateFact()
+    $templateFact: TemplateFact();
 then
-    @SuppressWarnings("unchecked")
+    // 根据default配置生成模板
     GroupTemplate defaultGroupTemplate = (GroupTemplate) $templateFact.getGroupTemplates().get("default");
     $templateFact.setPathTemplate(defaultGroupTemplate.getTemplateProxy(defaultGroupTemplate.getTemplate($templateFact.getTemplateFileInfo().getPath())));
     $templateFact.setContentTemplate(defaultGroupTemplate.getTemplateProxy(defaultGroupTemplate.getTemplate($templateFact.getTemplateFileInfo().getContent())));

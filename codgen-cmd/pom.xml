@@ -5,18 +5,17 @@
     <parent>
         <artifactId>codgen</artifactId>
         <groupId>com.github.codgen</groupId>
-        <version>1.0.0</version>
+        <version>1.1.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>codgen-cmd</artifactId>
 
     <properties>
-        <maven.compiler.source>20</maven.compiler.source>
-        <maven.compiler.target>20</maven.compiler.target>
         <mainClass>com.github.codgen.CodgenApplication</mainClass>
 
-        <native.maven.plugin.version>0.9.23</native.maven.plugin.version>
+        <native-image-maven-plugin.version>21.2.0</native-image-maven-plugin.version>
+        <native-maven-plugin.version>0.10.1</native-maven-plugin.version>
         <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
         <build-helper-maven-plugin.version>3.4.0</build-helper-maven-plugin.version>
     </properties>
@@ -94,11 +93,11 @@
             <version>1.9.3</version>
             <scope>test</scope>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.slf4j</groupId>-->
-<!--            <artifactId>slf4j-simple</artifactId>-->
-<!--            <scope>test</scope>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.slf4j</groupId>-->
+        <!--            <artifactId>slf4j-simple</artifactId>-->
+        <!--            <scope>test</scope>-->
+        <!--        </dependency>-->
     </dependencies>
 
     <build>
@@ -166,6 +165,7 @@
                             <includes>
                                 <include>**/CodgenApplicationTests.java</include>
                             </includes>
+                            <skip>false</skip>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -179,7 +179,7 @@
                     <plugin>
                         <groupId>org.graalvm.buildtools</groupId>
                         <artifactId>native-maven-plugin</artifactId>
-                        <version>${native.maven.plugin.version}</version>
+                        <version>${native-maven-plugin.version}</version>
                         <!-- enable JUnit Platform test listener mode -->
                         <extensions>true</extensions>
                         <executions>
@@ -201,12 +201,11 @@
                         <configuration>
                             <buildArgs>
                                 <!-- 建立独立镜像，不成功则报告失败 -->
-                                <buildArg>--no-fallback</buildArg>
+                                --no-fallback
                                 <!-- 指定native-image配置文件的目录(此目录由maven编译gen-native-image-configs生成) -->
-                                <buildArg>-H:ConfigurationFileDirectories=src/main/resources/META-INF/native-image/
-                                </buildArg>
+                                -H:ConfigurationFileDirectories=src/main/resources/META-INF/native-image/
                                 <!-- 级别设置为3，打包时输出包含的资源文件 -->
-                                <buildArg>-H:Log=registerResource:3</buildArg>
+                                -H:Log=registerResource:3
                             </buildArgs>
                             <mainClass>${mainClass}</mainClass>
                             <!-- native-image编译时输出详细的日志 -->
@@ -217,6 +216,34 @@
                             <quickBuild>true</quickBuild>
                         </configuration>
                     </plugin>
+
+                    <!--                    <plugin>-->
+                    <!--                        <groupId>org.graalvm.nativeimage</groupId>-->
+                    <!--                        <artifactId>native-image-maven-plugin</artifactId>-->
+                    <!--                        <version>${native-image-maven-plugin.version}</version>-->
+                    <!--                        <executions>-->
+                    <!--                            <execution>-->
+                    <!--                                <goals>-->
+                    <!--                                    <goal>native-image</goal>-->
+                    <!--                                </goals>-->
+                    <!--                                <phase>package</phase>-->
+                    <!--                            </execution>-->
+                    <!--                        </executions>-->
+                    <!--                        <configuration>-->
+                    <!--                            <skip>false</skip>-->
+                    <!--                            <imageName>${project.artifactId}</imageName>-->
+                    <!--                            <buildArgs>-->
+                    <!--                                &lt;!&ndash; 建立独立镜像，不成功则报告失败 &ndash;&gt;-->
+                    <!--                                &#45;&#45;no-fallback-->
+                    <!--                                &lt;!&ndash; 指定native-image配置文件的目录(此目录由maven编译gen-native-image-configs生成) &ndash;&gt;-->
+                    <!--                                -H:ConfigurationFileDirectories=src/main/resources/META-INF/native-image/-->
+                    <!--                                &lt;!&ndash; 解锁一些实验性的选项，如'-H:Name=codgen-cmd'和'-H:Log=registerResource:3'&ndash;&gt;-->
+                    <!--                                -H:+UnlockExperimentalVMOptions-->
+                    <!--                                &lt;!&ndash; 级别设置为3，打包时输出包含的资源文件 &ndash;&gt;-->
+                    <!--                                -H:Log=registerResource:3-->
+                    <!--                            </buildArgs>-->
+                    <!--                        </configuration>-->
+                    <!--                    </plugin>-->
                 </plugins>
             </build>
         </profile>

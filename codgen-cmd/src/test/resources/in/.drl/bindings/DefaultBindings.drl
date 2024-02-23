@@ -2,12 +2,12 @@ package bindings;
 
 import java.util.Map;
 import java.util.HashMap;
-import com.github.codgen.core.drools.fact.BindingsFact
+import com.github.codgen.core.drools.fact.BindingsFact;
 import java.util.List;
 
 
 /**
- * 默认绑定
+ * 默认绑定变量到模板中
  */
 rule bindings_default
     agenda-group "bindings" // 议程分组
@@ -18,7 +18,7 @@ when
     $bindingsFact: BindingsFact()
 then
     @SuppressWarnings("unchecked")
-    List<String> defaultBindings = ( List<String>) $bindingsFact.getBindingsOptionsMap().get("default");
+    List<String> defaultBindings = (List<String>) $bindingsFact.getBindingsOptionsMap().get("default");
     for (String binding : defaultBindings) {
         // 获取要绑定的变量
         Object variable = $bindingsFact.getVariableMap().get(binding);

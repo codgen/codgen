@@ -18,7 +18,7 @@ public class VariableFact {
      */
     private Map<String, ?> variableOptions;
     /**
-     * 要忽略的变量选项列表
+     * 要忽略的变量选项列表(前置规则中添加本规则所负责变量选项的位置，避免后置规则重复读取该变量选项)
      */
     private List<String>   ignoreVariableOptions;
     /**

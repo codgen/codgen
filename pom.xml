@@ -6,7 +6,7 @@
 
     <groupId>com.github.codgen</groupId>
     <artifactId>codgen</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.1</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -15,12 +15,12 @@
     </modules>
 
     <properties>
-        <java.version>20</java.version>
+        <java.version>21</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <wheel.version>2.1.7</wheel.version>
+        <wheel.version>3.0.14</wheel.version>
     </properties>
 
     <dependencyManagement>
