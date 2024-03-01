@@ -1,65 +1,68 @@
-# groupTemplate的配置选项(不设置则启用默认配置)
-#groupTemplate:
-#  # 默认的groupTemplate
-#  default:
-#    # 左定位符
-#    DELIMITER_PLACEHOLDER_START: '${'
-#    # 右定位符
-#    DELIMITER_PLACEHOLDER_END: '}'
-#    # 左定界符
-#    DELIMITER_STATEMENT_START: '<%'
-#    # 右定界符
-#    DELIMITER_STATEMENT_END: '%>'
-# 全局变量的配置选项
-variable:
-  # 项目名称
-  project: abc
-  # 分组
-  group: com.github.codgen
-  # 模块名称
-  artifact: codgen-abc
-  # 版本
-  version: 1.0.0
-  # 作者名称
-  author: zbz
-  # 数据库的配置选项
-  dbMetas:
-    default:
-      connect:
-        # 数据库连接字符串(MySQL5要想获取表的注释，必须设置useInformationSchema=true，据说8可以不设置)
-        url: jdbc:mysql://%s:%s/%s?useInformationSchema=true
-        # 数据库连接字符串要插入的参数
-        params:
-          # 主机地址
-          - 127.0.0.1
-          # 端口号
-          - 3306
-          # 数据库名称
-          - test
-        # 数据库的连接属性
-        properties:
-          # 用户名
-          user: test
-          # 密码
-          password: test
-      # 表名过滤的模式(不设置则获取所有的表)
-      tableName: TEST_A%
-# 绑定的变量
-bindings:
+# groupTemplate的配置选项(生成template时使用)
+# 如果未配置default，会自动创建一个default配置
+groupTemplate:
+  pojo:
+    # 左定位符
+    DELIMITER_PLACEHOLDER_START: '${'
+    # 右定位符
+    DELIMITER_PLACEHOLDER_END: '}'
+    # 左定界符
+    DELIMITER_STATEMENT_START: '<%'
+    # 右定界符
+    DELIMITER_STATEMENT_END: '%>'
+# 模板要绑定全局变量的配置选项
+globalVariable:
   default:
     # 项目名称
-    - project
+    project: abc
     # 分组
-    - group
+    group: com.github.codgen
     # 模块名称
-    - artifact
+    artifact: codgen-abc
     # 版本
-    - version
+    version: 1.0.0
     # 作者名称
-    - author
-# 模板的配置选项
-#template:
-#  api:
+    author: zbz
+  # 数据库信息的配置选项
+  dbMeta:
+    connect:
+      # 数据库连接字符串(MySQL5要想获取表的注释，必须设置useInformationSchema=true，据说8可以不设置)
+      url: jdbc:mysql://%s:%s/%s?useInformationSchema=true
+      # 数据库连接字符串要插入的参数
+      params:
+        # 主机地址
+        - 127.0.0.1
+        # 端口号
+        - 3306
+        # 数据库名称
+        - test
+      # 数据库的连接属性
+      properties:
+        # 用户名
+        user: test
+        # 密码
+        password: test
+    # 表名过滤的模式(不设置则获取所有的表)
+    tableName: TEST_A%
+# 获取模板的配置选项
+template:
+  # 配置模板使用的groupTemplate(不配置的默认使用default的groupTemplate)
+  groupTemplate:
+    pojo:
+      - jsmo.btl
+  # 配置模板触发的规则(不配置的默认触发template_default规则)
+  rule:
+    # PojoTemplate规则的配置选项
+    #     值是Map列表，程序会将其中的每一项绑定到模板中
+    pojo:
+      - inFilePath: mo.btl
+        packageName: com.github.codgen.test
+        outFilePath: ${project}-api/src/main/java/${packagePath}/${pojoMeta.className}Mo.java
+      - inFilePath: jsmo.btl
+        outFilePath: ${project}-web/src/mo/${project}/${pojoMeta.className}Mo.java
+# 渲染的配置选项
+#render:
+#  pojo:
 #    # 输入路径
 #    inPath: api.btl
 #    # 输出路径

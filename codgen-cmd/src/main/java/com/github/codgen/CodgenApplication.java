@@ -2,7 +2,7 @@ package com.github.codgen;
 
 import com.github.codgen.core.Codgen;
 import com.github.codgen.core.FileInfo;
-import com.github.codgen.core.GenOptions;
+import com.github.codgen.core.options.GenOptions;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -147,11 +147,9 @@ public class CodgenApplication {
                 Path filePath = Path.of(file.getCanonicalPath());
                 // 排除要忽略的文件和目录
                 for (IgnorePath ignorePath : ignorePaths) {
-//                    if (Files.exists(ignorePath.path)) {
                     if (Files.isDirectory(filePath) == ignorePath.isDir && Files.isSameFile(filePath, ignorePath.path)) {
                         return false;
                     }
-//                    }
                 }
                 return true;
             } catch (IOException e) {
@@ -159,7 +157,7 @@ public class CodgenApplication {
             }
         }, file -> {
             try {
-                System.out.println(file.getCanonicalPath());
+                System.out.printf("  - %s%n", file.getCanonicalPath());
                 fileInfos.add(FileInfo.builder()
                         .path(inPath.relativize(file.toPath()).toString())
                         .content(FileUtils.readToString(file.getCanonicalPath()))
@@ -208,7 +206,7 @@ public class CodgenApplication {
                    \\____/\\____/\\__,_/\\__, /\\___/_/ /_/
                                     /____/
                 """);
-        lines.add(":: codgen :: v%s :: nnzbz :: %s".formatted(pomProps.getVersion(), pomProps.getDatetime()));
+        lines.add(":: codgen :: v%s :: nnzbz :: %s".formatted(pomProps.getVersion(), pomProps.getTimestamp()));
         lines.add(PrintUtils.ConsoleColors.RESET);
         lines.add("cmdOptions:");
         lines.add("    source      directory: %s".formatted(inDir));
@@ -243,7 +241,7 @@ public class CodgenApplication {
      * 校验路径是否存在且是目录
      *
      * @param dirPath 目录路径
-     * @return
+     * @return 路径是否存在且是目录
      */
     private static boolean validDirPath(Path dirPath) {
         if (!Files.exists(dirPath)) {
@@ -301,7 +299,7 @@ public class CodgenApplication {
             // 输出目录
             File outDir = outFile.getParentFile();
             // 如果目录不存在则创建
-            if (!outDir.exists()) {
+            if (!outDir.exists() || !outDir.isDirectory()) {
                 outDir.mkdirs();
             }
             // 写入文件内容

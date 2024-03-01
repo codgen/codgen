@@ -1,0 +1,77 @@
+package templatee;  // 避免使用template关键字
+
+import java.util.Map;
+import java.util.HashMap;
+import java.util.List;
+import org.beetl.core.GroupTemplate;
+import org.beetl.core.Template;
+import com.github.codgen.core.drools.fact.TemplateFact;
+import com.github.codgen.core.options.TemplateOptions;
+import com.github.codgen.core.FileInfo;
+import com.github.codgen.core.drools.fact.TemplateInfo;
+import rebue.wheel.core.db.meta.PojoMeta
+import java.nio.file.Path
+import rebue.wheel.core.PackageUtils
+import org.apache.commons.lang3.StringUtils;
+
+/**
+ * 装载POJO模板
+ */
+rule template_pojo
+    agenda-group "template" // 议程分组
+    no-loop true            // 防止死循环(当规则通过update之类的函数修改了Fact对象时，可能使当前规则再次被激活从而导致死循环)
+    lock-on-active true     // 限制当前规则只会被执行一次(包括当前规则的重复执行不是本身触发的)
+when
+    $templateFact: TemplateFact()
+then
+    String POJO_RULE_TEMPLATE_KEY = "pojo";
+    String POJO_METAS_GLOBAL_VARIABLE_KEY = "pojoMetas";
+    String POJO_META_LOCAL_VARIABLE_KEY = "pojoMeta";
+    GroupTemplate groupTemplate = $templateFact.getGroupTemplate();
+    FileInfo inFileInfo = $templateFact.getInFileInfo();
+    List<PojoMeta> pojoMetas =  (List<PojoMeta>) $templateFact.getGlobalVariableMap().get(POJO_METAS_GLOBAL_VARIABLE_KEY);
+    if (pojoMetas == null || pojoMetas.isEmpty()) return;
+    Map<String, List<?>> templateRuleOptionsMap = $templateFact.getRuleOptionsMap();
+    List<TemplateInfo> templates = $templateFact.getTemplates();
+    if (templateRuleOptionsMap != null && !templateRuleOptionsMap.isEmpty()) {
+        List<Map<String, Object>> pojos = (List<Map<String, Object>>) templateRuleOptionsMap.get(POJO_RULE_TEMPLATE_KEY);
+        if (pojos != null && !pojos.isEmpty()) {
+            // 绑定规则中配置的变量到路径模板和内容模板
+            for (Map<String, Object> pojo : pojos) {
+                String inFilePath = (String) pojo.get("inFilePath");
+                if (inFilePath.equals(inFileInfo.getPath())) {
+                    String outFilePath = (String) pojo.get("outFilePath");
+                    // 计算出packagePath绑定到模板中
+                    String packageName = (String) pojo.get("packageName");
+                    if (StringUtils.isNotBlank(packageName)) {
+                        String packagePath = PackageUtils.nameToPath(packageName).toString();
+                        pojo.put("packagePath", packagePath);
+                    }
+                    for (PojoMeta pojoMeta: pojoMetas) {
+                        // 获取路径模板
+                        Template pathTemplate = groupTemplate.getTemplate(outFilePath);
+                        // 绑定pojoMeta局部变量到路径模板
+                        pathTemplate.binding(POJO_META_LOCAL_VARIABLE_KEY, pojoMeta);
+                        // 获取内容模板
+                        Template contentTemplate = groupTemplate.getTemplate(inFileInfo.getContent());
+                        // 绑定pojoMeta局部变量到内容模板
+                        contentTemplate.binding(POJO_META_LOCAL_VARIABLE_KEY, pojoMeta);
+                        // 遍历pojo中配置的变量绑定到模板中
+                        for (Map.Entry<String, ?> variable: pojo.entrySet()) {
+                            pathTemplate.binding(variable.getKey(), variable.getValue());
+                            contentTemplate.binding(variable.getKey(), variable.getValue());
+                        }
+                        // 添加模板信息到模板列表中
+                        templates.add(TemplateInfo.builder()
+                            .pathTemplate(pathTemplate)
+                            .contentTemplate(contentTemplate)
+                            .build());
+                    }
+                    update($templateFact);
+                    drools.halt();      // 终止执行后续规则
+                    return;
+                }
+            }
+        }
+    }
+end

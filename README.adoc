@@ -43,13 +43,18 @@ mvn clean package -Pnative -DskipTests
 start
 :初始化groupTemplates;
 :创建drools容器;
-:触发variable规则，读取配置文件中的变量;
-repeat :开始遍历输入文件信息列表;
-    :触发template规则，获取路径模板和内容模板;
-    :触发bindings规则，绑定变量到模板中;
-    :触发render规则，根据模板渲染输出文件;
-backward:继续;
-repeat while (更多数据?) is (是)
+:触发variable规则，读取配置文件中的变量选项，生成要绑定的全局变量;
+repeat :遍历输入文件信息列表;
+    :触发groupTemplate规则，获取groupTemplate;
+    :触发template规则，生成要绑定的局部变量，获取模板信息列表;
+    repeat :遍历模板信息列表;
+        :触发bindings规则，绑定变量到模板中;
+        :触发render规则，根据模板渲染输出文件;
+        backward:继续;
+    repeat while (还有模板信息?) is (是)
+    ->否;
+    backward:继续;
+repeat while (还有输入文件信息?) is (是)
 ->否;
 :输出文件信息列表;
 :合并原有输出文件信息;

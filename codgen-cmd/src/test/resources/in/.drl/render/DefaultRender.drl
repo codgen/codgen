@@ -1,11 +1,10 @@
-package bindings;
+package render;
 
 import java.util.Map;
 import java.util.HashMap;
 import com.github.codgen.core.drools.fact.RenderFact
 import java.util.List;
 import com.github.codgen.core.FileInfo;
-
 
 /**
  * 默认渲染
@@ -19,8 +18,8 @@ when
     $renderFact: RenderFact()
 then
     $renderFact.getOutFileInfos().add(FileInfo.builder()
-        .path($renderFact.getPathTemplate().render())
-        .content($renderFact.getContentTemplate().render())
+        .path($renderFact.getTemplateInfo().getPathTemplate().render())
+        .content($renderFact.getTemplateInfo().getContentTemplate().render())
         .build());
     update($renderFact);
 end

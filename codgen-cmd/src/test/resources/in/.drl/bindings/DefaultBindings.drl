@@ -1,9 +1,9 @@
 package bindings;
 
-import java.util.Map;
 import java.util.HashMap;
-import com.github.codgen.core.drools.fact.BindingsFact;
 import java.util.List;
+import java.util.Map;
+import com.github.codgen.core.drools.fact.BindingsFact;
 
 
 /**
@@ -17,14 +17,10 @@ rule bindings_default
 when
     $bindingsFact: BindingsFact()
 then
-    @SuppressWarnings("unchecked")
-    List<String> defaultBindings = (List<String>) $bindingsFact.getBindingsOptionsMap().get("default");
-    for (String binding : defaultBindings) {
-        // 获取要绑定的变量
-        Object variable = $bindingsFact.getVariableMap().get(binding);
-        // 绑定变量
-        $bindingsFact.getPathTemplate().binding(binding, variable);
-        $bindingsFact.getContentTemplate().binding(binding, variable);
+    // 绑定全局变量
+    for (Map.Entry<String, ?> globalVariable : $bindingsFact.getGlobalVariableMap().entrySet()) {
+        $bindingsFact.getTemplateInfo().getPathTemplate().binding(globalVariable.getKey(), globalVariable.getValue());
+        $bindingsFact.getTemplateInfo().getContentTemplate().binding(globalVariable.getKey(), globalVariable.getValue());
     }
     update($bindingsFact);
 end

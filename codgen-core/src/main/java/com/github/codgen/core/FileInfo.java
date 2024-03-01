@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class FileInfo {
     /**
-     * 文件路径
+     * 文件路径(含文件名称)
      */
     private String path;
     /**

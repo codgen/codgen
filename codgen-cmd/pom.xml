@@ -5,7 +5,7 @@
     <parent>
         <artifactId>codgen</artifactId>
         <groupId>com.github.codgen</groupId>
-        <version>1.1.1</version>
+        <version>1.1.2</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -17,7 +17,7 @@
         <native-image-maven-plugin.version>21.2.0</native-image-maven-plugin.version>
         <native-maven-plugin.version>0.10.1</native-maven-plugin.version>
         <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
-        <build-helper-maven-plugin.version>3.4.0</build-helper-maven-plugin.version>
+        <build-helper-maven-plugin.version>3.5.0</build-helper-maven-plugin.version>
     </properties>
 
     <dependencies>
@@ -29,7 +29,7 @@
             <groupId>com.github.rebue.wheel</groupId>
             <artifactId>wheel-core</artifactId>
         </dependency>
-        <!-- 以备drools中用到序列化和反序列化 -->
+        <!-- 以备drools规则中用到序列化和反序列化 -->
         <dependency>
             <groupId>com.github.rebue.wheel</groupId>
             <artifactId>wheel-serialization</artifactId>
@@ -37,6 +37,11 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <!-- 以备drools规则中用到转换命名风格 -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
         </dependency>
 
         <dependency>
@@ -134,7 +139,7 @@
                             <goal>timestamp-property</goal>
                         </goals>
                         <configuration>
-                            <name>build.time</name>
+                            <name>build.timestamp</name>
                             <pattern>yyyy-MM-dd HH:mm:ss</pattern>
                             <locale>zh_CN</locale>
                             <timeZone>GMT+8</timeZone>

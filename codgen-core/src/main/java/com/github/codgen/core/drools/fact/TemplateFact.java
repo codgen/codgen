@@ -6,8 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.beetl.core.GroupTemplate;
-import org.beetl.core.Template;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 @Data
@@ -16,19 +17,26 @@ import java.util.Map;
 @Builder
 public class TemplateFact {
     /**
-     * groupTemplate列表
+     * groupTemplate
      */
-    private Map<String, GroupTemplate> groupTemplates;
+    private GroupTemplate        groupTemplate;
     /**
-     * 模板文件信息(其中的路径可用于判断激活哪个议程)
+     * 输入文件信息(其中的路径可用于判断激活哪个议程)
      */
-    private FileInfo                   templateFileInfo;
+    private FileInfo             inFileInfo;
     /**
-     * 路径模板(返回给主程使用)
+     * 全局变量Map列表(用于绑定到模板中)
      */
-    private Template                   pathTemplate;
+    private Map<String, ?>       globalVariableMap;
     /**
-     * 内容模板(返回给主程使用)
+     * 模板规则的选项Map列表
      */
-    private Template                   contentTemplate;
+    private Map<String, List<?>> ruleOptionsMap;
+    /**
+     * 模板信息列表(返回主程给后续流程使用)
+     */
+    @Builder.Default
+    private List<TemplateInfo>   templates = new LinkedList<>();
+
 }
+

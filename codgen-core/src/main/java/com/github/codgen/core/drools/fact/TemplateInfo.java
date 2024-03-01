@@ -4,21 +4,22 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.beetl.core.Template;
 
-import java.util.Map;
-
+/**
+ * 模板信息
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class BindingsFact {
+public class TemplateInfo {
     /**
-     * 全局变量Map列表(用于绑定到模板中)
+     * 路径模板
      */
-    private Map<String, ?> globalVariableMap;
+    private Template pathTemplate;
     /**
-     * 模板信息
+     * 内容模板
      */
-    private TemplateInfo   templateInfo;
-
+    private Template contentTemplate;
 }
