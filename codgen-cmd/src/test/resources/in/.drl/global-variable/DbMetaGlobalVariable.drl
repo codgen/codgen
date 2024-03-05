@@ -3,7 +3,7 @@ package globalvariable;
 import java.util.Map;
 import java.util.HashMap;
 import rebue.wheel.serialization.jackson.JacksonUtils;
-import com.github.codgen.core.drools.fact.GlobalVariableFact;
+import io.github.codgen.core.drools.fact.GlobalVariableFact;
 import rebue.wheel.core.db.JdbcUtils;
 import rebue.wheel.core.db.meta.DbMeta;
 

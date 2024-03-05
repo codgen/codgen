@@ -1,4 +1,4 @@
-package com.github.codgen.core;
+package io.github.codgen.core;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

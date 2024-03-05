@@ -1,1 +1,10 @@
-bbb
+export interface ${pojoMeta.className}Mo {
+<%
+  for(property in pojoMeta.properties){
+    print(property.name);
+    print(':');
+    print(property.jsType);
+    print(';\n');
+  }
+%>
+}

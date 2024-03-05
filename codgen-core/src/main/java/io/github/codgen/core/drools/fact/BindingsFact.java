@@ -1,4 +1,4 @@
-package com.github.codgen.core.drools.fact;
+package io.github.codgen.core.drools.fact;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

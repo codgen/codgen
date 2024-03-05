@@ -5,10 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import org.beetl.core.GroupTemplate;
 import org.beetl.core.Template;
-import com.github.codgen.core.drools.fact.TemplateFact;
-import com.github.codgen.core.options.TemplateOptions;
-import com.github.codgen.core.FileInfo
-import com.github.codgen.core.drools.fact.TemplateInfo;
+import io.github.codgen.core.drools.fact.TemplateFact;
+import io.github.codgen.core.options.TemplateOptions;
+import io.github.codgen.core.FileInfo
+import io.github.codgen.core.drools.fact.TemplateInfo
+import io.github.codgen.core.FileInfo
+import io.github.codgen.core.drools.fact.TemplateInfo;
 
 /**
  * 装载默认模板

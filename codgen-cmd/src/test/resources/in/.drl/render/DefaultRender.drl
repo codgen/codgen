@@ -2,9 +2,10 @@ package render;
 
 import java.util.Map;
 import java.util.HashMap;
-import com.github.codgen.core.drools.fact.RenderFact
+import io.github.codgen.core.drools.fact.RenderFact
 import java.util.List;
-import com.github.codgen.core.FileInfo;
+import io.github.codgen.core.FileInfo
+import io.github.codgen.core.FileInfo;
 
 /**
  * 默认渲染

@@ -1,8 +1,8 @@
-package com.github.codgen.core;
+package io.github.codgen.core;
 
-import com.github.codgen.core.drools.fact.*;
-import com.github.codgen.core.options.GenOptions;
-import com.github.codgen.core.options.TemplateOptions;
+import io.github.codgen.core.drools.fact.*;
+import io.github.codgen.core.options.GenOptions;
+import io.github.codgen.core.options.TemplateOptions;
 import org.beetl.core.Configuration;
 import org.beetl.core.GroupTemplate;
 import org.beetl.core.resource.StringTemplateResourceLoader;

@@ -1,8 +1,8 @@
-package com.github.codgen;
+package io.github.codgen;
 
-import com.github.codgen.core.Codgen;
-import com.github.codgen.core.FileInfo;
-import com.github.codgen.core.options.GenOptions;
+import io.github.codgen.core.Codgen;
+import io.github.codgen.core.FileInfo;
+import io.github.codgen.core.options.GenOptions;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

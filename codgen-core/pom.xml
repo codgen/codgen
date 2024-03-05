@@ -5,10 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>codgen</artifactId>
-        <groupId>com.github.codgen</groupId>
-        <version>1.1.2</version>
+        <groupId>io.github.codgen</groupId>
+        <version>1.1.3</version>
     </parent>
     <artifactId>codgen-core</artifactId>
+    <description>codgen core，代码生成器的核心库</description>
 
     <dependencies>
         <dependency>
@@ -41,6 +42,12 @@
         <dependency>
             <groupId>org.drools</groupId>
             <artifactId>drools-engine</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>drools-wiring-static</artifactId>
+                    <groupId>org.drools</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.drools</groupId>

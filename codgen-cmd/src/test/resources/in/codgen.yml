@@ -16,7 +16,7 @@ globalVariable:
     # 项目名称
     project: abc
     # 分组
-    group: com.github.codgen
+    group: io.github.codgen
     # 模块名称
     artifact: codgen-abc
     # 版本
@@ -56,7 +56,7 @@ template:
     #     值是Map列表，程序会将其中的每一项绑定到模板中
     pojo:
       - inFilePath: mo.btl
-        packageName: com.github.codgen.test
+        packageName: io.github.codgen.test
         outFilePath: ${project}-api/src/main/java/${packagePath}/${pojoMeta.className}Mo.java
       - inFilePath: jsmo.btl
         outFilePath: ${project}-web/src/mo/${project}/${pojoMeta.className}Mo.java

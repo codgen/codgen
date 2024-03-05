@@ -94,7 +94,7 @@
   "name":"com.fasterxml.jackson.databind.package-info"
 },
 {
-  "name":"com.github.codgen.CodgenApplicationTests",
+  "name":"io.github.codgen.CodgenApplicationTests",
   "allDeclaredFields":true,
   "allDeclaredClasses":true,
   "queryAllDeclaredMethods":true,
@@ -103,46 +103,46 @@
   "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"testMain","parameterTypes":[] }]
 },
 {
-  "name":"com.github.codgen.core.FileInfo"
+  "name":"io.github.codgen.core.FileInfo"
 },
 {
-  "name":"com.github.codgen.core.FileInfo$FileInfoBuilder"
+  "name":"io.github.codgen.core.FileInfo$FileInfoBuilder"
 },
 {
-  "name":"com.github.codgen.core.GenOptions",
+  "name":"io.github.codgen.core.GenOptions",
   "allDeclaredFields":true,
   "queryAllPublicMethods":true,
   "methods":[{"name":"<init>","parameterTypes":[] }, {"name":"setBindings","parameterTypes":["java.util.Map"] }, {"name":"setVariable","parameterTypes":["java.util.Map"] }]
 },
 {
-  "name":"com.github.codgen.core.GenOptionsBeanInfo"
+  "name":"io.github.codgen.core.GenOptionsBeanInfo"
 },
 {
-  "name":"com.github.codgen.core.GenOptionsCustomizer"
+  "name":"io.github.codgen.core.GenOptionsCustomizer"
 },
 {
-  "name":"com.github.codgen.core.drools.fact.BindingsFact",
+  "name":"io.github.codgen.core.drools.fact.BindingsFact",
   "allDeclaredFields":true,
   "allPublicFields":true,
   "queryAllDeclaredMethods":true,
   "queryAllPublicMethods":true
 },
 {
-  "name":"com.github.codgen.core.drools.fact.RenderFact",
+  "name":"io.github.codgen.core.drools.fact.RenderFact",
   "allDeclaredFields":true,
   "allPublicFields":true,
   "queryAllDeclaredMethods":true,
   "queryAllPublicMethods":true
 },
 {
-  "name":"com.github.codgen.core.drools.fact.TemplateFact",
+  "name":"io.github.codgen.core.drools.fact.TemplateFact",
   "allDeclaredFields":true,
   "allPublicFields":true,
   "queryAllDeclaredMethods":true,
   "queryAllPublicMethods":true
 },
 {
-  "name":"com.github.codgen.core.drools.fact.VariableFact",
+  "name":"io.github.codgen.core.drools.fact.VariableFact",
   "allDeclaredFields":true,
   "allPublicFields":true,
   "queryAllDeclaredMethods":true,

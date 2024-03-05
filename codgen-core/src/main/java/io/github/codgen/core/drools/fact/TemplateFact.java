@@ -1,6 +1,6 @@
-package com.github.codgen.core.drools.fact;
+package io.github.codgen.core.drools.fact;
 
-import com.github.codgen.core.FileInfo;
+import io.github.codgen.core.FileInfo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

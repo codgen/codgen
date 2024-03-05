@@ -1,4 +1,4 @@
-package com.github.codgen.core.options;
+package io.github.codgen.core.options;
 
 import lombok.Data;
 

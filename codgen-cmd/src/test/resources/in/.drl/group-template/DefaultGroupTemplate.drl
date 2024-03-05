@@ -3,7 +3,7 @@ package grouptemplate;
 import java.util.Map;
 import org.beetl.core.GroupTemplate;
 import org.beetl.core.Template;
-import com.github.codgen.core.drools.fact.GroupTemplateFact;
+import io.github.codgen.core.drools.fact.GroupTemplateFact;
 
 /**
  * 获取默认的groupTemplate
