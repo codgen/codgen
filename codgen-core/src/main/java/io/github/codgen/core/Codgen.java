@@ -94,7 +94,7 @@ public class Codgen {
                         .build());
             }
         }
-        System.out.printf("outFileInfos: %s%n", outFileInfos);
+//        System.out.printf("outFileInfos: %s%n", outFileInfos);
         return outFileInfos;
     }
 
