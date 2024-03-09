@@ -24,17 +24,22 @@ when
     $variableFact: GlobalVariableFact();
 then
     // 指定变量的key
-    final String VARIABLE_KEY = "dbMeta";
+    final String DB_META_GLOBAL_VARIABLE_KEY = "dbMeta";
     // 从变量选项中获取指定的选项
-    Map<String, ?> dbMetaOptionsMap = (Map<String, ?>) $variableFact.getVariableOptions().get(VARIABLE_KEY);
+    Map<String, ?> dbMetaOptionsMap = (Map<String, ?>) $variableFact.getVariableOptions().get(DB_META_GLOBAL_VARIABLE_KEY);
     System.out.printf("variable_db_meta: %s(%s)%n", dbMetaOptionsMap, dbMetaOptionsMap.getClass().getName());
 
      if (dbMetaOptionsMap != null && !dbMetaOptionsMap.isEmpty()) {
         // jdbc选项原为Map类型，利用jackson将其转换成JdbcOptions对象
         DbMetaOptions dbMetaOptions = JacksonUtils.getObjectMapper().convertValue(dbMetaOptionsMap, DbMetaOptions.class);
         DbMeta dbMeta = JdbcUtils.getDbMeta(dbMetaOptions.getConnect(), dbMetaOptions.getTableName());
+        dbMeta.setUserName(dbMetaOptions.getConnect().getProperties().getProperty("user"));
+        dbMeta.setPassword(dbMetaOptions.getConnect().getProperties().getProperty("password"));
+        if (dbMeta.getDriverName().contains("MySQL")) {
+            dbMeta.setDriverClass("com.mysql.cj.jdbc.Driver");
+        }
         Map<String, Object> variableMap = (Map<String, Object>)$variableFact.getVariableMap();
-        variableMap.put(VARIABLE_KEY, dbMeta);
+        variableMap.put(DB_META_GLOBAL_VARIABLE_KEY, dbMeta);
         update($variableFact);
     }
 end

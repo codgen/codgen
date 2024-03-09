@@ -37,13 +37,13 @@ then
     Map<String, List<?>> templateRuleOptionsMap = $templateFact.getRuleOptionsMap();
     List<TemplateInfo> templates = $templateFact.getTemplates();
     if (templateRuleOptionsMap != null && !templateRuleOptionsMap.isEmpty()) {
-        List<Map<String, Object>> pojos = (List<Map<String, Object>>) templateRuleOptionsMap.get(POJO_RULE_TEMPLATE_KEY);
-        if (pojos != null && !pojos.isEmpty()) {
+        List<Map<String, Object>> rules = (List<Map<String, Object>>) templateRuleOptionsMap.get(POJO_RULE_TEMPLATE_KEY);
+        if (rules != null && !rules.isEmpty()) {
             // 绑定规则中配置的变量到路径模板和内容模板
-            for (Map<String, Object> pojo : pojos) {
-                String inFilePath = (String) pojo.get("inFilePath");
-                if (inFilePath.equals(inFileInfo.getPath())) {
-                    String outFilePath = (String) pojo.get("outFilePath");
+            for (Map<String, Object> rule : rules) {
+                String inFilePath = (String) rule.get("inFilePath");
+                if (inFileInfo.getPath().startsWith(inFilePath)) {
+                    String outFilePath = (String) rule.get("outFilePath");
                     for (PojoMeta pojoMeta: pojoMetas) {
                         // 获取路径模板
                         Template pathTemplate = groupTemplate.getTemplate(outFilePath);
@@ -54,7 +54,7 @@ then
                         // 绑定pojoMeta局部变量到内容模板
                         contentTemplate.binding(POJO_META_LOCAL_VARIABLE_KEY, pojoMeta);
                         // 遍历pojo中配置的变量绑定到模板中
-                        for (Map.Entry<String, ?> variable: pojo.entrySet()) {
+                        for (Map.Entry<String, ?> variable: rule.entrySet()) {
                             String key   = variable.getKey();
                             Object value = variable.getValue();
                             pathTemplate.binding(key, value);
