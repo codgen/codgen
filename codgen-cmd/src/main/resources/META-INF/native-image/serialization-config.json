@@ -1,11 +1,11 @@
 {
-  "types":[
+  "types": [
     {
-      "name":"org.junit.platform.launcher.TestIdentifier$SerializedForm"
+      "name": "org.junit.platform.launcher.TestIdentifier$SerializedForm"
     }
   ],
-  "lambdaCapturingTypes":[
+  "lambdaCapturingTypes": [
   ],
-  "proxies":[
+  "proxies": [
   ]
 }

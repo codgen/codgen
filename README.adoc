@@ -22,6 +22,7 @@ mvn clean install -DskipTests
 ----
 mvn test -Dtest=CodgenApplicationTests#testMain -Pgen-native-image-configs
 ----
+
 此命令将在 *src/main/resources/META-INF/native-image* 目录下生成编译 *native-image* 的配置文件
 +
 [NOTE]
@@ -38,12 +39,13 @@ mvn clean package -Pnative -DskipTests
 ----
 
 == 生成代码的程序流程
+
 [plantuml.text-center]
 ----
 start
 :初始化groupTemplates;
 :创建drools容器;
-:触发variable规则，读取配置文件中的变量选项，生成要绑定的全局变量;
+:触发global-variable规则，读取配置文件中的变量选项，生成要绑定的全局变量;
 repeat :遍历输入文件信息列表;
     :触发groupTemplate规则，获取groupTemplate;
     :触发template规则，生成要绑定的局部变量，获取模板信息列表;
@@ -56,8 +58,6 @@ repeat :遍历输入文件信息列表;
     backward:继续;
 repeat while (还有输入文件信息?) is (是)
 ->否;
-:输出文件信息列表;
-:合并原有输出文件信息;
-:格式化;
+:返回输出文件信息列表;
 stop
 ----
