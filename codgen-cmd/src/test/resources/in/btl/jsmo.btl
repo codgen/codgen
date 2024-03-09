@@ -1,4 +1,4 @@
-export interface ${pojoMeta.className}Mo {
+export interface ${moduleClassName} {
 <%
   for(property in pojoMeta.properties){
     print(property.name);

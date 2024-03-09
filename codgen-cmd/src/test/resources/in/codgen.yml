@@ -15,14 +15,14 @@ globalVariable:
   default:
     # 项目名称
     project: abc
-    # 分组
-    group: io.github.codgen
     # 模块名称
     artifact: codgen-abc
     # 版本
     version: 1.0.0
-    # 作者名称
-    author: zbz
+    # 包名(根据packageName可自动计算包路径packagePath)
+    packageName: io.github.codgen
+    # 微服务端口
+    microServerPort: 0000
   # 数据库信息的配置选项
   dbMeta:
     connect:
@@ -46,24 +46,65 @@ globalVariable:
     tableName: TEST_A%
 # 获取模板的配置选项
 template:
-  # 配置模板使用的groupTemplate(不配置的默认使用default的groupTemplate)
-  groupTemplate:
-    pojo:
-      - jsmo.btl
   # 配置模板触发的规则(不配置的默认触发template_default规则)
   rule:
     # PojoTemplate规则的配置选项
     #     值是Map列表，程序会将其中的每一项绑定到模板中
     pojo:
-      - inFilePath: mo.btl
-        packageName: io.github.codgen.test
-        outFilePath: ${project}-api/src/main/java/${packagePath}/${pojoMeta.className}Mo.java
-      - inFilePath: jsmo.btl
-        outFilePath: ${project}-web/src/mo/${project}/${pojoMeta.className}Mo.java
-# 渲染的配置选项
-#render:
-#  pojo:
-#    # 输入路径
-#    inPath: api.btl
-#    # 输出路径
-#    outPath: ${project}-api/src/main/java/${artifact}/${EntityClassName}Api.java
+      - moduleName: api # 模块名(根据moduleName自动计算modulePackageName为packageName+'.'+moduleName，然后计算出modulePath)
+        inFilePath: btl/api.btl
+        outFilePath: ${project}-api/src/main/java/${modulePath}/${moduleClassName}.java
+      - moduleName: api.impl  # 模块名(根据moduleName自动计算modulePackageName为packageName+'.'+moduleName，然后计算出modulePath)
+        inFilePath: btl/api-impl.btl
+        outFilePath: ${project}-api/src/main/java/${modulePath}/${moduleClassName}.java
+      - moduleName: clone # 模块名(根据moduleName自动计算modulePackageName为packageName+'.'+moduleName，然后计算出modulePath)
+        inFilePath: btl/clone.btl
+        outFilePath: ${project}-svr/src/main/java/${modulePath}/${moduleClassName}.java
+      - moduleName: ctrl # 模块名(根据moduleName自动计算modulePackageName为packageName+'.'+moduleName，然后计算出modulePath)
+        inFilePath: btl/ctrl.btl
+        outFilePath: ${project}-svr/src/main/java/${modulePath}/${moduleClassName}.java
+      - moduleName: dao # 模块名(根据moduleName自动计算modulePackageName为packageName+'.'+moduleName，然后计算出modulePath)
+        inFilePath: btl/dao.btl
+        outFilePath: ${project}-svr/src/main/java/${modulePath}/${moduleClassName}.java
+      - moduleName: jo # 模块名(根据moduleName自动计算modulePackageName为packageName+'.'+moduleName，然后计算出modulePath)
+        inFilePath: btl/jo.btl
+        outFilePath: ${project}-api/src/main/java/${modulePath}/${moduleClassName}.java
+      - moduleName: svc # 模块名(根据moduleName自动计算modulePackageName为packageName+'.'+moduleName，然后计算出modulePath)
+        inFilePath: btl/svc.btl
+        outFilePath: ${project}-svr/src/main/java/${modulePath}/${moduleClassName}.java
+      - moduleName: svc.impl # 模块名(根据moduleName自动计算modulePackageName为packageName+'.'+moduleName，然后计算出modulePath)
+        inFilePath: btl/svc-impl.btl
+        outFilePath: ${project}-svr/src/main/java/${modulePath}/${moduleClassName}.java
+      - moduleName: test.api # 模块名(根据moduleName自动计算modulePackageName为packageName+'.'+moduleName，然后计算出modulePath)
+        inFilePath: btl/test-api.btl
+        outFilePath: ${project}-svr/src/main/java/${modulePath}/${moduleClassName}.java
+      - moduleName: test.http # 模块名(根据moduleName自动计算modulePackageName为packageName+'.'+moduleName，然后计算出modulePath)
+        inFilePath: btl/test-http.btl
+        outFilePath: ${project}-svr/src/main/java/${modulePath}/${moduleClassName}.java
+      - moduleName: test.svc # 模块名(根据moduleName自动计算modulePackageName为packageName+'.'+moduleName，然后计算出modulePath)
+        inFilePath: btl/test-svc.btl
+        outFilePath: ${project}-svr/src/main/java/${modulePath}/${moduleClassName}.java
+      - moduleName: to # 模块名(根据moduleName自动计算modulePackageName为packageName+'.'+moduleName，然后计算出modulePath)
+        inFilePath: btl/to-add.btl
+        outFilePath: ${project}-api/src/main/java/${modulePath}/${pojoMeta.className}AddTo.java
+      - moduleName: to # 模块名(根据moduleName自动计算modulePackageName为packageName+'.'+moduleName，然后计算出modulePath)
+        inFilePath: btl/to-del.btl
+        outFilePath: ${project}-api/src/main/java/${modulePath}/${pojoMeta.className}DelTo.java
+      - moduleName: to # 模块名(根据moduleName自动计算modulePackageName为packageName+'.'+moduleName，然后计算出modulePath)
+        inFilePath: btl/to-list.btl
+        outFilePath: ${project}-api/src/main/java/${modulePath}/${pojoMeta.className}ListTo.java
+      - moduleName: to # 模块名(根据moduleName自动计算modulePackageName为packageName+'.'+moduleName，然后计算出modulePath)
+        inFilePath: btl/to-modify.btl
+        outFilePath: ${project}-api/src/main/java/${modulePath}/${pojoMeta.className}ModifyTo.java
+      - moduleName: to # 模块名(根据moduleName自动计算modulePackageName为packageName+'.'+moduleName，然后计算出modulePath)
+        inFilePath: btl/to-one.btl
+        outFilePath: ${project}-api/src/main/java/${modulePath}/${pojoMeta.className}OneTo.java
+      - moduleName: to # 模块名(根据moduleName自动计算modulePackageName为packageName+'.'+moduleName，然后计算出modulePath)
+        inFilePath: btl/to-page.btl
+        outFilePath: ${project}-api/src/main/java/${modulePath}/${pojoMeta.className}PageTo.java
+      - moduleName: mo
+        inFilePath: btl/jsmo.btl
+        outFilePath: ${project}-web/src/mo/${project}/${pojoMeta.className}Mo.ts
+        # 模块名(根据moduleName自动计算modulePackageName为packageName+'.'+module，然后计算出modulePath)
+      - inFilePath: btl/jsmng.btl
+        outFilePath: ${project}-web/src/view/${project}/${pojoMeta.lowerHyphenNameWithoutPrefix}/${pojoMeta.className}Mng.vue

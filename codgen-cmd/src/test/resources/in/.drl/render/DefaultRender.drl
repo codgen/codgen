@@ -18,8 +18,10 @@ rule render_default
 when
     $renderFact: RenderFact()
 then
+    String path = $renderFact.getTemplateInfo().getPathTemplate().render();
+    System.out.println("Default render: " + path);
     $renderFact.getOutFileInfos().add(FileInfo.builder()
-        .path($renderFact.getTemplateInfo().getPathTemplate().render())
+        .path(path)
         .content($renderFact.getTemplateInfo().getContentTemplate().render())
         .build());
     update($renderFact);

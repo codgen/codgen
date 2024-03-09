@@ -1,0 +1,129 @@
+package ${modulePackageName};
+
+import java.util.Date;
+import java.util.List;
+
+import jakarta.annotation.Resource;
+
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import ${packageName}.mo.${pojoMeta.className}Mo;
+import ${packageName}.to.${pojoMeta.className}AddTo;
+import ${packageName}.to.${pojoMeta.className}ModifyTo;
+import ${packageName}.to.${pojoMeta.className}OneTo;
+import ${packageName}.to.${pojoMeta.className}PageTo;
+import ${packageName}.api.${pojoMeta.className}Api;
+
+import rebue.robotech.dic.ResultDic;
+import reactor.core.publisher.Mono;
+import rebue.robotech.ra.IdRa;
+import rebue.robotech.ra.BooleanRa;
+import rebue.robotech.ra.PageRa;
+import rebue.robotech.ra.PojoRa;
+import rebue.robotech.ro.Ro;
+
+/**
+ * ${pojoMeta.remark}
+ *
+ * @codgen.generated 自动生成的注释，如需修改本注释，请删除本行
+ */
+@RestController
+public class ${moduleClassName} {
+    /**
+     * @codgen.generated 自动生成，如需修改，请删除本行
+     */
+    @Resource
+    private ${pojoMeta.className}Api api;
+
+    /**
+     * 添加${pojoMeta.title}
+     *
+     * @param to 添加的具体信息
+     *
+     * @codgen.generated 自动生成，如需修改，请删除本行
+     */
+    @PostMapping("/${project}/${pojoMeta.lowerHyphenNameWithoutPrefix}")
+    public Mono<Ro<IdRa<${pojoMeta.ids[0].classSimpleName}>>> add(@RequestBody final ${pojoMeta.className}AddTo to) {
+        return Mono.create(callback -> callback.success(api.add(to)));
+    }
+
+    /**
+     * 修改${pojoMeta.title}的信息
+     *
+     * @param to 修改的具体数据
+     *
+     * @codgen.generated 自动生成，如需修改，请删除本行
+     */
+    @PutMapping("/${project}/${pojoMeta.lowerHyphenNameWithoutPrefix}")
+    public Mono<Ro<?>> modify(@RequestBody final ${pojoMeta.className}ModifyTo to) {
+        return Mono.create(callback -> callback.success(api.modify(to)));
+    }
+
+    /**
+     * 删除${pojoMeta.title}
+     *
+     * @param ${pojoMeta.ids[0].name} ${pojoMeta.title}ID
+     * 
+     * @codgen.generated 自动生成，如需修改，请删除本行
+     */
+    @DeleteMapping("/${project}/${pojoMeta.lowerHyphenNameWithoutPrefix}")
+    public Mono<Ro<?>> del(@RequestParam("${pojoMeta.ids[0].name}") final ${pojoMeta.ids[0].classSimpleName} ${pojoMeta.ids[0].name}) {
+		return Mono.create(callback -> callback.success(api.del(${pojoMeta.ids[0].name})));
+    }
+
+    /**
+     * 通过条件获取单个${pojoMeta.title}的信息
+     *
+     * @param ${pojoMeta.ids[0].name} ${pojoMeta.title}ID
+     * 
+     * @codgen.generated 自动生成，如需修改，请删除本行
+     */
+    @GetMapping("/${project}/${pojoMeta.lowerHyphenNameWithoutPrefix}/get-one")
+    public Mono<Ro<PojoRa<${pojoMeta.className}Mo>>> getOne(final ${pojoMeta.className}OneTo qo) {
+        return Mono.create(callback -> callback.success(api.getOne(qo)));
+    }
+
+    /**
+     * 通过ID获取单个${pojoMeta.title}的信息
+     *
+     * @param ${pojoMeta.ids[0].name} ${pojoMeta.title}ID
+     * 
+     * @codgen.generated 自动生成，如需修改，请删除本行
+     */
+    @GetMapping("/${project}/${pojoMeta.lowerHyphenNameWithoutPrefix}/get-by-id")
+    public Mono<Ro<PojoRa<${pojoMeta.className}Mo>>> getById(@RequestParam("${pojoMeta.ids[0].name}") final ${pojoMeta.ids[0].classSimpleName} ${pojoMeta.ids[0].name}) {
+        return Mono.create(callback -> callback.success(api.getById(${pojoMeta.ids[0].name})));
+    }
+
+    /**
+     * 判断${pojoMeta.title}是否存在
+     *
+     * @param ${pojoMeta.ids[0].name} ${pojoMeta.title}ID
+     * 
+     * @codgen.generated 自动生成，如需修改，请删除本行
+     */
+    @GetMapping("/${project}/${pojoMeta.lowerHyphenNameWithoutPrefix}/exist-by-id")
+    public Mono<Ro<BooleanRa>> existById(@RequestParam("${pojoMeta.ids[0].name}") final ${pojoMeta.ids[0].classSimpleName} ${pojoMeta.ids[0].name}) {
+        return Mono.create(callback -> callback.success(api.existById(${pojoMeta.ids[0].name})));
+    }
+
+    /**
+     * 查询${pojoMeta.title}的信息
+     *
+     * @param qo 查询的具体条件
+     *
+     * @codgen.generated 自动生成，如需修改，请删除本行
+     */
+    @GetMapping("/${project}/${pojoMeta.lowerHyphenNameWithoutPrefix}/page")
+    public Mono<Ro<PageRa<${pojoMeta.className}Mo>>> page(final ${pojoMeta.className}PageTo qo) {
+        return Mono.create(callback -> callback.success(api.page(qo)));
+    }
+
+}

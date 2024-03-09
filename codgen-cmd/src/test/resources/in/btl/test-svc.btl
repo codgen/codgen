@@ -1,0 +1,75 @@
+package ${modulePackageName};
+
+import com.github.dozermapper.core.Mapper;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import com.github.pagehelper.PageInfo;
+import ${packageName}.mo.${pojoMeta.className}Mo;
+import ${packageName}.to.${pojoMeta.className}AddTo;
+import ${packageName}.to.${pojoMeta.className}ModifyTo;
+import ${packageName}.to.${pojoMeta.className}PageTo;
+import ${packageName}.svc.${pojoMeta.className}Svc;
+
+import lombok.extern.slf4j.Slf4j;
+import rebue.wheel.core.RandomEx;
+
+/**
+ * ${pojoMeta.remark} Service层测试
+ *
+ * @codgen.generated 自动生成的注释，如需修改本注释，请删除本行
+ */
+@Slf4j
+@SpringBootTest
+public class ${pojoMeta.className}SvcTests {
+
+    /**
+     * 要测试的微服务
+     * 
+     * @codgen.generated 自动生成，如需修改，请删除本行
+     */
+    @Autowired
+    private ${pojoMeta.className}Svc _svc;
+
+    /**
+     * @codgen.generated 自动生成，如需修改，请删除本行
+     */
+    @Autowired
+    private Mapper        dozerMapper;
+
+    /**
+     * 测试基本的增删改查
+     *
+     * @codgen.generated 自动生成，如需修改，请删除本行
+     */
+    @Test
+    public void testCrud() {
+        ${pojoMeta.className}AddTo addTo = null;
+        ${pojoMeta.ids[0].classSimpleName} id = null;
+        for (int i = 0; i < 20; i++) {
+            addTo = (${pojoMeta.className}AddTo) RandomEx.randomPojo(${pojoMeta.className}AddTo.class);
+            log.info("添加${pojoMeta.remark}的参数为：" + addTo);
+            final ${pojoMeta.className}Mo addRo = _svc.add(addTo);
+            log.info("添加${pojoMeta.remark}的返回值为：" + addRo);
+            Assertions.assertNotNull(addRo);
+            id = addRo.getId();
+        }
+        final PageInfo<${pojoMeta.className}Mo> pageResult = _svc.page(new ${pojoMeta.className}PageTo());
+        log.info("查询${pojoMeta.remark}的返回值为：" + pageResult);
+        Assertions.assertNotNull(pageResult);
+        log.info("获取单个${pojoMeta.remark}的参数为：" + id);
+        ${pojoMeta.className}Mo getByIdResult = _svc.getById(id);
+        log.info("获取单个${pojoMeta.remark}的返回值为：" + getByIdResult);
+        Assertions.assertNotNull(getByIdResult);
+        
+        final ${pojoMeta.className}ModifyTo modifyTo = dozerMapper.map(addTo, ${pojoMeta.className}ModifyTo.class);
+        modifyTo.setId(id);
+        log.info("修改${pojoMeta.remark}的参数为：" + modifyTo);
+        _svc.modifyById(modifyTo);
+        
+        log.info("删除${pojoMeta.remark}的参数为：" + id);
+        _svc.delById(id);
+    }
+}

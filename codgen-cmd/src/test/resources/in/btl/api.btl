@@ -1,0 +1,17 @@
+package ${modulePackageName};
+
+import ${packageName}.mo.${pojoMeta.className}Mo;
+import ${packageName}.to.${pojoMeta.className}AddTo;
+import ${packageName}.to.${pojoMeta.className}ModifyTo;
+import ${packageName}.to.${pojoMeta.className}OneTo;
+import ${packageName}.to.${pojoMeta.className}PageTo;
+
+import rebue.robotech.api.BaseApi;
+
+/**
+ * ${pojoMeta.remark}的API
+ *
+ * @codgen.generated 自动生成的注释，如需修改本注释，请删除本行
+ */
+public interface ${moduleClassName} extends BaseApi<${pojoMeta.ids[0].classSimpleName}, ${pojoMeta.className}AddTo, ${pojoMeta.className}ModifyTo, ${pojoMeta.className}OneTo, ${pojoMeta.className}PageTo, ${pojoMeta.className}Mo>{
+}

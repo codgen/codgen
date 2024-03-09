@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.yaml.snakeyaml.Yaml;
 import rebue.wheel.core.PomUtils;
@@ -22,7 +23,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-
+@Slf4j
 public class CodgenApplication {
     /**
      * Codgen的配置文件名称
@@ -292,21 +293,24 @@ public class CodgenApplication {
     private static void genOutFiles(CmdOptions cmdOptions, GenOptions genOptions, Map<String, String> ruleFiles, List<FileInfo> inFileInfos) throws IOException {
         // 生成输出文件信息列表
         List<FileInfo> outFileInfos = Codgen.gen(inFileInfos, genOptions, ruleFiles);
+        log.info("begin out files:");
         // 生成输出文件
         for (FileInfo outFileInfo : outFileInfos) {
             // 输出文件
             File outFile = cmdOptions.outPath.resolve(outFileInfo.getPath()).toFile();
             // 输出目录
             File outDir = outFile.getParentFile();
+            log.info(outFile.getAbsolutePath());
             // 如果目录不存在则创建
-            if (!outDir.exists() || !outDir.isDirectory()) {
-                outDir.mkdirs();
-            }
+//            if (!outDir.exists() || !outDir.isDirectory()) {
+            outDir.mkdirs();
+//            }
             // 写入文件内容
             try (BufferedWriter out = new BufferedWriter(new FileWriter(outFile))) {
                 out.write(outFileInfo.getContent());
             }
         }
+        log.info("end out files.");
     }
 
     /**

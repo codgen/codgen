@@ -1,0 +1,74 @@
+<template>
+    <RebueMng>
+        <template #content>
+            <RebueTable ref="tableRef" :api="${pojoMeta.className}Api.list" :columns="tableColumns" row-key="id">
+                <template #header-left>
+                    <a-button type="primary" @click="onClickAddApp">新增${pojoMeta.title}</a-button>
+                </template>
+                <template #bodyCell="{ column, record }">
+                    <template v-if="['action'].includes(column.dataIndex)">
+                        <Action :actions="tableActions(record)" />
+                    </template>
+                </template>
+            </RebueTable>
+        </template>
+    </RebueMng>
+</template>
+<script lang="ts" setup>
+import { ${pojoMeta.className}Api } from '~/api/${project}/${pojoMeta.className}Api';
+import { ActionItem } from '~/component/rebue/rebue-table/type';
+
+const tableRef = ref();
+
+const tableColumns = [
+<%
+for(property in pojoMeta.properties) {
+%>
+    {
+        title: '${property.title}',
+        dataIndex: '${property.name}',
+    },
+<% } %>
+    {
+        title: '操作',
+        dataIndex: 'action',
+    },
+];
+
+const tableActions = (record: any): ActionItem[] => [
+    {
+        label: '更多',
+        children: [
+            {
+                label: '编辑',
+                color: '#000',
+                popConfirm: {
+                    title: '是否确认编辑？',
+                    onConfirm: () => console.log('点击确认编辑', record),
+                },
+            },
+            {
+                label: '详情',
+                onClick: () => console.log('点击详情', record),
+            },
+        ],
+    },
+    {
+        label: '删除',
+        color: '#e74c3c',
+        popConfirm: {
+            title: '是否确认删除？',
+            onConfirm: () => console.log('点击确认删除', record),
+        },
+    },
+];
+
+/**
+ * 点击添加${pojoMeta.title}方法
+ */
+const onClickAddApp = () => {
+    console.log('点击新增${pojoMeta.title}');
+};
+</script>
+
+<style lang="scss" scoped></style>

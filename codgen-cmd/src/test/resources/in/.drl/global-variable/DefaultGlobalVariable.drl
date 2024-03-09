@@ -2,6 +2,8 @@ package globalvariable;
 
 import java.util.Map;
 import java.util.HashMap;
+import org.apache.commons.lang3.StringUtils;
+import rebue.wheel.core.PackageUtils;
 import rebue.wheel.serialization.jackson.JacksonUtils;
 import io.github.codgen.core.drools.fact.GlobalVariableFact;
 
@@ -20,7 +22,14 @@ then
     Map<String, Object> variableMap = (Map<String, Object>)$variableFact.getVariableMap();
     Map<String, Object> defaultOptionsMap = (Map<String, Object>)$variableFact.getVariableOptions().get("default");
     for (Map.Entry<String, Object> defaultOption : defaultOptionsMap.entrySet()) {
-        variableMap.put(defaultOption.getKey(), defaultOption.getValue());
+        String key = defaultOption.getKey();
+        Object value = defaultOption.getValue();
+        variableMap.put(key, value);
+        if (key.equals("packageName")) {
+            // 根据packageName计算出packagePath并绑定到模板中
+            String packagePath = PackageUtils.nameToPath((String) value).toString();
+            variableMap.put("packagePath", packagePath);
+        }
     }
     update($variableFact);
 end

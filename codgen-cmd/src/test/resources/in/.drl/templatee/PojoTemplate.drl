@@ -1,20 +1,19 @@
 package templatee;  // 避免使用template关键字
 
+import java.nio.file.Path;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
+import org.apache.commons.lang3.StringUtils;
+import com.google.common.base.CaseFormat;
 import org.beetl.core.GroupTemplate;
 import org.beetl.core.Template;
+import rebue.wheel.core.db.meta.PojoMeta;
+import rebue.wheel.core.PackageUtils;
+import io.github.codgen.core.drools.fact.TemplateInfo;
 import io.github.codgen.core.drools.fact.TemplateFact;
-import io.github.codgen.core.options.TemplateOptions;
 import io.github.codgen.core.FileInfo;
-import io.github.codgen.core.drools.fact.TemplateInfo;
-import rebue.wheel.core.db.meta.PojoMeta
-import java.nio.file.Path
-import rebue.wheel.core.PackageUtils
-import org.apache.commons.lang3.StringUtils
-import io.github.codgen.core.FileInfo
-import io.github.codgen.core.drools.fact.TemplateInfo;
+import io.github.codgen.core.options.TemplateOptions;
 
 /**
  * 装载POJO模板
@@ -28,9 +27,11 @@ when
 then
     String POJO_RULE_TEMPLATE_KEY = "pojo";
     String POJO_METAS_GLOBAL_VARIABLE_KEY = "pojoMetas";
+    String PACKAGE_NAME_GLOBAL_VARIABLE_KEY = "packageName";
     String POJO_META_LOCAL_VARIABLE_KEY = "pojoMeta";
     GroupTemplate groupTemplate = $templateFact.getGroupTemplate();
     FileInfo inFileInfo = $templateFact.getInFileInfo();
+    String packageName = (String) $templateFact.getGlobalVariableMap().get(PACKAGE_NAME_GLOBAL_VARIABLE_KEY);
     List<PojoMeta> pojoMetas =  (List<PojoMeta>) $templateFact.getGlobalVariableMap().get(POJO_METAS_GLOBAL_VARIABLE_KEY);
     if (pojoMetas == null || pojoMetas.isEmpty()) return;
     Map<String, List<?>> templateRuleOptionsMap = $templateFact.getRuleOptionsMap();
@@ -43,12 +44,6 @@ then
                 String inFilePath = (String) pojo.get("inFilePath");
                 if (inFilePath.equals(inFileInfo.getPath())) {
                     String outFilePath = (String) pojo.get("outFilePath");
-                    // 计算出packagePath绑定到模板中
-                    String packageName = (String) pojo.get("packageName");
-                    if (StringUtils.isNotBlank(packageName)) {
-                        String packagePath = PackageUtils.nameToPath(packageName).toString();
-                        pojo.put("packagePath", packagePath);
-                    }
                     for (PojoMeta pojoMeta: pojoMetas) {
                         // 获取路径模板
                         Template pathTemplate = groupTemplate.getTemplate(outFilePath);
@@ -60,8 +55,27 @@ then
                         contentTemplate.binding(POJO_META_LOCAL_VARIABLE_KEY, pojoMeta);
                         // 遍历pojo中配置的变量绑定到模板中
                         for (Map.Entry<String, ?> variable: pojo.entrySet()) {
-                            pathTemplate.binding(variable.getKey(), variable.getValue());
-                            contentTemplate.binding(variable.getKey(), variable.getValue());
+                            String key   = variable.getKey();
+                            Object value = variable.getValue();
+                            pathTemplate.binding(key, value);
+                            contentTemplate.binding(key, value);
+                            if (key.equals("moduleName")) {
+                                String moduleName = (String) value;
+                                // 根据moduleName计算出modulePackageName和modulePath，并绑定到模板中
+                                String modulePackageName = packageName + "." + moduleName;
+                                String modulePath        = PackageUtils.nameToPath(modulePackageName).toString();
+                                String moduleDirName     = moduleName.replace('.', '-');
+                                String moduleClassName = pojoMeta.getClassName()
+                                    + CaseFormat.LOWER_HYPHEN.to(CaseFormat.UPPER_CAMEL, moduleDirName);
+                                pathTemplate.binding("modulePackageName", modulePackageName);
+                                pathTemplate.binding("modulePath", modulePath);
+                                pathTemplate.binding("moduleDirName", moduleDirName);
+                                pathTemplate.binding("moduleClassName", moduleClassName);
+                                contentTemplate.binding("modulePackageName", modulePackageName);
+                                contentTemplate.binding("modulePath", modulePath);
+                                contentTemplate.binding("moduleDirName", moduleDirName);
+                                contentTemplate.binding("moduleClassName", moduleClassName);
+                            }
                         }
                         // 添加模板信息到模板列表中
                         templates.add(TemplateInfo.builder()
