@@ -1,5 +1,6 @@
 package io.github.codgen;
 
+import io.github.codgen.co.TagsCo;
 import io.github.codgen.core.Codgen;
 import io.github.codgen.core.FileInfo;
 import io.github.codgen.core.options.GenOptions;
@@ -15,6 +16,7 @@ import rebue.wheel.core.PrintUtils;
 import rebue.wheel.core.drools.DroolsUtils;
 import rebue.wheel.core.file.FileSearcher;
 import rebue.wheel.core.file.FileUtils;
+import rebue.wheel.core.source.MergeJavaFileUtils;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -302,9 +304,23 @@ public class CodgenApplication {
             File outDir = outFile.getParentFile();
             log.info(outFile.getAbsolutePath());
             // 如果目录不存在则创建
-//            if (!outDir.exists() || !outDir.isDirectory()) {
             outDir.mkdirs();
-//            }
+
+            // 获取输出文件名扩展
+            String fileExtension = "";
+            int    index         = outFile.getAbsolutePath().lastIndexOf('.');
+            if (index > 0) {
+                fileExtension = outFile.getAbsolutePath().substring(index + 1);
+            }
+
+            // 如果是java文件，且已经存在，合并代码
+            if ("java".equals(fileExtension) && outFile.exists()) {
+                outFileInfo.setContent(MergeJavaFileUtils.merge(outFileInfo.getContent(), outFile,
+                        TagsCo.generatedTags, TagsCo.removedMemberTags, TagsCo.dontOverWriteFileTags,
+                        TagsCo.dontOverWriteAnnotationTags, TagsCo.dontOverWriteExtendsTags,
+                        TagsCo.dontOverWriteImplementsTags));
+            }
+
             // 写入文件内容
             try (BufferedWriter out = new BufferedWriter(new FileWriter(outFile))) {
                 out.write(outFileInfo.getContent());
