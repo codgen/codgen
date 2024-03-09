@@ -29,6 +29,7 @@ mvn test -Dtest=CodgenApplicationTests#testMain -Pgen-native-image-configs
 ====
 因为是利用test插件生成，所以不能skip test
 ====
+
 . 打包生成 *native-image* 的执行文件
 +
 在 *codgen-cmd* 项目的目录下执行下面的命令
