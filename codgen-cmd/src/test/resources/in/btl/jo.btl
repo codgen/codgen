@@ -57,7 +57,7 @@ public class ${moduleClassName} implements Serializable {
                 print('@ManyToOne(');
                 if(!pojoMeta.properties[i].field.isNullable) print('optional = false');
                 println(')');
-                println('private '+pojoMeta.properties[i].field.referencedTableClassName+' '+pojoMeta.properties[i].field.referencedTableInstanceName+';');
+                println('private '+pojoMeta.properties[i].field.referencedTableClassName+'Jo '+pojoMeta.properties[i].field.referencedTableInstanceName+';');
 			} else {
                 println('/**');
                 println('* ' + pojoMeta.properties[i].remark);
