@@ -1,6 +1,8 @@
 # groupTemplate的配置选项(生成template时使用)
 # 如果未配置default，会自动创建一个default配置
 groupTemplate:
+  default:
+    FN.getCommentOfRemarks: rebue.wheel.core.beetl.function.GetCommentOfRemarksFunction
   pojo:
     # 左定位符
     DELIMITER_PLACEHOLDER_START: '${'

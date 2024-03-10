@@ -1,10 +1,15 @@
+/**
+ ${getCommentOfRemarks(pojoMeta.remark)}
+ */
 export interface ${moduleClassName} {
 <%
-  for(property in pojoMeta.properties){
-    print(property.name);
-    print(':');
-    print(property.jsType);
-    print(';\n');
+  for(property in pojoMeta.properties) {
+%>
+    /**
+     ${getCommentOfRemarks(property.remark)}
+     */
+    ${property.name}: ${property.jsType};
+<%
   }
 %>
 }
