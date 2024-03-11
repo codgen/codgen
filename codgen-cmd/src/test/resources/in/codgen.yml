@@ -79,13 +79,13 @@ template:
         outFilePath: ${project}-svr/src/main/java/${modulePath}/${moduleClassName}.java
       - moduleName: test.api # 模块名(根据moduleName自动计算modulePackageName为packageName+'.'+moduleName，然后计算出modulePath)
         inFilePath: btl/test-api.btl
-        outFilePath: ${project}-svr/src/main/java/${modulePath}/${moduleClassName}.java
+        outFilePath: ${project}-svr/src/test/java/${modulePath}/${pojoMeta.className}ApiTests.java
       - moduleName: test.http # 模块名(根据moduleName自动计算modulePackageName为packageName+'.'+moduleName，然后计算出modulePath)
         inFilePath: btl/test-http.btl
-        outFilePath: ${project}-svr/src/main/java/${modulePath}/${moduleClassName}.java
+        outFilePath: ${project}-svr/src/test/java/${modulePath}/${pojoMeta.className}HttpTests.java
       - moduleName: test.svc # 模块名(根据moduleName自动计算modulePackageName为packageName+'.'+moduleName，然后计算出modulePath)
         inFilePath: btl/test-svc.btl
-        outFilePath: ${project}-svr/src/main/java/${modulePath}/${moduleClassName}.java
+        outFilePath: ${project}-svr/src/test/java/${modulePath}/${pojoMeta.className}SvcTests.java
       - moduleName: to # 模块名(根据moduleName自动计算modulePackageName为packageName+'.'+moduleName，然后计算出modulePath)
         inFilePath: btl/to-add.btl
         outFilePath: ${project}-api/src/main/java/${modulePath}/${pojoMeta.className}AddTo.java
