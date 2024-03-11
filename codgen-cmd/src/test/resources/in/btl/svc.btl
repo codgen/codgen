@@ -11,7 +11,7 @@ import ${packageName}.jo.${pojoMeta.className}Jo;
 
 import org.springframework.validation.annotation.Validated;
 
-import rebue.robotech.ro.Ro;
+import rebue.wheel.api.ro.Rt;
 import rebue.robotech.svc.BaseSvc;
 
 /**

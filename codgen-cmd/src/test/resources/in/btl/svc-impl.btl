@@ -30,10 +30,11 @@ import ${packageName}.to.${pojoMeta.className}PageTo;
 import ${packageName}.dao.${pojoMeta.className}Dao;
 import ${packageName}.mapper.${pojoMeta.className}Mapper;
 import ${packageName}.svc.${pojoMeta.className}Svc;
+import ${packageName}.clone.${pojoMeta.className}Clone;
 
 import rebue.robotech.dic.ResultDic;
-import rebue.robotech.ra.IdRa;
-import rebue.robotech.ro.Ro;
+import rebue.wheel.api.ra.IdRa;
+import rebue.wheel.api.ro.Rt;
 import rebue.robotech.svc.BaseSvc;
 import rebue.robotech.svc.impl.BaseSvcImpl;
 
@@ -55,7 +56,7 @@ import rebue.robotech.svc.impl.BaseSvcImpl;
  */
 @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 @Service
-public class ${moduleClassName} extends BaseSvcImpl<${pojoMeta.ids[0].classSimpleName}, ${pojoMeta.className}AddTo, ${pojoMeta.className}ModifyTo, ${pojoMeta.className}DelTo, ${pojoMeta.className}OneTo, ${pojoMeta.className}ListTo, ${pojoMeta.className}PageTo, ${pojoMeta.className}Mo, ${pojoMeta.className}Jo, ${pojoMeta.className}Mapper, ${pojoMeta.className}Dao> implements ${pojoMeta.className}Svc {
+public class ${moduleClassName} extends BaseSvcImpl<${pojoMeta.ids[0].classSimpleName}, ${pojoMeta.className}AddTo, ${pojoMeta.className}ModifyTo, ${pojoMeta.className}DelTo, ${pojoMeta.className}OneTo, ${pojoMeta.className}ListTo, ${pojoMeta.className}PageTo, ${pojoMeta.className}Mo, ${pojoMeta.className}Jo, ${pojoMeta.className}Mapper, ${pojoMeta.className}Dao, ${pojoMeta.className}Clone> implements ${pojoMeta.className}Svc {
 
 	
     /**

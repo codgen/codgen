@@ -1,6 +1,8 @@
 package ${packageName}.clone;
 
+import org.mapstruct.Mapper;
 import rebue.robotech.clone.CloneMapper;
+import org.mapstruct.factory.Mappers;
 
 import ${packageName}.mo.${pojoMeta.className}Mo;
 import ${packageName}.to.${pojoMeta.className}AddTo;
@@ -17,5 +19,10 @@ import ${packageName}.to.${pojoMeta.className}PageTo;
  */
 @Mapper(componentModel = "spring")
 public interface ${moduleClassName} extends CloneMapper<${pojoMeta.className}AddTo, ${pojoMeta.className}ModifyTo, ${pojoMeta.className}DelTo, ${pojoMeta.className}OneTo, ${pojoMeta.className}ListTo, ${pojoMeta.className}PageTo, ${pojoMeta.className}Mo> {
-
+    /**
+     * ${pojoMeta.title}的克隆实例
+     *
+     * @codgen.generated 自动生成，如需修改，请删除本行
+     */
+    ${moduleClassName} INSTANCE = Mappers.getMapper(${moduleClassName}.class);
 }
