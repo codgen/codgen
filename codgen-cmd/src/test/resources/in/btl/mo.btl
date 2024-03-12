@@ -1,5 +1,0 @@
-package ${modulePackageName};
-
-public class ${moduleClassName} {
-
-}

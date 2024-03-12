@@ -10,7 +10,6 @@ import ${packageName}.to.${pojoMeta.className}OneTo;
 import ${packageName}.to.${pojoMeta.className}ListTo;
 import ${packageName}.to.${pojoMeta.className}PageTo;
 import ${packageName}.api.${pojoMeta.className}Api;
-import ${packageName}.jo.${pojoMeta.className}Jo;
 import ${packageName}.svc.${pojoMeta.className}Svc;
 
 import rebue.robotech.api.impl.BaseApiImpl;
@@ -21,6 +20,6 @@ import rebue.robotech.api.impl.BaseApiImpl;
  * @codgen.generated 自动生成的注释，如需修改本注释，请删除本行
  */
 @DubboService
-public class ${moduleClassName} extends BaseApiImpl<${pojoMeta.ids[0].classSimpleName}, ${pojoMeta.className}AddTo, ${pojoMeta.className}ModifyTo, ${pojoMeta.className}DelTo, ${pojoMeta.className}OneTo, ${pojoMeta.className}ListTo, ${pojoMeta.className}PageTo, ${pojoMeta.className}Mo, ${pojoMeta.className}Jo, ${pojoMeta.className}Svc> implements ${pojoMeta.className}Api {
+public class ${moduleClassName} extends BaseApiImpl<${pojoMeta.ids[0].classSimpleName}, ${pojoMeta.className}AddTo, ${pojoMeta.className}ModifyTo, ${pojoMeta.className}DelTo, ${pojoMeta.className}OneTo, ${pojoMeta.className}ListTo, ${pojoMeta.className}PageTo, ${pojoMeta.className}Mo, ${pojoMeta.className}Svc> implements ${pojoMeta.className}Api {
 	
 }

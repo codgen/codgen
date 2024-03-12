@@ -1,9 +1,0 @@
-package ${modulePackageName};
-
-import org.springframework.data.jpa.repository.JpaRepository;
-
-import ${packageName}.jo.${pojoMeta.className}Jo;
-
-public interface ${moduleClassName} extends JpaRepository<${pojoMeta.className}Jo, ${pojoMeta.ids[0].classSimpleName}> {
-	
-}

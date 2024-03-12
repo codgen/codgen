@@ -65,12 +65,6 @@ template:
       - moduleName: ctrl # 模块名(根据moduleName自动计算modulePackageName为packageName+'.'+moduleName，然后计算出modulePath)
         inFilePath: btl/ctrl.btl
         outFilePath: ${project}-svr/src/main/java/${modulePath}/${moduleClassName}.java
-      - moduleName: dao # 模块名(根据moduleName自动计算modulePackageName为packageName+'.'+moduleName，然后计算出modulePath)
-        inFilePath: btl/dao.btl
-        outFilePath: ${project}-svr/src/main/java/${modulePath}/${moduleClassName}.java
-      - moduleName: jo # 模块名(根据moduleName自动计算modulePackageName为packageName+'.'+moduleName，然后计算出modulePath)
-        inFilePath: btl/jo.btl
-        outFilePath: ${project}-api/src/main/java/${modulePath}/${moduleClassName}.java
       - moduleName: svc # 模块名(根据moduleName自动计算modulePackageName为packageName+'.'+moduleName，然后计算出modulePath)
         inFilePath: btl/svc.btl
         outFilePath: ${project}-svr/src/main/java/${modulePath}/${moduleClassName}.java
