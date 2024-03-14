@@ -30,7 +30,7 @@ import ${packageName}.mapper.${pojoMeta.className}Mapper;
 import ${packageName}.svc.${pojoMeta.className}Svc;
 import ${packageName}.clone.${pojoMeta.className}Clone;
 
-import rebue.robotech.dic.ResultDic;
+import rebue.wheel.api.dic.ResultDic;
 import rebue.wheel.api.ra.IdRa;
 import rebue.wheel.api.ro.Rt;
 import rebue.robotech.svc.BaseSvc;

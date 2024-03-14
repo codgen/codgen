@@ -21,7 +21,7 @@ import ${packageName}.to.${pojoMeta.className}OneTo;
 import ${packageName}.to.${pojoMeta.className}PageTo;
 import ${packageName}.api.${pojoMeta.className}Api;
 
-import rebue.robotech.dic.ResultDic;
+import rebue.wheel.api.dic.ResultDic;
 import reactor.core.publisher.Mono;
 import rebue.wheel.api.ra.IdRa;
 import rebue.wheel.api.ra.BooleanRa;
