@@ -20,7 +20,7 @@ mvn clean install -DskipTests
 +
 [,shell]
 ----
-mvn test -Dtest=CodgenApplicationTests#testMain -Pgen-native-image-configs
+mvn test -Dtest=CodgenApplicationTests#testMain -Pgen-native-image-config
 ----
 
 此命令将在 *src/main/resources/META-INF/native-image* 目录下生成编译 *native-image* 的配置文件

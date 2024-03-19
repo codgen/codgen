@@ -189,7 +189,7 @@
             <!-- 生成native-image的配置文件需要 -->
             <!-- 因为是利用test插件生成，所以不能skip test -->
             <!-- maven命令使用test，并最好加上 '-Dtest=CodgenApplicationTests#testMain' 参数限定测试的方法 -->
-            <id>gen-native-image-configs</id>
+            <id>gen-native-image-config</id>
             <build>
                 <plugins>
                     <!-- 执行测试用例的插件 -->
@@ -241,7 +241,7 @@
                             <buildArgs>
                                 <!-- 建立独立镜像，不成功则报告失败 -->
                                 --no-fallback
-                                <!-- 指定native-image配置文件的目录(此目录由maven编译gen-native-image-configs生成) -->
+                                <!-- 指定native-image配置文件的目录(此目录由maven编译gen-native-image-config生成) -->
                                 -H:ConfigurationFileDirectories=src/main/resources/META-INF/native-image/
                                 <!-- 级别设置为3，打包时输出包含的资源文件 -->
                                 -H:Log=registerResource:3
@@ -255,34 +255,6 @@
                             <quickBuild>true</quickBuild>
                         </configuration>
                     </plugin>
-
-                    <!--                    <plugin>-->
-                    <!--                        <groupId>org.graalvm.nativeimage</groupId>-->
-                    <!--                        <artifactId>native-image-maven-plugin</artifactId>-->
-                    <!--                        <version>${native-image-maven-plugin.version}</version>-->
-                    <!--                        <executions>-->
-                    <!--                            <execution>-->
-                    <!--                                <goals>-->
-                    <!--                                    <goal>native-image</goal>-->
-                    <!--                                </goals>-->
-                    <!--                                <phase>package</phase>-->
-                    <!--                            </execution>-->
-                    <!--                        </executions>-->
-                    <!--                        <configuration>-->
-                    <!--                            <skip>false</skip>-->
-                    <!--                            <imageName>${project.artifactId}</imageName>-->
-                    <!--                            <buildArgs>-->
-                    <!--                                &lt;!&ndash; 建立独立镜像，不成功则报告失败 &ndash;&gt;-->
-                    <!--                                &#45;&#45;no-fallback-->
-                    <!--                                &lt;!&ndash; 指定native-image配置文件的目录(此目录由maven编译gen-native-image-configs生成) &ndash;&gt;-->
-                    <!--                                -H:ConfigurationFileDirectories=src/main/resources/META-INF/native-image/-->
-                    <!--                                &lt;!&ndash; 解锁一些实验性的选项，如'-H:Name=codgen-cmd'和'-H:Log=registerResource:3'&ndash;&gt;-->
-                    <!--                                -H:+UnlockExperimentalVMOptions-->
-                    <!--                                &lt;!&ndash; 级别设置为3，打包时输出包含的资源文件 &ndash;&gt;-->
-                    <!--                                -H:Log=registerResource:3-->
-                    <!--                            </buildArgs>-->
-                    <!--                        </configuration>-->
-                    <!--                    </plugin>-->
                 </plugins>
             </build>
         </profile>
