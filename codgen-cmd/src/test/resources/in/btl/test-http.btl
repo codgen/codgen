@@ -24,7 +24,6 @@ import ${packageName}.clone.${pojoMeta.className}Clone;
 import rebue.wheel.api.dic.ResultDic;
 import rebue.wheel.api.ra.IdRa;
 import rebue.wheel.api.ra.PageRa;
-import rebue.wheel.api.ra.PojoRa;
 import rebue.wheel.api.ro.Rt;
 import rebue.wheel.core.RandomEx;
 import rebue.wheel.net.httpclient.HttpClient;
@@ -81,11 +80,11 @@ public class ${pojoMeta.className}HttpTests {
         modifyTo.setId(id);
 		log.info("修改${pojoMeta.remark}的参数为：" + modifyTo);
 		final String modifyResult = _httpClient.putByJsonParams(_hostUrl + "/${project}/${pojoMeta.lowerHyphenNameWithoutPrefix}", modifyTo);
-        final Rt<PojoRa<${pojoMeta.className}Mo>> getByIdRo = JacksonUtils.deserialize(getByIdResult, new TypeReference<Rt<PojoRa<${pojoMeta.className}Mo>>>() {
+        final Rt<${pojoMeta.className}Mo> getByIdRo = JacksonUtils.deserialize(getByIdResult, new TypeReference<Rt<${pojoMeta.className}Mo>>() {
         });
         Assertions.assertEquals(ResultDic.SUCCESS, getByIdRo.getResult());
-        ${pojoMeta.className}Mo mo = getByIdRo.getExtra().getOne();
-        mo = getByIdRo.getExtra().getOne();
+        ${pojoMeta.className}Mo mo = getByIdRo.getExtra();
+        mo = getByIdRo.getExtra();
         log.info("修改${pojoMeta.remark}的返回值为：" + modifyResult);
 		final Rt<?> modifyRo = JacksonUtils.deserialize(modifyResult, Rt.class);
         Assertions.assertEquals(ResultDic.SUCCESS, modifyRo.getResult());
