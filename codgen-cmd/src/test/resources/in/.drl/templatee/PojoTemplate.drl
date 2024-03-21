@@ -29,7 +29,8 @@ then
     String POJO_METAS_GLOBAL_VARIABLE_KEY = "pojoMetas";
     String PACKAGE_NAME_GLOBAL_VARIABLE_KEY = "packageName";
     String POJO_META_LOCAL_VARIABLE_KEY = "pojoMeta";
-    GroupTemplate groupTemplate = $templateFact.getGroupTemplate();
+    GroupTemplate pathGroupTemplate = $templateFact.getPathGroupTemplate();
+    GroupTemplate contentGroupTemplate = $templateFact.getContentGroupTemplate();
     FileInfo inFileInfo = $templateFact.getInFileInfo();
     String packageName = (String) $templateFact.getGlobalVariableMap().get(PACKAGE_NAME_GLOBAL_VARIABLE_KEY);
     List<PojoMeta> pojoMetas =  (List<PojoMeta>) $templateFact.getGlobalVariableMap().get(POJO_METAS_GLOBAL_VARIABLE_KEY);
@@ -46,11 +47,11 @@ then
                     String outFilePath = (String) rule.get("outFilePath");
                     for (PojoMeta pojoMeta: pojoMetas) {
                         // 获取路径模板
-                        Template pathTemplate = groupTemplate.getTemplate(outFilePath);
+                        Template pathTemplate = pathGroupTemplate.getTemplate(outFilePath);
                         // 绑定pojoMeta局部变量到路径模板
                         pathTemplate.binding(POJO_META_LOCAL_VARIABLE_KEY, pojoMeta);
                         // 获取内容模板
-                        Template contentTemplate = groupTemplate.getTemplate(inFileInfo.getContent());
+                        Template contentTemplate = contentGroupTemplate.getTemplate(inFileInfo.getContent());
                         // 绑定pojoMeta局部变量到内容模板
                         contentTemplate.binding(POJO_META_LOCAL_VARIABLE_KEY, pojoMeta);
                         // 遍历pojo中配置的变量绑定到模板中

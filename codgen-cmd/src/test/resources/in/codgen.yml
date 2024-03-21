@@ -3,15 +3,13 @@
 groupTemplate:
   default:
     FN.getCommentOfRemarks: rebue.wheel.core.beetl.function.GetCommentOfRemarksFunction
-  pojo:
+  # 与Spring表达式语言不冲突的配置
+  spel:
     # 左定位符
-    DELIMITER_PLACEHOLDER_START: '${'
+    DELIMITER_PLACEHOLDER_START: '@{'
     # 右定位符
     DELIMITER_PLACEHOLDER_END: '}'
-    # 左定界符
-    DELIMITER_STATEMENT_START: '<%'
-    # 右定界符
-    DELIMITER_STATEMENT_END: '%>'
+    FN.getCommentOfRemarks: rebue.wheel.core.beetl.function.GetCommentOfRemarksFunction
 # 模板要绑定全局变量的配置选项
 globalVariable:
   default:
@@ -48,6 +46,11 @@ globalVariable:
     tableName: TEST_A%
 # 获取模板的配置选项
 template:
+  # 分组模板
+  groupTemplate:
+    # 使用用了Spring表达式语言的文件
+    spel:
+      - btl/ctrl.btl
   # 配置模板触发的规则(不配置的默认触发template_default规则)
   rule:
     # PojoTemplate规则的配置选项

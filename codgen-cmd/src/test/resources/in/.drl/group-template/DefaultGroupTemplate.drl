@@ -16,13 +16,14 @@ rule group_template_default
 when
     $groupTemplateFact: GroupTemplateFact()
 then
+    // 在groupTemplate选项中配置的key
+    String DEFAULT_GROUP_TEMPLATE_KEY = "default";
     // groupTemplate列表
     Map<String,GroupTemplate> groupTemplates = $groupTemplateFact.getGroupTemplates();
-    // 在groupTemplate选项中配置的key
-    String groupTemplateKey = "default";
     // 获取groupTemplate
-    GroupTemplate groupTemplate = (GroupTemplate) groupTemplates.get(groupTemplateKey);
+    GroupTemplate groupTemplate = (GroupTemplate) groupTemplates.get(DEFAULT_GROUP_TEMPLATE_KEY);
     // 设置groupTemplate返回
-    $groupTemplateFact.setGroupTemplate(groupTemplate);
+    $groupTemplateFact.setPathGroupTemplate(groupTemplate);
+    $groupTemplateFact.setContentGroupTemplate(groupTemplate);
     update($groupTemplateFact);
 end

@@ -25,7 +25,8 @@ when
     $templateFact: TemplateFact()
 then
     String DEFAULT_RULE_TEMPLATE_KEY = "default";
-    GroupTemplate groupTemplate = $templateFact.getGroupTemplate();
+    GroupTemplate pathGroupTemplate = $templateFact.getPathGroupTemplate();
+    GroupTemplate contentGroupTemplate = $templateFact.getContentGroupTemplate();
     FileInfo inFileInfo = $templateFact.getInFileInfo();
     List<TemplateInfo> templates = $templateFact.getTemplates();
     Map<String, List<?>> templateRuleOptionsMap = $templateFact.getRuleOptionsMap();
@@ -46,8 +47,8 @@ then
 
     // 生成模板信息并添加到模板列表中
     templates.add(TemplateInfo.builder()
-        .pathTemplate(groupTemplate.getTemplate(outFilePath))
-        .contentTemplate(groupTemplate.getTemplate(inFileInfo.getContent()))
+        .pathTemplate(pathGroupTemplate.getTemplate(outFilePath))
+        .contentTemplate(contentGroupTemplate.getTemplate(inFileInfo.getContent()))
         .build());
     update($templateFact);
 end
