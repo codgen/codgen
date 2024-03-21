@@ -69,9 +69,15 @@ public class ${pojoMeta.className}HttpTests {
     	}
     	
 		final String pageResult = _httpClient.get(_hostUrl + "/${project}/${pojoMeta.lowerHyphenNameWithoutPrefix}/page");
-		log.info("查询${pojoMeta.remark}的返回值为：" + pageResult);
+		log.info("查询${pojoMeta.remark}的返回列表为：" + pageResult);
 		final Rt<PageRa<${pojoMeta.className}Mo>> pageRo = JacksonUtils.deserialize(pageResult, new TypeReference<Rt<PageRa<${pojoMeta.className}Mo>>>() {});
         Assertions.assertEquals(ResultDic.SUCCESS, pageRo.getResult());
+
+		final String searchResult = _httpClient.get(_hostUrl + "/${project}/${pojoMeta.lowerHyphenNameWithoutPrefix}/search");
+		log.info("搜索${pojoMeta.remark}的返回列表为：" + searchResult);
+		final Rt<PageRa<${pojoMeta.className}Mo>> searchRo = JacksonUtils.deserialize(searchResult, new TypeReference<Rt<PageRa<${pojoMeta.className}Mo>>>() {});
+        Assertions.assertEquals(ResultDic.SUCCESS, searchRo.getResult());
+
 		log.info("获取单个${pojoMeta.remark}的参数为：" + id);
 		final String getByIdResult = _httpClient.get(_hostUrl + "/${project}/${pojoMeta.lowerHyphenNameWithoutPrefix}/get-by-id?id=" + id);
 		log.info("获取单个${pojoMeta.remark}的返回值为：" + getByIdResult);
@@ -84,7 +90,6 @@ public class ${pojoMeta.className}HttpTests {
         });
         Assertions.assertEquals(ResultDic.SUCCESS, getByIdRo.getResult());
         ${pojoMeta.className}Mo mo = getByIdRo.getExtra();
-        mo = getByIdRo.getExtra();
         log.info("修改${pojoMeta.remark}的返回值为：" + modifyResult);
 		final Rt<?> modifyRo = JacksonUtils.deserialize(modifyResult, Rt.class);
         Assertions.assertEquals(ResultDic.SUCCESS, modifyRo.getResult());
