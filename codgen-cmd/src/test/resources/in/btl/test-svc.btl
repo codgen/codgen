@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.github.pagehelper.PageInfo;
+import rebue.wheel.api.ra.PageRa;
 import ${packageName}.mo.${pojoMeta.className}Mo;
 import ${packageName}.to.${pojoMeta.className}AddTo;
 import ${packageName}.to.${pojoMeta.className}ModifyTo;
@@ -50,7 +50,7 @@ public class ${pojoMeta.className}SvcTests {
             Assertions.assertNotNull(addRo);
             id = addRo.getId();
         }
-        final PageInfo<${pojoMeta.className}Mo> pageResult = _svc.page(new ${pojoMeta.className}PageTo());
+        final PageRa<${pojoMeta.className}Mo> pageResult = _svc.page(new ${pojoMeta.className}PageTo());
         log.info("查询${pojoMeta.remark}的返回值为：" + pageResult);
         Assertions.assertNotNull(pageResult);
         log.info("获取单个${pojoMeta.remark}的参数为：" + id);

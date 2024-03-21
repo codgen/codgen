@@ -50,7 +50,7 @@ template:
   groupTemplate:
     # 使用用了Spring表达式语言的文件
     spel:
-      - btl/ctrl.btl
+      - btl/svc-impl.btl
   # 配置模板触发的规则(不配置的默认触发template_default规则)
   rule:
     # PojoTemplate规则的配置选项
@@ -59,9 +59,6 @@ template:
       - moduleName: api # 模块名(根据moduleName自动计算modulePackageName为packageName+'.'+moduleName，然后计算出modulePath)
         inFilePath: btl/api.btl
         outFilePath: ${project}-api/src/main/java/${modulePath}/${moduleClassName}.java
-      - moduleName: api.impl  # 模块名(根据moduleName自动计算modulePackageName为packageName+'.'+moduleName，然后计算出modulePath)
-        inFilePath: btl/api-impl.btl
-        outFilePath: ${project}-svr/src/main/java/${modulePath}/${moduleClassName}.java
       - moduleName: clone # 模块名(根据moduleName自动计算modulePackageName为packageName+'.'+moduleName，然后计算出modulePath)
         inFilePath: btl/clone.btl
         outFilePath: ${project}-svr/src/main/java/${modulePath}/${moduleClassName}.java
