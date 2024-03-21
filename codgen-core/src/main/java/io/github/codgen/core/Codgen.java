@@ -72,7 +72,8 @@ public class Codgen {
 
             // 触发template规则，生成要绑定的局部变量，获取模板信息列表
             TemplateFact templateFact = TemplateFact.builder()
-                    .groupTemplate(groupTemplateFact.getGroupTemplate())
+                    .pathGroupTemplate(groupTemplateFact.getPathGroupTemplate())
+                    .contentGroupTemplate(groupTemplateFact.getContentGroupTemplate())
                     .inFileInfo(inFileInfo)
                     .globalVariableMap(globalVariableFact.getVariableMap())
                     .ruleOptionsMap(templateOptions.getRule())

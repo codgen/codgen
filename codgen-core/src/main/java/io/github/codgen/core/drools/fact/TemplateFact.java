@@ -17,9 +17,13 @@ import java.util.Map;
 @Builder
 public class TemplateFact {
     /**
-     * groupTemplate
+     * 路径GroupTemplate
      */
-    private GroupTemplate        groupTemplate;
+    private GroupTemplate        pathGroupTemplate;
+    /**
+     * 内容groupTemplate
+     */
+    private GroupTemplate        contentGroupTemplate;
     /**
      * 输入文件信息(其中的路径可用于判断激活哪个议程)
      */

@@ -28,9 +28,13 @@ public class GroupTemplateFact {
      */
     private Map<String, List<String>>  groupTemplateOptionsMap;
     /**
-     * groupTemplate(返回主程给后续流程使用)
+     * 路径分组模板(返回主程给后续流程使用)
      */
-    private GroupTemplate              groupTemplate;
+    private GroupTemplate              pathGroupTemplate;
+    /**
+     * 内容分组模板(返回主程给后续流程使用)
+     */
+    private GroupTemplate              contentGroupTemplate;
 
 }
 
