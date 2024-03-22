@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import rebue.wheel.api.ra.PageRa;
-import ${packageName}.mo.${pojoMeta.className}Mo;
+import ${packageName}.vo.${pojoMeta.className}Vo;
 import ${packageName}.to.${pojoMeta.className}AddTo;
 import ${packageName}.to.${pojoMeta.className}ModifyTo;
 import ${packageName}.to.${pojoMeta.className}PageTo;
@@ -45,16 +45,16 @@ public class ${pojoMeta.className}SvcTests {
         for (int i = 0; i < 20; i++) {
             addTo = (${pojoMeta.className}AddTo) RandomEx.randomPojo(${pojoMeta.className}AddTo.class);
             log.info("添加${pojoMeta.remark}的参数为：" + addTo);
-            final ${pojoMeta.className}Mo addRo = _svc.add(addTo);
+            final ${pojoMeta.className}Vo addRo = _svc.add(addTo);
             log.info("添加${pojoMeta.remark}的返回值为：" + addRo);
             Assertions.assertNotNull(addRo);
             id = addRo.getId();
         }
-        final PageRa<${pojoMeta.className}Mo> pageResult = _svc.page(new ${pojoMeta.className}PageTo());
+        final PageRa<${pojoMeta.className}Vo> pageResult = _svc.page(new ${pojoMeta.className}PageTo());
         log.info("查询${pojoMeta.remark}的返回值为：" + pageResult);
         Assertions.assertNotNull(pageResult);
         log.info("获取单个${pojoMeta.remark}的参数为：" + id);
-        ${pojoMeta.className}Mo getByIdResult = _svc.getById(id);
+        ${pojoMeta.className}Vo getByIdResult = _svc.getById(id);
         log.info("获取单个${pojoMeta.remark}的返回值为：" + getByIdResult);
         Assertions.assertNotNull(getByIdResult);
         

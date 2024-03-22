@@ -6,8 +6,6 @@ import java.util.Map;
 
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,13 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
-import ${packageName}.mo.${pojoMeta.className}Mo;
-import ${packageName}.to.${pojoMeta.className}AddTo;
-import ${packageName}.to.${pojoMeta.className}ModifyTo;
-import ${packageName}.to.${pojoMeta.className}OneTo;
-import ${packageName}.to.${pojoMeta.className}PageTo;
-import ${packageName}.svc.${pojoMeta.className}Svc;
-
 import rebue.robotech.clone.MapStructMapper;
 import rebue.wheel.svc.dic.ResultDic;
 import rebue.wheel.api.ra.IdRa;
@@ -31,13 +22,19 @@ import rebue.wheel.api.ra.BooleanRa;
 import rebue.wheel.api.ra.PageRa;
 import rebue.wheel.api.ro.Rt;
 
+import ${packageName}.vo.${pojoMeta.className}Vo;
+import ${packageName}.to.${pojoMeta.className}AddTo;
+import ${packageName}.to.${pojoMeta.className}ModifyTo;
+import ${packageName}.to.${pojoMeta.className}OneTo;
+import ${packageName}.to.${pojoMeta.className}PageTo;
+import ${packageName}.svc.${pojoMeta.className}Svc;
+
 /**
- * ${pojoMeta.remark}
+ * ${pojoMeta.remark}的控制器
  *
  * @codgen.generated 自动生成的注释，如需修改本注释，请删除本行
  */
 @RestController
-@RefreshScope
 public class ${moduleClassName} {
     /**
      * @codgen.generated 自动生成，如需修改，请删除本行
@@ -95,7 +92,7 @@ public class ${moduleClassName} {
      * @codgen.generated 自动生成，如需修改，请删除本行
      */
     @GetMapping("/${project}/${pojoMeta.lowerHyphenNameWithoutPrefix}/get-one")
-    public Mono<Rt<${pojoMeta.className}Mo>> getOne(final ${pojoMeta.className}OneTo qc) {
+    public Mono<Rt<${pojoMeta.className}Vo>> getOne(final ${pojoMeta.className}OneTo qc) {
         return Mono.create(callback -> callback.success(Rt.success("查询成功", svc.getOne(qc))));
     }
 
@@ -107,7 +104,7 @@ public class ${moduleClassName} {
      * @codgen.generated 自动生成，如需修改，请删除本行
      */
     @GetMapping("/${project}/${pojoMeta.lowerHyphenNameWithoutPrefix}/get-by-id")
-    public Mono<Rt<${pojoMeta.className}Mo>> getById(@RequestParam("${pojoMeta.ids[0].name}") final ${pojoMeta.ids[0].classSimpleName} ${pojoMeta.ids[0].name}) {
+    public Mono<Rt<${pojoMeta.className}Vo>> getById(@RequestParam("${pojoMeta.ids[0].name}") final ${pojoMeta.ids[0].classSimpleName} ${pojoMeta.ids[0].name}) {
         return Mono.create(callback -> callback.success(Rt.success("查询成功", svc.getById(${pojoMeta.ids[0].name}))));
     }
 

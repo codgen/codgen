@@ -1,12 +1,13 @@
 package ${modulePackageName};
 
-import ${packageName}.mo.${pojoMeta.className}Mo;
 import ${packageName}.to.${pojoMeta.className}AddTo;
 import ${packageName}.to.${pojoMeta.className}ModifyTo;
 import ${packageName}.to.${pojoMeta.className}DelTo;
 import ${packageName}.to.${pojoMeta.className}OneTo;
 import ${packageName}.to.${pojoMeta.className}ListTo;
 import ${packageName}.to.${pojoMeta.className}PageTo;
+import ${packageName}.mo.${pojoMeta.className}Mo;
+import ${packageName}.vo.${pojoMeta.className}Vo;
 
 import org.springframework.validation.annotation.Validated;
 
@@ -14,7 +15,7 @@ import rebue.wheel.api.ro.Rt;
 import rebue.robotech.svc.BaseSvc;
 
 /**
- * ${pojoMeta.remark}服务接口
+ * ${pojoMeta.remark}的服务接口
  *
  * <pre>
  * 1. 在接口上方必须写上 @Validated 注解
@@ -28,6 +29,6 @@ import rebue.robotech.svc.BaseSvc;
  * @codgen.generated 自动生成的注释，如需修改本注释，请删除本行
  */
 @Validated
-public interface ${moduleClassName} extends BaseSvc<${pojoMeta.ids[0].classSimpleName}, ${pojoMeta.className}AddTo, ${pojoMeta.className}ModifyTo, ${pojoMeta.className}DelTo, ${pojoMeta.className}OneTo, ${pojoMeta.className}ListTo, ${pojoMeta.className}PageTo, ${pojoMeta.className}Mo> {
+public interface ${moduleClassName} extends BaseSvc<${pojoMeta.ids[0].classSimpleName}, ${pojoMeta.className}AddTo, ${pojoMeta.className}ModifyTo, ${pojoMeta.className}DelTo, ${pojoMeta.className}OneTo, ${pojoMeta.className}ListTo, ${pojoMeta.className}PageTo, ${pojoMeta.className}Mo, ${pojoMeta.className}Vo> {
 
 }

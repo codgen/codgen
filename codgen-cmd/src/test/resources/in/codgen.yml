@@ -56,6 +56,9 @@ template:
     # PojoTemplate规则的配置选项
     #     值是Map列表，程序会将其中的每一项绑定到模板中
     pojo:
+      - moduleName: vo # 模块名(根据moduleName自动计算modulePackageName为packageName+'.'+moduleName，然后计算出modulePath)
+        inFilePath: btl/vo.btl
+        outFilePath: ${project}-api/src/main/java/${modulePath}/${moduleClassName}.java
       - moduleName: api # 模块名(根据moduleName自动计算modulePackageName为packageName+'.'+moduleName，然后计算出modulePath)
         inFilePath: btl/api.btl
         outFilePath: ${project}-api/src/main/java/${modulePath}/${moduleClassName}.java
