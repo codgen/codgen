@@ -3,7 +3,7 @@ package ${modulePackageName};
 import lombok.Data;
 
 /**
- * ${pojoMeta.remark}的视图对象
+ * ${pojoMeta.title}的视图对象
  *
  * @codgen.generated 自动生成，如需修改，请删除本行
  */
@@ -12,7 +12,9 @@ public class ${moduleClassName} implements Vo<${pojoMeta.ids[0].classSimpleName}
 	<%
 		for(var i=0; i<pojoMeta.properties.~size; i++){
             println('/**');
-            println('* ' + pojoMeta.properties[i].remark);
+            for(remark in pojoMeta.properties[i].remarks) {
+        	    println(' * ' + remark);
+            }
             println('*');
             println('* @codgen.generated 自动生成，如需修改，请删除本行');
             println('*/');

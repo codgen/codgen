@@ -31,7 +31,7 @@ import rebue.wheel.net.httpclient.impl.OkHttpClientImpl;
 import rebue.wheel.serialization.jackson.JacksonUtils;
 
 /**
- * ${pojoMeta.remark} HTTP测试
+ * ${pojoMeta.title} HTTP测试
  *
  * @codgen.generated 自动生成的注释，如需修改本注释，请删除本行
  */
@@ -59,9 +59,9 @@ public class ${pojoMeta.className}HttpTests {
         ${pojoMeta.ids[0].classSimpleName} id = null;
 		for(int i=0;i<20;i++) {
             addTo = (${pojoMeta.className}AddTo) RandomEx.randomPojo(${pojoMeta.className}AddTo.class);
-			log.info("添加${pojoMeta.remark}的参数为：" + addTo);
+			log.info("添加${pojoMeta.title}的参数为：" + addTo);
 			final String addResult = _httpClient.postByJsonParams(_hostUrl + "/${project}/${pojoMeta.lowerHyphenNameWithoutPrefix}", addTo);
-			log.info("添加${pojoMeta.remark}的返回值为：" + addResult);
+			log.info("添加${pojoMeta.title}的返回值为：" + addResult);
             final Rt<IdRa<${pojoMeta.ids[0].classSimpleName}>> idRo = JacksonUtils.deserialize(addResult, new TypeReference<Rt<IdRa<${pojoMeta.ids[0].classSimpleName}>>>() {});
 			log.info(idRo.toString());
         	Assertions.assertEquals(ResultDic.SUCCESS, idRo.getResult());
@@ -69,34 +69,34 @@ public class ${pojoMeta.className}HttpTests {
     	}
     	
 		final String pageResult = _httpClient.get(_hostUrl + "/${project}/${pojoMeta.lowerHyphenNameWithoutPrefix}/page");
-		log.info("查询${pojoMeta.remark}的返回列表为：" + pageResult);
+		log.info("查询${pojoMeta.title}的返回列表为：" + pageResult);
 		final Rt<PageRa<${pojoMeta.className}Vo>> pageRo = JacksonUtils.deserialize(pageResult, new TypeReference<Rt<PageRa<${pojoMeta.className}Vo>>>() {});
         Assertions.assertEquals(ResultDic.SUCCESS, pageRo.getResult());
 
 		final String searchResult = _httpClient.get(_hostUrl + "/${project}/${pojoMeta.lowerHyphenNameWithoutPrefix}/search");
-		log.info("搜索${pojoMeta.remark}的返回列表为：" + searchResult);
+		log.info("搜索${pojoMeta.title}的返回列表为：" + searchResult);
 		final Rt<PageRa<${pojoMeta.className}Vo>> searchRo = JacksonUtils.deserialize(searchResult, new TypeReference<Rt<PageRa<${pojoMeta.className}Vo>>>() {});
         Assertions.assertEquals(ResultDic.SUCCESS, searchRo.getResult());
 
-		log.info("获取单个${pojoMeta.remark}的参数为：" + id);
+		log.info("获取单个${pojoMeta.title}的参数为：" + id);
 		final String getByIdResult = _httpClient.get(_hostUrl + "/${project}/${pojoMeta.lowerHyphenNameWithoutPrefix}/get-by-id?id=" + id);
-		log.info("获取单个${pojoMeta.remark}的返回值为：" + getByIdResult);
+		log.info("获取单个${pojoMeta.title}的返回值为：" + getByIdResult);
 		
         final ${pojoMeta.className}ModifyTo modifyTo = ${pojoMeta.className}Clone.INSTANCE.addToMapModifyTo(addTo);
         modifyTo.setId(id);
-		log.info("修改${pojoMeta.remark}的参数为：" + modifyTo);
+		log.info("修改${pojoMeta.title}的参数为：" + modifyTo);
 		final String modifyResult = _httpClient.putByJsonParams(_hostUrl + "/${project}/${pojoMeta.lowerHyphenNameWithoutPrefix}", modifyTo);
         final Rt<${pojoMeta.className}Vo> getByIdRo = JacksonUtils.deserialize(getByIdResult, new TypeReference<Rt<${pojoMeta.className}Vo>>() {
         });
         Assertions.assertEquals(ResultDic.SUCCESS, getByIdRo.getResult());
         ${pojoMeta.className}Vo vo = getByIdRo.getExtra();
-        log.info("修改${pojoMeta.remark}的返回值为：" + modifyResult);
+        log.info("修改${pojoMeta.title}的返回值为：" + modifyResult);
 		final Rt<?> modifyRo = JacksonUtils.deserialize(modifyResult, Rt.class);
         Assertions.assertEquals(ResultDic.SUCCESS, modifyRo.getResult());
 
-		log.info("删除${pojoMeta.remark}的参数为：" + vo.getId());
+		log.info("删除${pojoMeta.title}的参数为：" + vo.getId());
 		final String deleteResult = _httpClient.delete(_hostUrl + "/${project}/${pojoMeta.lowerHyphenNameWithoutPrefix}?id=" + vo.getId());
-		log.info("删除${pojoMeta.remark}的返回值为：" + deleteResult);
+		log.info("删除${pojoMeta.title}的返回值为：" + deleteResult);
         final Rt<?> deleteRo = JacksonUtils.deserialize(deleteResult, Rt.class);
         log.info(deleteRo.toString());
         Assertions.assertEquals(ResultDic.SUCCESS, deleteRo.getResult());

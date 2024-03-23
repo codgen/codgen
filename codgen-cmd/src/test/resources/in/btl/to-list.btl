@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 import lombok.EqualsAndHashCode;
 
 /**
- * ${pojoMeta.remark}
+ * ${pojoMeta.title}查询列表方法的传输参数
  *
  * @codgen.generated 自动生成，如需修改，请删除本行
  */
@@ -47,7 +47,9 @@ public class ${pojoMeta.className}ListTo implements Serializable {
 			if(pojoMeta.properties[i].field.isPrimaryKey) continue;
 
         	println('/**');
-        	println('* ' + pojoMeta.properties[i].remark);
+            for(remark in pojoMeta.properties[i].remarks) {
+        	    println('* ' + remark);
+            }
         	println('*');
         	println('* @codgen.generated 自动生成，如需修改，请删除本行');
         	println('*/');

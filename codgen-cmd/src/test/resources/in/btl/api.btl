@@ -9,7 +9,7 @@ import ${packageName}.to.${pojoMeta.className}PageTo;
 import rebue.robotech.api.BaseApi;
 
 /**
- * ${pojoMeta.remark}的API
+ * ${pojoMeta.title}的API
  *
  * @codgen.generated 自动生成的注释，如需修改本注释，请删除本行
  */

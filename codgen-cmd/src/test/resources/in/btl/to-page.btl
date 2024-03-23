@@ -25,7 +25,7 @@ import lombok.EqualsAndHashCode;
 import rebue.robotech.to.PageTo;
 
 /**
- * ${pojoMeta.remark}
+ * ${pojoMeta.title}查询分页方法的传输参数
  *
  * @codgen.generated 自动生成，如需修改，请删除本行
  */
@@ -48,7 +48,9 @@ public class ${pojoMeta.className}PageTo extends PageTo implements Serializable 
 			if(pojoMeta.properties[i].field.isPrimaryKey) continue;
 
         	println('/**');
-        	println('* ' + pojoMeta.properties[i].remark);
+            for(remark in pojoMeta.properties[i].remarks) {
+        	    println(' * ' + remark);
+            }
         	println('*');
         	println('* @codgen.generated 自动生成，如需修改，请删除本行');
         	println('*/');

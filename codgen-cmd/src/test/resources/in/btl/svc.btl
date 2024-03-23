@@ -15,7 +15,7 @@ import rebue.wheel.api.ro.Rt;
 import rebue.robotech.svc.BaseSvc;
 
 /**
- * ${pojoMeta.remark}的服务接口
+ * ${pojoMeta.title}的服务接口
  *
  * <pre>
  * 1. 在接口上方必须写上 @Validated 注解

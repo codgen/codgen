@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import rebue.wheel.core.RandomEx;
 
 /**
- * ${pojoMeta.remark} Service层测试
+ * ${pojoMeta.title} Service层测试
  *
  * @codgen.generated 自动生成的注释，如需修改本注释，请删除本行
  */
@@ -44,26 +44,26 @@ public class ${pojoMeta.className}SvcTests {
         ${pojoMeta.ids[0].classSimpleName} id = null;
         for (int i = 0; i < 20; i++) {
             addTo = (${pojoMeta.className}AddTo) RandomEx.randomPojo(${pojoMeta.className}AddTo.class);
-            log.info("添加${pojoMeta.remark}的参数为：" + addTo);
+            log.info("添加${pojoMeta.title}的参数为：" + addTo);
             final ${pojoMeta.className}Vo addRo = _svc.add(addTo);
-            log.info("添加${pojoMeta.remark}的返回值为：" + addRo);
+            log.info("添加${pojoMeta.title}的返回值为：" + addRo);
             Assertions.assertNotNull(addRo);
             id = addRo.getId();
         }
         final PageRa<${pojoMeta.className}Vo> pageResult = _svc.page(new ${pojoMeta.className}PageTo());
-        log.info("查询${pojoMeta.remark}的返回值为：" + pageResult);
+        log.info("查询${pojoMeta.title}的返回值为：" + pageResult);
         Assertions.assertNotNull(pageResult);
-        log.info("获取单个${pojoMeta.remark}的参数为：" + id);
+        log.info("获取单个${pojoMeta.title}的参数为：" + id);
         ${pojoMeta.className}Vo getByIdResult = _svc.getById(id);
-        log.info("获取单个${pojoMeta.remark}的返回值为：" + getByIdResult);
+        log.info("获取单个${pojoMeta.title}的返回值为：" + getByIdResult);
         Assertions.assertNotNull(getByIdResult);
         
         final ${pojoMeta.className}ModifyTo modifyTo = ${pojoMeta.className}Clone.INSTANCE.addToMapModifyTo(addTo);
         modifyTo.setId(id);
-        log.info("修改${pojoMeta.remark}的参数为：" + modifyTo);
+        log.info("修改${pojoMeta.title}的参数为：" + modifyTo);
         _svc.modifyById(modifyTo);
         
-        log.info("删除${pojoMeta.remark}的参数为：" + id);
+        log.info("删除${pojoMeta.title}的参数为：" + id);
         _svc.delById(id);
     }
 }

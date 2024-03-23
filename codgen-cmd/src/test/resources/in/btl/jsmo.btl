@@ -1,12 +1,20 @@
 /**
- ${getCommentOfRemarks(pojoMeta.remark)}
+<%
+  for(remark in pojoMeta.remarks) {
+    println(' * ' + remark);
+  }
+%>
  */
 export interface ${moduleClassName} {
 <%
   for(property in pojoMeta.properties) {
 %>
     /**
-     ${getCommentOfRemarks(property.remark)}
+    <%
+      for(remark in property.remarks) {
+        println(' * ' + remark);
+      }
+    %>
      */
     ${property.name}: ${property.jsType};
 <%

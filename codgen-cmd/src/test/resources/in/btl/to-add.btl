@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import lombok.Data;
 
 /**
- * ${pojoMeta.remark}
+ * ${pojoMeta.title}添加方法的传输参数
  *
  * @codgen.generated 自动生成，如需修改，请删除本行
  */
@@ -43,7 +43,9 @@ public class ${pojoMeta.className}AddTo implements Serializable {
 			if(pojoMeta.properties[i].name=="updateTimestamp") continue;
 			
         	println('/**');
-        	println('* ' + pojoMeta.properties[i].remark);
+            for(remark in pojoMeta.properties[i].remarks) {
+        	    println(' * ' + remark);
+            }
         	println('*');
         	println('* @codgen.generated 自动生成，如需修改，请删除本行');
         	println('*/');

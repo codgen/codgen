@@ -14,7 +14,7 @@ import ${packageName}.mo.${pojoMeta.className}Mo;
 import ${packageName}.vo.${pojoMeta.className}Vo;
 
 /**
- * ${pojoMeta.remark}的克隆类
+ * ${pojoMeta.title}的克隆类
  *
  * @codgen.generated 自动生成的注释，如需修改本注释，请删除本行
  */
