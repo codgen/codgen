@@ -2,14 +2,14 @@
 # 如果未配置default，会自动创建一个default配置
 groupTemplate:
   default:
-    FN.getCommentOfRemarks: rebue.wheel.core.beetl.function.GetCommentOfRemarksFunction
+    FN.addDesensitizeAnnotation: rebue.wheel.core.beetl.function.AddDesensitizeAnnotationFunction
   # 与Spring表达式语言不冲突的配置
   spel:
     # 左定位符
     DELIMITER_PLACEHOLDER_START: '@{'
     # 右定位符
     DELIMITER_PLACEHOLDER_END: '}'
-    FN.getCommentOfRemarks: rebue.wheel.core.beetl.function.GetCommentOfRemarksFunction
+    FN.addDesensitizeAnnotation: rebue.wheel.core.beetl.function.AddDesensitizeAnnotationFunction
 # 模板要绑定全局变量的配置选项
 globalVariable:
   default:

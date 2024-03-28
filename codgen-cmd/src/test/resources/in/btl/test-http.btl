@@ -82,6 +82,10 @@ public class ${pojoMeta.className}HttpTests {
 		final String getByIdResult = _httpClient.get(_hostUrl + "/${project}/${pojoMeta.lowerHyphenNameWithoutPrefix}/get-by-id?id=" + id);
 		log.info("获取单个${pojoMeta.title}的返回值为：" + getByIdResult);
 		
+		log.info("获取单个${pojoMeta.title}的参数为：" + id);
+		final String searchByIdResult = _httpClient.get(_hostUrl + "/${project}/${pojoMeta.lowerHyphenNameWithoutPrefix}/search-by-id?id=" + id);
+		log.info("获取单个${pojoMeta.title}的返回值为：" + searchByIdResult);
+
         final ${pojoMeta.className}ModifyTo modifyTo = ${pojoMeta.className}Clone.INSTANCE.addToMapModifyTo(addTo);
         modifyTo.setId(id);
 		log.info("修改${pojoMeta.title}的参数为：" + modifyTo);
