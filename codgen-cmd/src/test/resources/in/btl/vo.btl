@@ -62,7 +62,7 @@ public class ${moduleClassName} implements Vo<${pojoMeta.ids[0].classSimpleName}
                     for (property in pojo.properties) {
                         // 如果字段不是主键且是关键字，关联过来
                         if (!property.field.isPrimaryKey && property.isKeyWord) {
-                            println('/**' + property.field.isPrimaryKey);
+                            println('/**');
                             for(remark in property.remarks) {
                                 if (remarkLP.first)
                                     // 关联过来的字段标题前面要加上主键表标题

@@ -101,9 +101,8 @@ template:
       - moduleName: to # 模块名(根据moduleName自动计算modulePackageName为packageName+'.'+moduleName，然后计算出modulePath)
         inFilePath: btl/to-page.btl
         outFilePath: ${project}-api/src/main/java/${modulePath}/${pojoMeta.className}PageTo.java
-      - moduleName: mo
-        inFilePath: btl/jsmo.btl
-        outFilePath: ${project}-web/src/mo/${project}/${pojoMeta.className}Mo.ts
-        # 模块名(根据moduleName自动计算modulePackageName为packageName+'.'+module，然后计算出modulePath)
+      - moduleName: vo # 模块名(根据moduleName自动计算modulePackageName为packageName+'.'+module，然后计算出modulePath)
+        inFilePath: btl/jsvo.btl
+        outFilePath: ${project}-web/src/vo/${project}/${pojoMeta.className}Vo.ts
       - inFilePath: btl/jsmng.btl
         outFilePath: ${project}-web/src/view/${project}/${pojoMeta.lowerHyphenNameWithoutPrefix}/${pojoMeta.className}Mng.vue
