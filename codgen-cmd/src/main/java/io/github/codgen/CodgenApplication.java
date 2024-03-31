@@ -306,6 +306,8 @@ public class CodgenApplication {
             // 如果目录不存在则创建
             outDir.mkdirs();
 
+            log.info(outFileInfo.getContent());
+
             // 如果是java文件，且已经存在，合并代码
             if (outFile.getAbsolutePath().endsWith(".java") && outFile.exists()) {
                 outFileInfo.setContent(MergeJavaFileUtils.merge(outFileInfo.getContent(), outFile,

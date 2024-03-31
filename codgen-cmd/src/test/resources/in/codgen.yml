@@ -2,14 +2,20 @@
 # 如果未配置default，会自动创建一个default配置
 groupTemplate:
   default:
+    # 添加脱敏注解
     FN.addDesensitizeAnnotation: rebue.wheel.core.beetl.function.AddDesensitizeAnnotationFunction
+    # 首字母大写
+    FN.capitalize: rebue.wheel.core.beetl.function.CapitalizeFunction
   # 与Spring表达式语言不冲突的配置
   spel:
     # 左定位符
     DELIMITER_PLACEHOLDER_START: '@{'
     # 右定位符
     DELIMITER_PLACEHOLDER_END: '}'
+    # 添加脱敏注解
     FN.addDesensitizeAnnotation: rebue.wheel.core.beetl.function.AddDesensitizeAnnotationFunction
+    # 首字母大写
+    FN.capitalize: rebue.wheel.core.beetl.function.CapitalizeFunction
 # 模板要绑定全局变量的配置选项
 globalVariable:
   default:
@@ -53,6 +59,12 @@ template:
       - btl/svc-impl.btl
   # 配置模板触发的规则(不配置的默认触发template_default规则)
   rule:
+    # DicTemplate规则的配置选项
+    #     值是Map列表，程序会将其中的每一项绑定到模板中
+    dic:
+      - moduleName: dic # 模块名(根据moduleName自动计算modulePackageName为packageName+'.'+moduleName，然后计算出modulePath)
+        inFilePath: btl/dic.btl
+        outFilePath: ${project}-api/src/main/java/${modulePath}/${moduleClassName}.java
     # PojoTemplate规则的配置选项
     #     值是Map列表，程序会将其中的每一项绑定到模板中
     pojo:

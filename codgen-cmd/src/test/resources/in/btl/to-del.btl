@@ -1,5 +1,7 @@
 package ${modulePackageName};
 
+import ${packageName}.dic.*;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -35,11 +37,12 @@ public class ${pojoMeta.className}DelTo implements Serializable {
 
 	<%
 		for(var i=0;i<pojoMeta.properties.~size;i++){
+		    var property = pojoMeta.properties[i];
 			// 删除列表时不会以主键为条件
-			if(pojoMeta.properties[i].field.isPrimaryKey) continue;
+			if(property.field.isPrimaryKey) continue;
 
         	println('/**');
-            for(remark in pojoMeta.properties[i].remarks) {
+            for(remark in property.remarks) {
         	    println(' * ' + remark);
             }
         	println('*');
@@ -47,33 +50,34 @@ public class ${pojoMeta.className}DelTo implements Serializable {
         	println('*/');
         	
 	        // 如果是字符串且有长度限制，添加 @Length 注解
-	        if (pojoMeta.properties[i].classSimpleName=='String') {
-	            if (pojoMeta.properties[i].field.scale > 0) {
-	                println('@Length(max = ' + pojoMeta.properties[i].field.scale + ', message = "' + pojoMeta.properties[i].name + '的长度不能大于' + pojoMeta.properties[i].field.scale + '")');
+	        if (property.classSimpleName=='String') {
+	            if (property.field.scale > 0) {
+	                println('@Length(max = ' + property.field.scale + ', message = "' + property.name + '的长度不能大于' + property.field.scale + '")');
 	            }
 	        }
 	        // 如果是DateTime类型
-	        else if (pojoMeta.properties[i].classSimpleName=='LocalDateTime' || (pojoMeta.properties[i].classSimpleName=='Date' && strutil.endWith(pojoMeta.properties[i].name,'DateTime'))) {
+	        else if (property.classSimpleName=='LocalDateTime' || (property.classSimpleName=='Date' && strutil.endWith(property.name,'DateTime'))) {
                 println('@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")');
                 println('@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")');
 	        }
 	        // 如果是Date类型
-	        else if (pojoMeta.properties[i].classSimpleName=='LocalDate' || (pojoMeta.properties[i].classSimpleName=='Date' && strutil.endWith(pojoMeta.properties[i].name,'Date'))) {
+	        else if (property.classSimpleName=='LocalDate' || (property.classSimpleName=='Date' && strutil.endWith(property.name,'Date'))) {
                 println('@DateTimeFormat(pattern = "yyyy-MM-dd")');
                 println('@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "GMT+8")');
 	        }
 	        // 如果是Time类型
-	        else if (pojoMeta.properties[i].classSimpleName=='LocalTime' || (pojoMeta.properties[i].classSimpleName=='Date' && strutil.endWith(pojoMeta.properties[i].name,'Time'))) {
+	        else if (property.classSimpleName=='LocalTime' || (property.classSimpleName=='Date' && strutil.endWith(property.name,'Time'))) {
                 println('@DateTimeFormat(pattern = "HH:mm:ss")');
                 println('@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss", timezone = "GMT+8")');
 	        }
 	
-	        // 如果是无符号类型，添加 @Min(...) 符号，限制为非负数
-	        if (pojoMeta.properties[i].field.isUnsigned) {
-	            println('@PositiveOrZero(message = "' + pojoMeta.properties[i].name + '不能为负数")');
+	        // 如果是无符号类型，添加 @PositiveOrZero 符号，限制为非负数
+	        if (property.field.isUnsigned && !strutil.endWith(property.name,'Dic')) {
+	            println('@PositiveOrZero(message = "' + property.name + '不能为负数")');
 	        }
-	        
-	        println('private ' + pojoMeta.properties[i].classSimpleName + ' ' + pojoMeta.properties[i].name + ';');
+
+	        var propertyClassName = strutil.endWith(property.name,'Dic')?capitalize(property.name):property.classSimpleName;
+	        println('private ' + propertyClassName + ' ' + property.name + ';');
 		}
 	%>
 	

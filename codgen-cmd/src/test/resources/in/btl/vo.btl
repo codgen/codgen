@@ -1,5 +1,7 @@
 package ${modulePackageName};
 
+import ${packageName}.dic.*;
+
 import cn.zhxu.bs.bean.DbField;
 import cn.zhxu.bs.bean.SearchBean;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -43,7 +45,8 @@ public class ${moduleClassName} implements Vo<${pojoMeta.ids[0].classSimpleName}
             }
             // 根据remark解析情况添加脱敏注解
             addDesensitizeAnnotation(property.remark);
-            println('private ' + property.classSimpleName + ' ' + property.name + ';');
+            var propertyClassName = strutil.endWith(property.name,'Dic')?capitalize(property.name):property.classSimpleName;
+            println('private ' + propertyClassName + ' ' + property.name + ';');
 		}
 
         // 如果有外键，生成主键表的字段
@@ -76,7 +79,8 @@ public class ${moduleClassName} implements Vo<${pojoMeta.ids[0].classSimpleName}
                             println('@DbField("' + foreignKey.pkTableAlias + '.' + property.field.name + '")');
                             // 根据remark解析情况添加脱敏注解
                             addDesensitizeAnnotation(property.remark);
-                            println('private ' + property.classSimpleName + ' ' + property.alias + ';');
+                            var propertyClassName = strutil.endWith(property.name,'Dic')?capitalize(property.name):property.classSimpleName;
+                            println('private ' + propertyClassName + ' ' + property.alias + ';');
                         }
                     }
                     break;
