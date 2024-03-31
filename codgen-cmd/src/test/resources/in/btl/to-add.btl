@@ -60,18 +60,18 @@ public class ${pojoMeta.className}AddTo implements Serializable {
 	        if(!property.field.isNullable) {
                 // 如果是字符串类型，添加 @NotBlank 注解
 	            if (property.classSimpleName == 'String') {
-	                println('@NotBlank(message = "' + property.name + '不能为空")');
+	                println('@NotBlank(message = "' + property.title + '不能为空")');
 	            }
 	            // 如果是非字符串类型，添加 @NotNull 注解
 	            else {
-	                println('@NotNull(message = "' + property.name + '不能为空")');
+	                println('@NotNull(message = "' + property.title + '不能为空")');
 	            }
 	        }
 
 	        // 如果是字符串且有长度限制，添加 @Length 注解
 	        if (property.classSimpleName == 'String') {
 	            if (property.field.scale > 0) {
-	                println('@Length(max = ' + property.field.scale + ', message = "' + property.name + '的长度不能大于' + property.field.scale + '")');
+	                println('@Length(max = ' + property.field.scale + ', message = "' + property.title + '的长度不能大于' + property.field.scale + '")');
 	            }
 	        }
 	        // 如果是DateTime类型
@@ -92,7 +92,7 @@ public class ${pojoMeta.className}AddTo implements Serializable {
 
 	        // 如果是无符号类型，添加 @PositiveOrZero 符号，限制为非负数
 	        if (property.field.isUnsigned && !strutil.endWith(property.name,'Dic')) {
-	            println('@PositiveOrZero(message = "' + property.name + '不能为负数")');
+	            println('@PositiveOrZero(message = "' + property.title + '不能为负数")');
 	        }
 
             var propertyClassName = strutil.endWith(property.name,'Dic')?capitalize(property.name):property.classSimpleName;

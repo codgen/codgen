@@ -73,7 +73,7 @@ public class ${pojoMeta.className}DelTo implements Serializable {
 	
 	        // 如果是无符号类型，添加 @PositiveOrZero 符号，限制为非负数
 	        if (property.field.isUnsigned && !strutil.endWith(property.name,'Dic')) {
-	            println('@PositiveOrZero(message = "' + property.name + '不能为负数")');
+	            println('@PositiveOrZero(message = "' + property.title + '不能为负数")');
 	        }
 
 	        var propertyClassName = strutil.endWith(property.name,'Dic')?capitalize(property.name):property.classSimpleName;
