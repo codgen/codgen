@@ -140,7 +140,7 @@ public class ${moduleClassName} {
      * @codgen.generated 自动生成，如需修改，请删除本行
      */
     @GetMapping("/${project}/${pojoMeta.lowerHyphenNameWithoutPrefix}/search-one")
-    public Mono<Rt<${pojoMeta.className}Vo>> searchOne(Map<String, Object> qc) {
+    public Mono<Rt<${pojoMeta.className}Vo>> searchOne(@RequestParam Map<String, Object> qc) {
         return Mono.create(callback -> callback.success(Rt.success("查询成功", svc.beanSearchOne(qc))));
     }
 
@@ -167,7 +167,7 @@ public class ${moduleClassName} {
      * @codgen.generated 自动生成，如需修改，请删除本行
      */
     @GetMapping("/${project}/${pojoMeta.lowerHyphenNameWithoutPrefix}/search")
-    public Mono<Rt<?>> search(final Map<String, Object> qc) {
+    public Mono<Rt<?>> search(@RequestParam Map<String, Object> qc) {
         return Mono.create(callback -> callback.success(Rt.success("分页查询成功", svc.beanSearch(qc))));
     }
 
