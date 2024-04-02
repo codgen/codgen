@@ -162,7 +162,7 @@ public class CodgenApplication {
             try {
                 System.out.printf("  - %s%n", file.getCanonicalPath());
                 fileInfos.add(FileInfo.builder()
-                        .path(inPath.relativize(file.toPath()).toString())
+                        .path(inPath.relativize(file.toPath()).toString().replace('\\', '/'))
                         .content(FileUtils.readToString(file.getCanonicalPath()))
                         .build());
             } catch (IOException e) {
