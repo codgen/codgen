@@ -38,7 +38,7 @@ public class CodgenApplication {
 
     public static void main(String[] args) throws IOException {
         // 获取pom中设置的属性
-        PomUtils.PomProps pomProps = PomUtils.getPomProps("/conf/pom.properties", CodgenApplication.class);
+        PomUtils.PomProps pomProps = PomUtils.getPomProps(Path.of(File.separator, "conf", "pom.properties").toString(), CodgenApplication.class);
 
         // 读取与校验参数
         CmdOptions cmdOptions = parseCmdOptions(args, pomProps);
