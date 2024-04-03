@@ -27,6 +27,9 @@ import lombok.Data;
  * @codgen.generated 自动生成，如需修改，请删除本行
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @JsonInclude(Include.NON_NULL)
 public class ${pojoMeta.className}ModifyTo implements Serializable {
 
