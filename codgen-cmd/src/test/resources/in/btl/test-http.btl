@@ -41,7 +41,7 @@ public class ${pojoMeta.className}HttpTests {
     /**
      * @codgen.generated 自动生成，如需修改，请删除本行
      */
-	private final String _hostUrl 			 = "http://127.0.0.1:${microServerPort}";
+	private final String _hostUrl 			 = "http://127.0.0.1:9313";
 
     /**
      * @codgen.generated 自动生成，如需修改，请删除本行

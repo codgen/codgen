@@ -88,7 +88,8 @@ public class ${moduleClassName} {
      * 通过条件获取单个${pojoMeta.title}的信息
      *
      * @param qc 查询单个{pojoMeta.title}的具体条件$
-     * 
+     * XXX 注意qc参数不能加上@RequestParam注解，否则接收请求时会报ConversionNotSupportedException异常
+     *
      * @codgen.generated 自动生成，如需修改，请删除本行
      */
     @GetMapping("/${project}/${pojoMeta.lowerHyphenNameWithoutPrefix}/get-one")
@@ -121,14 +122,15 @@ public class ${moduleClassName} {
     }
 
     /**
-     * 查询${pojoMeta.title}的信息
+     * 分页查询${pojoMeta.title}的信息
      *
      * @param qc 查询的具体条件
+     * XXX 注意qc参数不能加上@RequestParam注解，否则接收请求时会报ConversionNotSupportedException异常
      *
      * @codgen.generated 自动生成，如需修改，请删除本行
      */
     @GetMapping("/${project}/${pojoMeta.lowerHyphenNameWithoutPrefix}/page")
-    public Mono<Rt<?>> page(final ${pojoMeta.className}PageTo qc) {
+    public Mono<Rt<PageRa<${pojoMeta.className}Vo>>> page(final ${pojoMeta.className}PageTo qc) {
         return Mono.create(callback -> callback.success(Rt.success("分页查询成功", svc.page(qc))));
     }
 
@@ -160,14 +162,14 @@ public class ${moduleClassName} {
     }
 
     /**
-     * 搜索${pojoMeta.title}的信息
+     * 分页搜索${pojoMeta.title}的信息
      *
      * @param qc 查询的具体条件
      *
      * @codgen.generated 自动生成，如需修改，请删除本行
      */
     @GetMapping("/${project}/${pojoMeta.lowerHyphenNameWithoutPrefix}/search")
-    public Mono<Rt<?>> search(@RequestParam Map<String, Object> qc) {
+    public Mono<Rt<PageRa<${pojoMeta.className}Vo>>> search(@RequestParam Map<String, Object> qc) {
         return Mono.create(callback -> callback.success(Rt.success("分页查询成功", svc.beanSearch(qc))));
     }
 

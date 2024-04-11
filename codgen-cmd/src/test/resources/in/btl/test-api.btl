@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import ${packageName}.mo.${pojoMeta.className}Mo;
+import ${packageName}.vo.${pojoMeta.className}Vo;
 import ${packageName}.to.${pojoMeta.className}AddTo;
 import ${packageName}.to.${pojoMeta.className}ModifyTo;
 import ${packageName}.to.${pojoMeta.className}PageTo;
@@ -56,11 +56,11 @@ public class ${pojoMeta.className}ApiTests {
             Assertions.assertEquals(ResultDic.SUCCESS, idRo.getResult());
             id = idRo.getExtra().getId();
         }
-        final Rt<PageRa<${pojoMeta.className}Mo>> pageResult = _api.page(new ${pojoMeta.className}PageTo());
+        final Rt<PageRa<${pojoMeta.className}Vo>> pageResult = _api.page(new ${pojoMeta.className}PageTo());
         log.info("查询${pojoMeta.title}的返回值为：" + pageResult);
         Assertions.assertEquals(ResultDic.SUCCESS, pageResult.getResult());
         log.info("获取单个${pojoMeta.title}的参数为：" + id);
-        final Rt<${pojoMeta.className}Mo> getByIdResult = _api.getById(id);
+        final Rt<${pojoMeta.className}Vo> getByIdResult = _api.getById(id);
         log.info("获取单个${pojoMeta.title}的返回值为：" + getByIdResult);
         
         final ${pojoMeta.className}ModifyTo modifyTo = ${pojoMeta.className}Clone.INSTANCE.addToMapModifyTo(addTo);
@@ -71,7 +71,7 @@ public class ${pojoMeta.className}ApiTests {
         Assertions.assertEquals(ResultDic.SUCCESS, modifyResult.getResult());
         
         log.info("删除${pojoMeta.title}的参数为：" + id);
-        final Rt<?> deleteResult = _api.del(id);
+        final Rt<?> deleteResult = _api.delById(id);
         log.info("删除${pojoMeta.title}的返回值为：" + deleteResult);
         Assertions.assertEquals(ResultDic.SUCCESS, deleteResult.getResult());
     }
