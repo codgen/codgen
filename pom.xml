@@ -6,7 +6,7 @@
 
     <groupId>io.github.codgen</groupId>
     <artifactId>codgen</artifactId>
-    <version>1.1.4</version>
+    <version>1.1.5</version>
     <packaging>pom</packaging>
     <description>code generator parent pom，代码生成器父pom</description>
 
