@@ -1,9 +1,9 @@
 package io.github.codgen.core.options;
 
-import lombok.Data;
-
 import java.util.Map;
 import java.util.Properties;
+
+import lombok.Data;
 
 @Data
 public class GenOptions {

@@ -1,5 +1,15 @@
 package io.github.codgen;
 
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
+import org.yaml.snakeyaml.Yaml;
+
 import io.github.codgen.co.TagsCo;
 import io.github.codgen.core.Codgen;
 import io.github.codgen.core.FileInfo;
@@ -9,21 +19,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
-import org.yaml.snakeyaml.Yaml;
 import rebue.wheel.core.PomUtils;
 import rebue.wheel.core.PrintUtils;
 import rebue.wheel.core.drools.DroolsUtils;
 import rebue.wheel.core.file.FileSearcher;
 import rebue.wheel.core.file.FileUtils;
 import rebue.wheel.core.source.MergeJavaFileUtils;
-
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 
 @Slf4j
 public class CodgenApplication {
@@ -38,11 +39,12 @@ public class CodgenApplication {
 
     public static void main(String[] args) throws IOException {
         // 获取pom中设置的属性
-        PomUtils.PomProps pomProps = PomUtils.getPomProps(Path.of(File.separator, "conf", "pom.properties").toString(), CodgenApplication.class);
+        PomUtils.PomProps pomProps   = PomUtils.getPomProps(Path.of(File.separator, "conf", "pom.properties").toString(), CodgenApplication.class);
 
         // 读取与校验参数
-        CmdOptions cmdOptions = parseCmdOptions(args, pomProps);
-        if (cmdOptions == null) return;
+        CmdOptions        cmdOptions = parseCmdOptions(args, pomProps);
+        if (cmdOptions == null)
+            return;
 
         // 打印横幅
         printBanner(pomProps, cmdOptions.inPath.toString(), cmdOptions.outPath.toString());
@@ -50,13 +52,14 @@ public class CodgenApplication {
 
         // 解析配置文件
         GenOptions genOptions = parseConfigFile(cmdOptions.inPath);
-        if (genOptions == null) return;
+        if (genOptions == null)
+            return;
 
         // 读取规则文件到Map列表中
-        Map<String, String> ruleFiles = DroolsUtils.readRuleFiles(cmdOptions.inPath.resolve(DROOLS_RULE_DIR_NAME));
+        Map<String, String> ruleFiles   = DroolsUtils.readRuleFiles(cmdOptions.inPath.resolve(DROOLS_RULE_DIR_NAME));
 
         // 获取输入文件信息列表
-        List<FileInfo> inFileInfos = listInFiles(cmdOptions.inPath);
+        List<FileInfo>      inFileInfos = listInFiles(cmdOptions.inPath);
 
         // 生成输出文件
         genOutFiles(cmdOptions, genOptions, ruleFiles, inFileInfos);
@@ -75,21 +78,21 @@ public class CodgenApplication {
         for (int i = 0; i < args.length; i++) {
             String arg = args[i];
             switch (arg) {
-                case "-i", "--in" -> in = args[++i];
-                case "-o", "--out" -> out = args[++i];
-                case "-v", "--version" -> {
-                    printVersion(pomProps);
-                    return null;
-                }
-                case "-h", "--help" -> {
-                    printHelp();
-                    return null;
-                }
-                default -> {
-                    System.out.printf("Unrecognized option: %s%n", arg);
-                    printHelp();
-                    return null;
-                }
+            case "-i", "--in" -> in = args[++i];
+            case "-o", "--out" -> out = args[++i];
+            case "-v", "--version" -> {
+                printVersion(pomProps);
+                return null;
+            }
+            case "-h", "--help" -> {
+                printHelp();
+                return null;
+            }
+            default -> {
+                System.out.printf("Unrecognized option: %s%n", arg);
+                printHelp();
+                return null;
+            }
             }
         }
         if (in == null) {
@@ -115,7 +118,8 @@ public class CodgenApplication {
         if (!outPath.isAbsolute()) {
             outPath = workDirPath.resolve(outPath);
         }
-        if (validDirPath(inPath)) return null;
+        if (validDirPath(inPath))
+            return null;
         // 如果输出目录不存在，则创建它
         if (!outPath.toFile().exists()) {
             outPath.toFile().mkdirs();
@@ -273,9 +277,9 @@ public class CodgenApplication {
      */
     private static void printHelp() {
         System.out.println("""
-                                
+
                 Usage: codgen-cmd [cmdOptions]
-                                
+
                 where cmdOptions include:
                     -i, --in        source path
                     -o, --out       destination path
@@ -301,7 +305,7 @@ public class CodgenApplication {
             // 输出文件
             File outFile = cmdOptions.outPath.resolve(outFileInfo.getPath()).toFile();
             // 输出目录
-            File outDir = outFile.getParentFile();
+            File outDir  = outFile.getParentFile();
             log.info(outFile.getAbsolutePath());
             // 如果目录不存在则创建
             outDir.mkdirs();

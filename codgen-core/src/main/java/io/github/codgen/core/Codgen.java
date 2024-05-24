@@ -1,16 +1,17 @@
 package io.github.codgen.core;
 
-import io.github.codgen.core.drools.fact.*;
-import io.github.codgen.core.options.GenOptions;
-import io.github.codgen.core.options.TemplateOptions;
+import java.io.IOException;
+import java.util.*;
+
 import org.beetl.core.Configuration;
 import org.beetl.core.GroupTemplate;
 import org.beetl.core.resource.StringTemplateResourceLoader;
 import org.kie.api.runtime.KieContainer;
-import rebue.wheel.core.drools.DroolsUtils;
 
-import java.io.IOException;
-import java.util.*;
+import io.github.codgen.core.drools.fact.*;
+import io.github.codgen.core.options.GenOptions;
+import io.github.codgen.core.options.TemplateOptions;
+import rebue.wheel.core.drools.DroolsUtils;
 
 public class Codgen {
     /**
@@ -44,16 +45,16 @@ public class Codgen {
      */
     public static List<FileInfo> gen(List<FileInfo> inFileInfos, GenOptions genOptions, Map<String, String> rules) throws IOException {
         // 创建GroupTemplates的Map列表
-        Map<String, GroupTemplate> groupTemplates = createGroupTemplates(genOptions.getGroupTemplate());
+        Map<String, GroupTemplate> groupTemplates     = createGroupTemplates(genOptions.getGroupTemplate());
 
         // 获取模板选项的Map列表
-        TemplateOptions templateOptions = genOptions.getTemplate();
+        TemplateOptions            templateOptions    = genOptions.getTemplate();
 
         // 创建drools容器
-        KieContainer kieContainer = DroolsUtils.newKieContainer(null, rules);
+        KieContainer               kieContainer       = DroolsUtils.newKieContainer(null, rules);
 
         // 触发global-variable规则，读取配置文件中的变量选项，生成要绑定的全局变量
-        GlobalVariableFact globalVariableFact = GlobalVariableFact.builder()
+        GlobalVariableFact         globalVariableFact = GlobalVariableFact.builder()
                 .variableOptions(genOptions.getGlobalVariable())
                 .build();
         DroolsUtils.fireRules(kieContainer, null, GLOBAL_VARIABLE_AGENDA_GROUP_NAME, globalVariableFact);

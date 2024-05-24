@@ -1,12 +1,12 @@
 package io.github.codgen.core.drools.fact;
 
+import java.util.List;
+
 import io.github.codgen.core.FileInfo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Data
 @NoArgsConstructor

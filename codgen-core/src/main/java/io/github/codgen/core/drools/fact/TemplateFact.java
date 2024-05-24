@@ -1,15 +1,16 @@
 package io.github.codgen.core.drools.fact;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
+import org.beetl.core.GroupTemplate;
+
 import io.github.codgen.core.FileInfo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.beetl.core.GroupTemplate;
-
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 
 @Data
 @NoArgsConstructor
@@ -43,4 +44,3 @@ public class TemplateFact {
     private List<TemplateInfo>   templates = new LinkedList<>();
 
 }
-

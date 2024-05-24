@@ -1,10 +1,11 @@
 package io.github.codgen.core.drools.fact;
 
+import org.beetl.core.Template;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.beetl.core.Template;
 
 /**
  * 模板信息
