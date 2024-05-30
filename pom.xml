@@ -62,9 +62,9 @@
     </scm>
 
     <profiles>
+        <!-- 部署私服 -->
         <profile>
             <id>deploy-private</id>
-            <!-- 部署私服 -->
             <distributionManagement>
                 <snapshotRepository>
                     <id>my-snapshots</id>
@@ -80,8 +80,8 @@
             </distributionManagement>
         </profile>
 
+        <!-- 部署到中央仓库 -->
         <profile>
-            <!-- 部署到中央仓库 -->
             <id>deploy-public</id>
             <build>
                 <plugins>
