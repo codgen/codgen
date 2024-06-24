@@ -96,7 +96,7 @@ public class ${pojoMeta.className}ModifyTo implements Serializable {
 	            println('@PositiveOrZero(message = "' + property.title + '不能为负数")');
 	        }
 	        
-	        var propertyClassName = strutil.endWith(property.name,'Dic')?capitalize(property.name):property.classSimpleName;
+	        var propertyClassName = property.classSimpleName;
 	        println('private ' + propertyClassName + ' ' + property.name + ';');
 		}
 	%>
