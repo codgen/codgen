@@ -6,7 +6,7 @@
     <parent>
         <artifactId>codgen</artifactId>
         <groupId>io.github.codgen</groupId>
-        <version>1.1.11</version>
+        <version>1.1.12</version>
     </parent>
     <artifactId>codgen-core</artifactId>
     <description>codgen core，代码生成器的核心库</description>
