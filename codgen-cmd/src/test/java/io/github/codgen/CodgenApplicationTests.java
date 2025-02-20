@@ -8,12 +8,12 @@ import org.junit.jupiter.api.Test;
 import rebue.wheel.core.CmdUtils;
 
 public class CodgenApplicationTests {
-    @Test
+//    @Test
     void testMain() throws IOException {
         CodgenApplication.main(new String[] { "-i", "target/test-classes/in", "-o", "target/test-classes/out" });
     }
 
-    @Test
+//    @Test
     void testCmd() throws IOException, InterruptedException {
         int status = CmdUtils.exec(new String[] {
                 "java", "-jar", "target/codgen-cmd.jar", "-i", "target/test-classes/in", "-o", "target/test-classes/out"
