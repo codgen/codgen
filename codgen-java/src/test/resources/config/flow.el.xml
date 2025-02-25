@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE flow PUBLIC  "liteflow" "https://liteflow.cc/liteflow.dtd">
+<flow>
+    <chain id="base" namespace="disabled">
+        fileName = {{0}};
+        pathParams = '{"src":"src","target":"target","fileName":"'+fileName+'"}';
+        THEN(fileScan.data(pathParams));
+    </chain>
+    <chain id="api" extends="base" namespace="enabled">
+        {{0}} = '**/ctrl/*Ctrl.java';
+    </chain>
+    <chain id="vo" extends="base" namespace="enabled">
+        {{0}} = '**/mo/*Mo.java';
+    </chain>
+</flow>

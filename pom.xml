@@ -12,6 +12,7 @@
 
     <modules>
         <module>codgen-core</module>
+        <module>codgen-java</module>
         <module>codgen-cmd</module>
     </modules>
 
