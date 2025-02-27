@@ -1,15 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE flow PUBLIC  "liteflow" "https://liteflow.cc/liteflow.dtd">
 <flow>
+    <nodes>
+        <node id="ctrlCodeParser" name="Ctrl代码解析器" type="script" file="node/codeparser/CtrlCodeParser.java"/>
+        <node id="voCodeParser" name="Vo代码解析器" type="script" file="node/codeparser/VoCodeParser.java"/>
+    </nodes>
     <chain id="base" namespace="disabled">
-        fileName = {{0}};
-        pathParams = '{"src":"src","target":"target","fileName":"'+fileName+'"}';
-        THEN(fileScan.data(pathParams));
+        fileScanDir = '../../adm';
+        fileScanPattern = {{0}};
+        fileScannerTo = '{"dir":"'+fileScanDir+'","pattern":"'+fileScanPattern+'"}';
+
+        codeParser = {{1}};
+
+        fileParserJavaVersion = 'JAVA_17';
+        fileParserTo = '{"javaVersion":"'+fileParserJavaVersion+'"}';
+
+        codeGeneratorBtl = {{2}};
+        codeGeneratorTarget = 'target/web';
+        codeGeneratorTo = '{"btl":"'+codeGeneratorBtl+'","target":"'+codeGeneratorTarget+'"}';
+
+        THEN(
+            beetl,
+            ITERATOR(fileScanner.data(fileScannerTo)).parallel(true).DO(THEN(
+                fileParser.data(fileParserTo),
+                codeParser,
+                codeGenerator.data(codeGeneratorTo)
+            ))
+        );
     </chain>
     <chain id="api" extends="base" namespace="enabled">
-        {{0}} = '**/ctrl/*Ctrl.java';
+        {{0}} = '**Ctrl.java';
+        {{1}} = ctrlCodeParser;
+        {{2}} = 'src/test/resources/btl/api.btl';
     </chain>
-    <chain id="vo" extends="base" namespace="enabled">
-        {{0}} = '**/mo/*Mo.java';
+    <chain id="vo" extends="base" namespace="disabled">
+        {{0}} = '**Mo.java';
+        {{1}} = voCodeParser;
+        {{2}} = 'src/test/resources/btl/vo.btl';
     </chain>
 </flow>

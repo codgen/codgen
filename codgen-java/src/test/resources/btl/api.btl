@@ -1,0 +1,19 @@
+import { ApiMeta } from './DemoTypes';
+/**
+ * ${entityDesc}
+ */
+export const ${capModuleName}${entityName}Api = {
+    <%
+        for(api in apis) {
+    %>
+        /**
+         * ${api.desc}
+         */
+        ${api.name}: {
+            method: '${api.method}',
+            uri: '/${moduleName}-svr${api.uri}',
+        } as ApiMeta<any>,
+    <%
+        }
+    %>
+};

@@ -13,6 +13,9 @@ import com.yomahub.liteflow.flow.FlowBus;
 import com.yomahub.liteflow.flow.LiteflowResponse;
 import com.yomahub.liteflow.flow.element.Chain;
 
+import io.github.codgen.java.ctx.BeetlCtx;
+import io.github.codgen.java.ctx.CodeParserCtx;
+import io.github.codgen.java.ctx.FileParserCtx;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 
@@ -39,7 +42,8 @@ public class CodgenJavaApplication implements ApplicationRunner {
             if (!"enabled".equals(chain.getNamespace())) {
                 continue;
             }
-            LiteflowResponse response = flowExecutor.execute2Resp(chain.getChainId(), null);
+            LiteflowResponse response = flowExecutor.execute2Resp(
+                    chain.getChainId(), null, BeetlCtx.class, FileParserCtx.class, CodeParserCtx.class);
             if (response.isSuccess()) {
                 log.info("流程处理成功({})", response.getChainId());
             } else {
