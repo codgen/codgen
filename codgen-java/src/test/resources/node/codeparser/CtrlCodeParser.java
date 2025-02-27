@@ -17,7 +17,8 @@ import rebue.wheel.core.CaseFormatUtils;
 import rebue.wheel.core.StrUtils;
 
 /**
- * Ctrl类的代码解析器 解析Ctrl类的代码，获取其中的类、方法、字段、注释等
+ * Ctrl类的代码解析器
+ * 解析Ctrl类的代码，获取其中的类、方法、字段、注释等
  */
 public class CtrlCodeParser extends NodeComponent {
     private static final Logger log = LoggerFactory.getLogger(CtrlCodeParser.class);
@@ -28,20 +29,22 @@ public class CtrlCodeParser extends NodeComponent {
         List<Map<String, Object>>         apis            = new LinkedList<>();
         FileParserCtx                     fileParserCtx   = this.getContextBean(FileParserCtx.class);
         CompilationUnit                   compilationUnit = fileParserCtx.getCompilationUnit();
-
         List<ClassOrInterfaceDeclaration> classes         = compilationUnit.findAll(ClassOrInterfaceDeclaration.class);
         ClassOrInterfaceDeclaration       clazz           = classes.getFirst();
         String                            className       = clazz.getName().asString();
-        String[]                          classNameWords  = CaseFormatUtils.splitCamel(className);
-        String                            moduleName      = classNameWords[0].toLowerCase();
-        String                            capModuleName   = StrUtils.capitalize(classNameWords[0]);
-        String                            entityName      = String.join("", Arrays.copyOfRange(classNameWords, 1, classNameWords.length - 1));
-        String                            entityDesc      = clazz.getJavadocComment().get().parse().getDescription().toText().replaceAll("的控制器", "的API接口");
-        List<MethodDeclaration>           methods         = clazz.getMethods();
+        log.info("解析类：{}", className);
+        String[]                classNameWords = CaseFormatUtils.splitCamel(className);
+        String                  moduleName     = classNameWords[0].toLowerCase();
+        String                  capModuleName  = StrUtils.capitalize(classNameWords[0]);
+        String                  entityName     = String.join("", Arrays.copyOfRange(classNameWords, 1, classNameWords.length - 1));
+        String                  entityDesc     = clazz.getJavadocComment().get().parse().getDescription().toText().replaceAll("的控制器", "的API接口");
+        List<MethodDeclaration> methods        = clazz.getMethods();
         for (MethodDeclaration method : methods) {
+            log.info("解析方法：{}", method.getNameAsString());
             String                   requestDesc = method.getJavadocComment().get().parse().getDescription().toText();
             NodeList<AnnotationExpr> annotations = method.getAnnotations();
             for (AnnotationExpr annotation : annotations) {
+                log.info("解析注解：{}", annotation.getNameAsString());
                 List<Node> childNodes = annotation.getChildNodes();
                 if (childNodes.size() != 2) {
                     continue;

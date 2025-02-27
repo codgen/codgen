@@ -9,7 +9,6 @@ import com.yomahub.liteflow.annotation.LiteflowComponent;
 import com.yomahub.liteflow.core.NodeComponent;
 
 import io.github.codgen.java.ctx.FileParserCtx;
-import io.github.codgen.java.to.FileParserTo;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -19,14 +18,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @LiteflowComponent("fileParser")
 public class FileParserCmp extends NodeComponent {
+    static {
+        StaticJavaParser.getParserConfiguration().setLanguageLevel(ParserConfiguration.LanguageLevel.JAVA_17);
+    }
 
     @Override
     public void process() throws Exception {
-        FileParserTo fileParserTo = this.getCmpData(FileParserTo.class);
-        Path         filePath     = this.getCurrLoopObj();
-        log.info("文件解析参数: {}-{}", fileParserTo, filePath);
-        StaticJavaParser.getParserConfiguration()
-                .setLanguageLevel(ParserConfiguration.LanguageLevel.valueOf(fileParserTo.getJavaVersion()));
+        Path filePath = this.getCurrLoopObj();
+        log.info("文件解析开始: {}", filePath);
         FileParserCtx ctx = this.getContextBean(FileParserCtx.class);
         ctx.setCompilationUnit(StaticJavaParser.parse(Files.newInputStream(filePath)));
     }

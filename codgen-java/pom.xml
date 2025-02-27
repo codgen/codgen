@@ -13,21 +13,12 @@
     <version>1.2.21</version>
     <name>codgen-java</name>
     <description>解析 Java 源文件并根据模板生成新文件</description>
-    <url/>
-    <licenses>
-        <license/>
-    </licenses>
-    <developers>
-        <developer/>
-    </developers>
-    <scm>
-        <connection/>
-        <developerConnection/>
-        <tag/>
-        <url/>
-    </scm>
+
     <properties>
         <java.version>17</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <graalvm.version>24.1.2</graalvm.version>
         <liteflow.version>2.13.0</liteflow.version>
@@ -131,6 +122,25 @@
         </dependency>
     </dependencies>
 
+    <url>https://github.com/codgen/codgen</url>
+    <developers>
+        <developer>
+            <name>zhangbaizi</name>
+            <email>nnzbz@163.com</email>
+        </developer>
+    </developers>
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://www.opensource.org/licenses/mit-license.php</url>
+        </license>
+    </licenses>
+    <scm>
+        <connection>scm:git:https://github.com/codgen/codgen.git</connection>
+        <developerConnection>scm:git:https://github.com/codgen/codgen.git</developerConnection>
+        <url>https://github.com/codgen/codgen.git</url>
+    </scm>
+
     <build>
         <plugins>
             <plugin>
@@ -168,4 +178,93 @@
         </plugins>
     </build>
 
+    <profiles>
+        <!-- 部署私服 -->
+        <profile>
+            <id>deploy-private</id>
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>my-snapshots</id>
+                    <name>my-snapshots</name>
+                    <url>${my-repository.url}</url>
+                    <uniqueVersion>true</uniqueVersion>
+                </snapshotRepository>
+                <repository>
+                    <id>my-releases</id>
+                    <name>my-releases</name>
+                    <url>${my-repository.url}</url>
+                </repository>
+            </distributionManagement>
+        </profile>
+
+        <!-- 部署到中央仓库 -->
+        <profile>
+            <id>deploy-public</id>
+            <build>
+                <plugins>
+                    <!-- Sonatype中央仓库发布插件 -->
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>0.4.0</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <publishingServerId>oss-new</publishingServerId>
+                            <tokenAuth>true</tokenAuth>
+                        </configuration>
+                    </plugin>
+
+                    <!-- 创建源码包 -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>3.3.0</version>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- 创建文档包 -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>3.6.3</version>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- 部署时用GPG数字签名 -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>3.2.7</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                                <configuration>
+                                    <!-- 指定密钥的名称(可能会有多个生成的密钥) -->
+                                    <keyname>${gpg.keyname}</keyname>
+                                    <!-- 如果gpg服务有密钥，在settings.xml文件中配置 -->
+                                    <passphraseServerId>${gpg.keyname}</passphraseServerId>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

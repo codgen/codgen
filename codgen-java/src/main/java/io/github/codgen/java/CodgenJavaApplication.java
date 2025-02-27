@@ -14,6 +14,7 @@ import com.yomahub.liteflow.flow.LiteflowResponse;
 import com.yomahub.liteflow.flow.element.Chain;
 
 import io.github.codgen.java.ctx.BeetlCtx;
+import io.github.codgen.java.ctx.CodeGeneratorCtx;
 import io.github.codgen.java.ctx.CodeParserCtx;
 import io.github.codgen.java.ctx.FileParserCtx;
 import jakarta.annotation.Resource;
@@ -43,7 +44,7 @@ public class CodgenJavaApplication implements ApplicationRunner {
                 continue;
             }
             LiteflowResponse response = flowExecutor.execute2Resp(
-                    chain.getChainId(), null, BeetlCtx.class, FileParserCtx.class, CodeParserCtx.class);
+                    chain.getChainId(), null, BeetlCtx.class, FileParserCtx.class, CodeParserCtx.class, CodeGeneratorCtx.class);
             if (response.isSuccess()) {
                 log.info("流程处理成功({})", response.getChainId());
             } else {

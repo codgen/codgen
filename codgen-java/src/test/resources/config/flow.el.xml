@@ -12,30 +12,33 @@
 
         codeParser = {{1}};
 
-        fileParserJavaVersion = 'JAVA_17';
-        fileParserTo = '{"javaVersion":"'+fileParserJavaVersion+'"}';
-
         codeGeneratorBtl = {{2}};
-        codeGeneratorTarget = 'target/web';
-        codeGeneratorTo = '{"btl":"'+codeGeneratorBtl+'","target":"'+codeGeneratorTarget+'"}';
+        codeGeneratorTo = '{"btl":"'+codeGeneratorBtl+'"}';
+
+        fileWriterPackageName = {{3}};
+        fileWriterTarget = 'target/web';
+        fileWriterTo = '{"packageName":"'+fileWriterPackageName+'","target":"'+fileWriterTarget+'"}';
 
         THEN(
             beetl,
-            ITERATOR(fileScanner.data(fileScannerTo)).parallel(true).DO(THEN(
-                fileParser.data(fileParserTo),
+            ITERATOR(fileScanner.data(fileScannerTo)).DO(CATCH(THEN(
+                fileParser,
                 codeParser,
-                codeGenerator.data(codeGeneratorTo)
-            ))
+                codeGenerator.data(codeGeneratorTo),
+                fileWriter.data(fileWriterTo)
+            )))
         );
     </chain>
     <chain id="api" extends="base" namespace="enabled">
         {{0}} = '**Ctrl.java';
         {{1}} = ctrlCodeParser;
         {{2}} = 'src/test/resources/btl/api.btl';
+        {{3}} = 'api';
     </chain>
     <chain id="vo" extends="base" namespace="disabled">
         {{0}} = '**Mo.java';
         {{1}} = voCodeParser;
         {{2}} = 'src/test/resources/btl/vo.btl';
+        {{3}} = 'vo';
     </chain>
 </flow>
