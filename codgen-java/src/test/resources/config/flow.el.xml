@@ -32,13 +32,13 @@
     <chain id="api" extends="base" namespace="enabled">
         {{0}} = '**Ctrl.java';
         {{1}} = ctrlCodeParser;
-        {{2}} = 'src/test/resources/btl/api.btl';
+        {{2}} = 'src/test/resources/btl/js-api.btl';
         {{3}} = 'api';
     </chain>
     <chain id="vo" extends="base" namespace="disabled">
         {{0}} = '**Mo.java';
         {{1}} = voCodeParser;
-        {{2}} = 'src/test/resources/btl/vo.btl';
+        {{2}} = 'src/test/resources/btl/js-vo.btl';
         {{3}} = 'vo';
     </chain>
 </flow>
