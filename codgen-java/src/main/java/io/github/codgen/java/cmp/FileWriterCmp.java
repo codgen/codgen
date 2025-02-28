@@ -4,7 +4,6 @@ import java.io.File;
 import java.nio.file.Path;
 import java.util.Map;
 
-import com.yomahub.liteflow.annotation.LiteflowComponent;
 import com.yomahub.liteflow.core.NodeComponent;
 
 import io.github.codgen.java.ctx.CodeGeneratorCtx;
@@ -18,7 +17,6 @@ import rebue.wheel.core.file.FileUtils;
  * Ctrl类的文件书写器
  */
 @Slf4j
-@LiteflowComponent("fileWriter")
 public class FileWriterCmp extends NodeComponent {
     @Override
     public void process() throws Exception {

@@ -4,7 +4,6 @@ import org.beetl.core.Configuration;
 import org.beetl.core.GroupTemplate;
 import org.beetl.core.resource.StringTemplateResourceLoader;
 
-import com.yomahub.liteflow.annotation.LiteflowComponent;
 import com.yomahub.liteflow.core.NodeComponent;
 
 import io.github.codgen.java.ctx.BeetlCtx;
@@ -15,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
  * 初始化 beetl 的 groupTemplate
  */
 @Slf4j
-@LiteflowComponent("beetl")
 public class BeetlCmp extends NodeComponent {
 
     @Override

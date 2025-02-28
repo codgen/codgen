@@ -2,6 +2,14 @@
 <!DOCTYPE flow PUBLIC  "liteflow" "https://liteflow.cc/liteflow.dtd">
 <flow>
     <nodes>
+        <!-- 预定义组件-->
+        <node id="beetl" class="io.github.codgen.java.cmp.BeetlCmp"/>
+        <node id="fileScanner" class="io.github.codgen.java.cmp.FileScannerCmp"/>
+        <node id="fileParser" class="io.github.codgen.java.cmp.FileParserCmp"/>
+        <node id="codeGenerator" class="io.github.codgen.java.cmp.CodeGeneratorCmp"/>
+        <node id="fileWriter" class="io.github.codgen.java.cmp.FileWriterCmp"/>
+
+        <!-- 自定义组件 -->
         <node id="ctrlCodeParser" name="Ctrl代码解析器" type="script" file="node/codeparser/CtrlCodeParser.java"/>
         <node id="voCodeParser" name="Vo代码解析器" type="script" file="node/codeparser/VoCodeParser.java"/>
     </nodes>
@@ -20,13 +28,13 @@
         fileWriterTo = '{"packageName":"'+fileWriterPackageName+'","target":"'+fileWriterTarget+'"}';
 
         THEN(
-            beetl,
-            ITERATOR(fileScanner.data(fileScannerTo)).DO(CATCH(THEN(
-                fileParser,
-                codeParser,
-                codeGenerator.data(codeGeneratorTo),
-                fileWriter.data(fileWriterTo)
-            )))
+        beetl,
+        ITERATOR(fileScanner.data(fileScannerTo)).DO(CATCH(THEN(
+        fileParser,
+        codeParser,
+        codeGenerator.data(codeGeneratorTo),
+        fileWriter.data(fileWriterTo)
+        )))
         );
     </chain>
     <chain id="api" extends="base" namespace="enabled">

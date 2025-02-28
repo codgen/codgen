@@ -3,26 +3,21 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.4.3</version>
-<!--        <relativePath/> &lt;!&ndash; lookup parent from repository &ndash;&gt;-->
+        <groupId>io.github.codgen</groupId>
+        <artifactId>codgen</artifactId>
+        <version>1.2.22</version>
     </parent>
-    <groupId>io.github.codgen</groupId>
     <artifactId>codgen-java</artifactId>
-    <version>1.2.22</version>
     <name>codgen-java</name>
     <description>解析Java源文件并根据模板生成新文件</description>
 
     <properties>
-        <java.version>17</java.version>
-        <maven.compiler.source>${java.version}</maven.compiler.source>
-        <maven.compiler.target>${java.version}</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <mainClass>io.github.codgen.java.CodgenJavaApplication</mainClass>
 
-        <graalvm.version>24.1.2</graalvm.version>
-        <liteflow.version>2.13.0</liteflow.version>
-        <beetl.version>3.19.0.RELEASE</beetl.version>
+        <native-image-maven-plugin.version>21.2.0</native-image-maven-plugin.version>
+        <native-maven-plugin.version>0.10.1</native-maven-plugin.version>
+        <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
+        <build-helper-maven-plugin.version>3.5.0</build-helper-maven-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -47,45 +42,17 @@
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
 
-        <!-- liteflow-spring-boot-starter 依赖的版本太旧-->
-        <dependency>
-            <artifactId>commons-io</artifactId>
-            <groupId>commons-io</groupId>
-            <version>2.18.0</version>
-        </dependency>
-        <!-- liteflow-script-graaljs 依赖的版本太旧-->
-        <dependency>
-            <groupId>org.graalvm.js</groupId>
-            <artifactId>js</artifactId>
-            <version>${graalvm.version}</version>
-            <type>pom</type>
-        </dependency>
         <dependency>
             <groupId>com.yomahub</groupId>
-            <artifactId>liteflow-spring-boot-starter</artifactId>
-            <version>${liteflow.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>commons-io</artifactId>
-                    <groupId>commons-io</groupId>
-                </exclusion>
-            </exclusions>
+            <artifactId>liteflow-core</artifactId>
         </dependency>
         <dependency>
             <groupId>com.yomahub</groupId>
             <artifactId>liteflow-script-javax-pro</artifactId>
-            <version>${liteflow.version}</version>
         </dependency>
         <dependency>
             <groupId>com.yomahub</groupId>
             <artifactId>liteflow-script-graaljs</artifactId>
-            <version>${liteflow.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>js</artifactId>
-                    <groupId>org.graalvm.js</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <dependency>
@@ -96,7 +63,6 @@
         <dependency>
             <groupId>com.ibeetl</groupId>
             <artifactId>beetl</artifactId>
-            <version>${beetl.version}</version>
         </dependency>
 
         <!-- logback配置使用if需要 -->
@@ -106,146 +72,89 @@
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
         </dependency>
     </dependencies>
 
     <profiles>
-        <!-- 部署私服 -->
         <profile>
-            <id>deploy-private</id>
-            <distributionManagement>
-                <snapshotRepository>
-                    <id>my-snapshots</id>
-                    <name>my-snapshots</name>
-                    <url>${my-repository.url}</url>
-                    <uniqueVersion>true</uniqueVersion>
-                </snapshotRepository>
-                <repository>
-                    <id>my-releases</id>
-                    <name>my-releases</name>
-                    <url>${my-repository.url}</url>
-                </repository>
-            </distributionManagement>
-        </profile>
-
-        <!-- 部署到中央仓库 -->
-        <profile>
-            <id>deploy-public</id>
+            <!-- 生成native-image的配置文件需要 -->
+            <!-- 因为是利用test插件生成，所以不能skip test -->
+            <!-- maven命令使用test，并最好加上 '-Dtest=CodgenApplicationTests#testMain' 参数限定测试的方法 -->
+            <id>gen-native-image-config</id>
             <build>
                 <plugins>
-                    <!-- Sonatype中央仓库发布插件 -->
+                    <!-- 执行测试用例的插件 -->
                     <plugin>
-                        <groupId>org.sonatype.central</groupId>
-                        <artifactId>central-publishing-maven-plugin</artifactId>
-                        <version>0.4.0</version>
-                        <extensions>true</extensions>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>${maven-surefire-plugin.version}</version>
                         <configuration>
-                            <publishingServerId>oss-new</publishingServerId>
-                            <tokenAuth>true</tokenAuth>
+                            <argLine>
+                                -agentlib:native-image-agent=config-output-dir=src/main/resources/META-INF/native-image
+                            </argLine>
+                            <includes>
+                                <include>**/CodgenJavaApplicationTests.java</include>
+                            </includes>
+                            <skip>false</skip>
                         </configuration>
                     </plugin>
+                </plugins>
+            </build>
+        </profile>
 
-                    <!-- 创建源码包 -->
+        <profile>
+            <id>native</id>
+            <build>
+                <plugins>
                     <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <version>3.3.0</version>
+                        <groupId>org.graalvm.buildtools</groupId>
+                        <artifactId>native-maven-plugin</artifactId>
+                        <version>${native-maven-plugin.version}</version>
+                        <!-- enable JUnit Platform test listener mode -->
+                        <extensions>true</extensions>
                         <executions>
                             <execution>
+                                <id>build-native</id>
+                                <goals>
+                                    <goal>compile-no-fork</goal>
+                                </goals>
                                 <phase>package</phase>
-                                <goals>
-                                    <goal>jar-no-fork</goal>
-                                </goals>
                             </execution>
-                        </executions>
-                    </plugin>
-                    <!-- 创建文档包 -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>3.6.3</version>
-                        <executions>
                             <execution>
-                                <phase>package</phase>
+                                <id>test-native</id>
                                 <goals>
-                                    <goal>jar</goal>
+                                    <goal>test</goal>
                                 </goals>
+                                <phase>test</phase>
                             </execution>
                         </executions>
-                    </plugin>
-                    <!-- 部署时用GPG数字签名 -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>3.2.7</version>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                                <configuration>
-                                    <!-- 指定密钥的名称(可能会有多个生成的密钥) -->
-                                    <keyname>${gpg.keyname}</keyname>
-                                    <!-- 如果gpg服务有密钥，在settings.xml文件中配置 -->
-                                    <passphraseServerId>${gpg.keyname}</passphraseServerId>
-                                </configuration>
-                            </execution>
-                        </executions>
+                        <configuration>
+                            <buildArgs>
+                                <!-- 建立独立镜像，不成功则报告失败 -->
+                                --no-fallback
+                                <!-- 指定native-image配置文件的目录(此目录由maven编译gen-native-image-config生成) -->
+                                -H:ConfigurationFileDirectories=src/main/resources/META-INF/native-image/
+                                <!-- 级别设置为3，打包时输出包含的资源文件 -->
+                                -H:Log=registerResource:3
+                            </buildArgs>
+                            <mainClass>${mainClass}</mainClass>
+                            <!-- native-image编译时输出详细的日志 -->
+                            <verbose>true</verbose>
+                            <!-- 生成调试信息 -->
+                            <debug>true</debug>
+                            <!-- 快速编译 -->
+                            <quickBuild>true</quickBuild>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>
         </profile>
     </profiles>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <annotationProcessorPaths>
-                        <path>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </path>
-                        <path>
-                            <groupId>org.springframework.boot</groupId>
-                            <artifactId>spring-boot-configuration-processor</artifactId>
-                        </path>
-                    </annotationProcessorPaths>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.graalvm.buildtools</groupId>
-                <artifactId>native-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 </project>

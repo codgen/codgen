@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.beetl.core.Template;
 
-import com.yomahub.liteflow.annotation.LiteflowComponent;
 import com.yomahub.liteflow.core.NodeComponent;
 
 import io.github.codgen.java.ctx.BeetlCtx;
@@ -19,7 +18,6 @@ import rebue.wheel.core.file.FileUtils;
  * 代码生成器组件
  */
 @Slf4j
-@LiteflowComponent("codeGenerator")
 public class CodeGeneratorCmp extends NodeComponent {
 
     @Override
@@ -29,7 +27,8 @@ public class CodeGeneratorCmp extends NodeComponent {
         CodeParserCtx       codeParserCtx    = this.getContextBean(CodeParserCtx.class);
         CodeGeneratorCtx    codeGeneratorCtx = this.getContextBean(CodeGeneratorCtx.class);
 
-        String              btlContent       = FileUtils.readToString(Path.of(codeGeneratorTo.getBtl()).toFile());
+        Path                path             = Path.of(FileUtils.getJarDir(CodeGeneratorCmp.class), codeGeneratorTo.getBtl());
+        String              btlContent       = FileUtils.readToString(path.toFile());
         Map<String, Object> bindings         = codeParserCtx.getBindings();
         Template            template         = beetlCtx.getGroupTemplate().getTemplate(btlContent);
         template.binding(bindings);

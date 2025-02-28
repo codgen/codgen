@@ -5,7 +5,6 @@ import java.nio.file.Path;
 
 import com.github.javaparser.ParserConfiguration;
 import com.github.javaparser.StaticJavaParser;
-import com.yomahub.liteflow.annotation.LiteflowComponent;
 import com.yomahub.liteflow.core.NodeComponent;
 
 import io.github.codgen.java.ctx.FileParserCtx;
@@ -16,7 +15,6 @@ import lombok.extern.slf4j.Slf4j;
  * 解析 Java 文件并获取编译单元，用于解析 Java 文件中的类、方法、字段、注释等
  */
 @Slf4j
-@LiteflowComponent("fileParser")
 public class FileParserCmp extends NodeComponent {
     static {
         StaticJavaParser.getParserConfiguration().setLanguageLevel(ParserConfiguration.LanguageLevel.JAVA_17);

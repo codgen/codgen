@@ -4,7 +4,6 @@ import java.nio.file.Path;
 import java.util.Iterator;
 import java.util.List;
 
-import com.yomahub.liteflow.annotation.LiteflowComponent;
 import com.yomahub.liteflow.core.NodeIteratorComponent;
 
 import io.github.codgen.java.to.FileScannerTo;
@@ -16,7 +15,6 @@ import rebue.wheel.core.file.FileSearcher;
  * 扫描文件获取文件列表
  */
 @Slf4j
-@LiteflowComponent("fileScanner")
 public class FileScannerCmp extends NodeIteratorComponent {
 
     @Override
