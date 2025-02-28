@@ -6,14 +6,14 @@
 
     <groupId>io.github.codgen</groupId>
     <artifactId>codgen</artifactId>
-    <version>1.2.21</version>
+    <version>1.2.22</version>
     <packaging>pom</packaging>
     <description>code generator parent pom，代码生成器父pom</description>
 
     <modules>
         <module>codgen-core</module>
-        <module>codgen-java</module>
         <module>codgen-cmd</module>
+        <module>codgen-java</module>
     </modules>
 
     <properties>
@@ -22,6 +22,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
+        <codgen.version>1.2.22</codgen.version>
         <wheel.version>3.5.49</wheel.version>
     </properties>
 
@@ -30,7 +31,19 @@
             <dependency>
                 <groupId>io.github.codgen</groupId>
                 <artifactId>codgen-core</artifactId>
-                <version>${project.version}</version>
+                <version>${codgen.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.github.codgen</groupId>
+                <artifactId>codgen-cmd</artifactId>
+                <version>${codgen.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.github.codgen</groupId>
+                <artifactId>codgen-java</artifactId>
+                <version>${codgen.version}</version>
             </dependency>
 
             <dependency>
