@@ -34,6 +34,7 @@ public class FileWriterCmp extends NodeComponent {
         Path                outDirPath       = targetPath.resolve(Path.of(packageName, moduleName));
         File                outDir           = outDirPath.toFile();
         // 如果目录不存在则创建
+        // noinspection ResultOfMethodCallIgnored
         outDir.mkdirs();
 
         File file = outDirPath.resolve(capModuleName + entityName + suffix + ".ts").toFile();

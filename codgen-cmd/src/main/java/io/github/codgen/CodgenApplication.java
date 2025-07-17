@@ -122,6 +122,7 @@ public class CodgenApplication {
             return null;
         // 如果输出目录不存在，则创建它
         if (!outPath.toFile().exists()) {
+            // noinspection ResultOfMethodCallIgnored
             outPath.toFile().mkdirs();
         }
 
@@ -308,6 +309,7 @@ public class CodgenApplication {
             File outDir  = outFile.getParentFile();
             log.info(outFile.getAbsolutePath());
             // 如果目录不存在则创建
+            // noinspection ResultOfMethodCallIgnored
             outDir.mkdirs();
 
             log.info(outFileInfo.getContent());
