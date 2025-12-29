@@ -6,7 +6,7 @@
 
     <groupId>io.github.codgen</groupId>
     <artifactId>codgen</artifactId>
-    <version>1.2.37</version>
+    <version>1.2.38</version>
     <packaging>pom</packaging>
     <description>code generator parent pom，代码生成器父pom</description>
 
@@ -22,7 +22,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <codgen.version>1.2.37</codgen.version>
+        <codgen.version>1.2.38</codgen.version>
         <wheel.version>3.9.65</wheel.version>
     </properties>
 
